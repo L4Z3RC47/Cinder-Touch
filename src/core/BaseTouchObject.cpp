@@ -2,7 +2,7 @@
 BaseTouchObject.cpp
 Bluecadet, Paul Rudolph
 */
-#pragma once
+
 #include "cinder/gl/gl.h"
 #include "TouchManager.h"
 #include "BaseTouchObject.h"
