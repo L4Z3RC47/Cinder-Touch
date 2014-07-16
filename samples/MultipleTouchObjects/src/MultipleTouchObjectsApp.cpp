@@ -8,7 +8,7 @@
 #include "cinder/gl/gl.h"
 
 #include "TouchManager.h"		//include touch manager
-#include "TouchDrivers\Mouse.h" //include the driver you want to use (options are Mouse, TUIO)
+#include "TouchDrivers/Mouse.h" //include the driver you want to use (options are Mouse, TUIO)
 
 #include "SampleObject.h"		//include the sample object header
 
