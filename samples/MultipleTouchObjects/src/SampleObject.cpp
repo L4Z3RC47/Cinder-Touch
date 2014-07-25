@@ -67,6 +67,7 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 	//push & translate
 	gl::pushMatrices(); {
 		gl::translate(mPosition);
+		setTranslating(true);
 
 		//draw the object
 		gl::color(getObjectColor());
