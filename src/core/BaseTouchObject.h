@@ -56,10 +56,25 @@ namespace touchObject {
 		float						getHeight()											{ return mHeight; };
 		
 		//Get position and size as a rectObject
-		const cinder::Rectf 		getRect()											{ return  cinder::Rectf(    mPosition.x + mParentTranslatePosition.x,
-																													mPosition.y + mParentTranslatePosition.y,
-																													mPosition.x + mParentTranslatePosition.x + mWidth,
-																													mPosition.y + mParentTranslatePosition.y + mHeight); }
+		const cinder::Rectf 		getRect(){ 
+			//for drawing, we need to be able to draw these differently depening on if the object is already being translated. 
+			//But for finding if a touch point exists within this space, we need to know the global location -- so that is handled separately
+			if (mTranslating){
+				return  cinder::Rectf(
+					0.0f,
+					0.0f,
+					mWidth,
+					mHeight);
+			}
+			else{
+				return  cinder::Rectf(
+					mPosition.x,
+					mPosition.y,
+					mPosition.x + mWidth,
+					mPosition.y + mHeight);
+			}
+		}
+		const void					setTranslating(bool isTranslating)					{ mTranslating = isTranslating; };
 
 		const cinder::Vec2f			getCenter()											{ return getRect().getCenter();}
     
@@ -88,6 +103,9 @@ namespace touchObject {
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
 		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
 
+		const cinder::Vec2f			getScale()											{ return mScale; };
+		void						setScale(cinder::Vec2f scale)						{ mScale = scale; };
+
 		//TOString - prints what the object actually is 
 		virtual std::string			getDebugString();
 
@@ -95,7 +113,7 @@ namespace touchObject {
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
 
-		cinder::Vec2f				mPosition, mParentTranslatePosition;
+	cinder::Vec2f				mPosition, mParentTranslatePosition, mScale;
 
 		float						mWidth,
 									mHeight;
@@ -117,7 +135,7 @@ private://No one other than this class can access these variables
 
 
 		bool						mAcceptTouch;
-		
+		bool						mTranslating;
 		//Object Identification 
 		int							mUniqueID,
 									mTouchesCallbackId;
