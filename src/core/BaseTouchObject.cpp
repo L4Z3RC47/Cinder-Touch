@@ -6,6 +6,7 @@ Bluecadet, Paul Rudolph
 #include "cinder/gl/gl.h"
 #include "TouchManager.h"
 #include "BaseTouchObject.h"
+#include "boost/lexical_cast.hpp"
 
 using namespace std;
 using namespace ci;
@@ -69,8 +70,7 @@ void  BaseTouchObject::drawDebugBox( bool translating ){
 }
 
 void BaseTouchObject::setPosition( const cinder::Vec2f &pt ){
-	mPosition.x =pt.x;
-	mPosition.y =pt.y;
+	mPosition = pt;
 }
 
 void BaseTouchObject::registerWithTouchMngr(){
@@ -103,10 +103,29 @@ bool BaseTouchObject::hasTouchPoint( const Vec2f &pnt ){
 	else return false;//point is outside bounding box;
 }
 
+cinder::Vec2f BaseTouchObject::getLocalTouchPnt(const Vec2f &globalPnt){
+    //get the local point on the base object
+    //console() << "pnt = " << pnt << endl;
+    
+    //the global coordinate of the location
+    //console() << "getPOsition = " << getPosition() << endl;
+    
+    Vec2f boundaryTopLeft = Vec2f(000.0f, 0.0f);
+    Vec2f diffToZeroZero = Vec2f(fabsf(getPosition().x + boundaryTopLeft.x), fabsf(getPosition().y + boundaryTopLeft.y) );
+    //console() << "diffToZeroZero = " << diffToZeroZero << endl;
+    
+    Vec2f localPnt = (diffToZeroZero + globalPnt) / mScale;
+    //console() << "localPnt = " << localPnt << endl;
+        
+    return localPnt;
+ 
+}
+    
+    
 
 //ToString
 std::string BaseTouchObject::getDebugString(){
-	return "BaseTouchObject: UID: "+mUniqueID;
+    return "BaseTouchObject: UID: " + boost::lexical_cast<string>( mUniqueID );
 }
 
 
