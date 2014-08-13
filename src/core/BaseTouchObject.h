@@ -94,7 +94,6 @@ namespace touchObject {
 		virtual void                unRegisterWithTouchMngr();
 	 
 		virtual bool                hasTouchPoint(  const cinder::Vec2f &pnt );
-        cinder::Vec2f               getLocalTouchPnt( const cinder::Vec2f &globalPnt );
 		int                         getNumTouches()										{ return mObjectTouchIDs.size(); }
 	
 		virtual void				endTouches();
