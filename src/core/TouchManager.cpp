@@ -218,9 +218,9 @@ void TouchManager::draw(){
 			gl::lineWidth(1.0f);
 			gl::drawSolidCircle(point, 10.0f);
 			//draw the label on the touch
-			gl::enableAlphaBlending();
+			//gl::enableAlphaBlending();
 			gl::drawString(to_string(touchId), point - Vec2f(-1.0f, +40.0), cinder::Color(1, 0, 0), Font("arial", 12.0f));
-			gl::disableAlphaBlending();
+			//gl::disableAlphaBlending();
 		}
 	mTouchMapLock.unlock();
 }

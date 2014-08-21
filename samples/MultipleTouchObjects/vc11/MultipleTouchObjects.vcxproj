@@ -107,10 +107,10 @@
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp" />
     <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp" />
     <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp" />
     <ClCompile Include="..\..\..\src\core\TouchManager.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp" />
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp" />
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\TUIO.cpp" />
     <ClCompile Include="..\..\..\..\OSC\src\OscBundle.cpp" />
@@ -128,10 +128,10 @@
     <ClCompile Include="..\src\SampleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h" />
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\..\..\src\core\BaseTouchObject.h" />
     <ClInclude Include="..\..\..\src\core\TouchManager.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h" />
     <ClInclude Include="..\..\..\src\modules\TouchDrivers\Mouse.h" />
     <ClInclude Include="..\..\..\src\modules\TouchDrivers\TUIO.h" />
     <ClInclude Include="..\..\..\..\OSC\src\OscArg.h" />

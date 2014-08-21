@@ -58,6 +58,9 @@
     <Filter Include="Blocks\TUIO\include">
       <UniqueIdentifier>{38CB9D53-4C35-4100-BF9E-B56AE0C25E27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Button">
+      <UniqueIdentifier>{59466db2-36f3-42e0-9f04-7fb8694cfcb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp">
@@ -80,12 +83,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\core\TouchManager.h">
       <Filter>Blocks\Touch\src\core</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
     </ClInclude>
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp">
       <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
@@ -204,6 +201,9 @@
     <ClCompile Include="..\src\SampleObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -211,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="..\src\SampleObject.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

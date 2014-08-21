@@ -15,6 +15,10 @@
 	<headerPattern>src/core/*.h</headerPattern>
 	<sourcePattern>src/modules/TouchObjects/*.cpp</sourcePattern>
 	<headerPattern>src/modules/TouchObjects/*.h</headerPattern>
+	<sourcePattern>src/modules/TouchObjects/Button/*.cpp</sourcePattern>
+	<headerPattern>src/modules/TouchObjects/Button/*.h</headerPattern>
+	<sourcePattern>src/modules/TouchObjects/Keyboard/*.cpp</sourcePattern>
+	<headerPattern>src/modules/TouchObjects/Keyboard/*.h</headerPattern>
 	<sourcePattern>src/modules/TouchDrivers/*.cpp</sourcePattern>
 	<headerPattern>src/modules/TouchDrivers/*.h</headerPattern>
 	
