@@ -1,0 +1,38 @@
+{
+	"Styles": {
+
+				"character":{ 
+							"font":"Arial",
+			      			"size": "30.0",
+			      			"color": "#ff0009",
+			      			"alignment":"left",
+			      			"leading":"10"
+			  				},
+			  		"textInput":{ 
+							"font":"Calibri",
+			      			"size": "50.5",
+			      			"color": "#87815F",
+			      			"alignment":"left"
+			  				},
+			  		"phoneKey":{
+			  				"font":"Corbel",
+			  				"size": "20.00",
+			  				"color":"#FFFFFF",
+			  				"alignment":"right",
+			  				"leading":"30"
+
+			  				},
+			  		"important":{
+			  			
+			  				"color":"#FF0004"
+							
+			  				}
+			  		
+
+
+
+
+
+
+			}
+}
