@@ -79,6 +79,7 @@ namespace touchObject {
 	void BaseButton::draw(){
 		gl::pushMatrices(); {
 			gl::translate(mPosition);
+			setTranslating(true);
 
 			gl::color(getObjectColor());
 			drawDebugBox(true);//if translating, let the debug box know

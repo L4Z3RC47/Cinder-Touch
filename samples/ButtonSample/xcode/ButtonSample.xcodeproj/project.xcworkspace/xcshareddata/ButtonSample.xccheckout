@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C3B9203C-4EE0-4ED6-B746-794EDB2363CE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ButtonSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>336B6D6A-4F38-431D-B5F0-8525BCA95F2F</key>
+		<string>https://github.com/bluecadet/Cinder-Touch.git</string>
+		<key>595B174D-C91F-4FFE-84B3-E8993DEAD7F5</key>
+		<string>git://github.com/cinder/Cinder.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>blocks/Cinder-Touch/samples/ButtonSample/xcode/ButtonSample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>336B6D6A-4F38-431D-B5F0-8525BCA95F2F</key>
+		<string>../../../../..</string>
+		<key>595B174D-C91F-4FFE-84B3-E8993DEAD7F5</key>
+		<string>../../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bluecadet/Cinder-Touch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>595B174D-C91F-4FFE-84B3-E8993DEAD7F5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>595B174D-C91F-4FFE-84B3-E8993DEAD7F5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cinder_master</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>336B6D6A-4F38-431D-B5F0-8525BCA95F2F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Cinder-Touch</string>
+		</dict>
+	</array>
+</dict>
+</plist>
