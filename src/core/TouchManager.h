@@ -48,6 +48,7 @@ public:
 	
 	void					endTouch(int touchID);
 
+    float                   getLatestTouchTime(){return mLatestTouchTime;};
 
 private:
     //private to make the TouchManager a singleton
@@ -68,4 +69,7 @@ private:
 	std::deque<std::pair<TouchEventType, TouchObject>>		mTouchUpdateQueue;
 	std::mutex									mUpdateMutex;
 	void										updateTouches();
+    
+    //keep track of the most recent touch time
+    float                                       mLatestTouchTime;
 };

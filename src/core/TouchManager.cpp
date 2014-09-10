@@ -45,6 +45,10 @@ void TouchManager::updateTouches(){
 	mUpdateMutex.unlock();
 }
 void TouchManager::touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType, TouchEventType eventType){
+    
+    //update the most recent touch time on the app
+    mLatestTouchTime = getElapsedSeconds();
+    
 	TouchObject currentTouchObj;
 	currentTouchObj.touchId = touchID;
 	currentTouchObj.touchPoint = touchPnt;
