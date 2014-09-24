@@ -11,9 +11,9 @@ void Mouse::connect(){
 	//Connect to the application window touch event signals
 	ci::app::WindowRef window = cinder::app::getWindow();
 
-	mMouseBeganCallBack	= window->getSignalMouseDown().connect( std::bind( &Mouse::mouseBegan, this, std::_1 ));
-    mMouseMovedCallBack	= window->getSignalMouseDrag().connect( std::bind( &Mouse::mouseMoved, this, std::_1 ));
-    mMouseEndCallBack	= window->getSignalMouseUp()  .connect( std::bind( &Mouse::mouseEnded, this, std::_1 ));
+	mMouseBeganCallBack	= window->getSignalMouseDown().connect( std::bind( &Mouse::mouseBegan, this, std::placeholders::_1 ));
+    mMouseMovedCallBack	= window->getSignalMouseDrag().connect( std::bind( &Mouse::mouseMoved, this, std::placeholders::_1 ));
+    mMouseEndCallBack	= window->getSignalMouseUp()  .connect( std::bind( &Mouse::mouseEnded, this, std::placeholders::_1 ));
 
 	//shared pointer to the Touch Manager
 	mTouchManagerPntr = TouchManager::getInstance();
