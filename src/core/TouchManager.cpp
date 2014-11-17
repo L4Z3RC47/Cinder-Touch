@@ -189,7 +189,7 @@ void TouchManager::endTouch(int touchID){
 
 
 touchObject::TouchObjectRef TouchManager::findTouchingObject(const cinder::Vec2f &touchPoint){
-	//	console() << "TouchManager::findTouchingObject for " << touchPoint << endl;
+		//console() << "TouchManager::findTouchingObject for " << touchPoint << endl;
 
 	/*
 	we need to decide who gets the touch, and not based on who was registered with the touch manager first.
