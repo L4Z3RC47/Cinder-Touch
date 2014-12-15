@@ -1,7 +1,9 @@
 #pragma once
 #include "cinder/app/AppBasic.h"
 #include "TouchObjects/Button/BaseButton.h"
-#include "TextObject.h"
+//#include "TextObject.h"
+#include "../../../Cinder-samples/FIELD_KIOSK/FLDmapSample/src/TextUtils/TextObject.h"
+
 #include "Keyboard.h"
 
 namespace touchObject{

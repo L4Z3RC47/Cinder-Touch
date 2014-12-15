@@ -15,9 +15,9 @@ void NativeTouch::connect(){
 
 	if (window){
 		//began
-		mTouchBeganCallBack = window->getSignalTouchesBegan().connect(std::bind(&NativeTouch::nativeTouchBegan, this, std::_1));
-		mTouchMovedCallBack = window->getSignalTouchesMoved().connect(std::bind(&NativeTouch::nativeTouchMoved, this, std::_1));
-		mTouchEndCallBack = window->getSignalTouchesEnded().connect(std::bind(&NativeTouch::nativeTouchEnded, this, std::_1));
+		mTouchBeganCallBack = window->getSignalTouchesBegan().connect(std::bind(&NativeTouch::nativeTouchBegan, this, std::placeholders::_1));
+		mTouchMovedCallBack = window->getSignalTouchesMoved().connect(std::bind(&NativeTouch::nativeTouchMoved, this, std::placeholders::_1));
+		mTouchEndCallBack = window->getSignalTouchesEnded().connect(std::bind(&NativeTouch::nativeTouchEnded, this, std::placeholders::_1));
 	}
 	
 	//shared pointer to the Touch Manager
