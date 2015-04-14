@@ -26,7 +26,7 @@ protected:
 		std::vector<std::shared_ptr<class		Key>> mKeys;
 		std::string mInputString;
 
-		bci::TextObjectRef				mKeyTextObjectRef;
+		//bci::TextObjectRef				mKeyTextObjectRef;
 
 	};
 };

@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -57,6 +58,15 @@
     <Filter Include="Blocks\TUIO\include">
       <UniqueIdentifier>{6A12413B-A4FA-4C6B-AFC2-9A431B65491F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Button">
+      <UniqueIdentifier>{e81a2111-2c63-41cd-a710-fddf2d76a47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Keyboard">
+      <UniqueIdentifier>{b4952c88-2472-422e-9a1b-526c03a1092b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Scrollview">
+      <UniqueIdentifier>{1ca1c17d-6380-4272-918b-ee86b2fb0799}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ButtonSampleApp.cpp">
@@ -79,12 +89,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\core\TouchManager.h">
       <Filter>Blocks\Touch\src\core</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
     </ClInclude>
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp">
       <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
@@ -200,10 +204,40 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h">
       <Filter>Blocks\TUIO\include</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,6 @@
 #include "cinder/app/AppBasic.h"
 #include "TouchObjects/Button/BaseButton.h"
 //#include "TextObject.h"
-#include "../../../Cinder-samples/FIELD_KIOSK/FLDmapSample/src/TextUtils/TextObject.h"
-
 #include "Keyboard.h"
 
 namespace touchObject{
@@ -29,13 +27,13 @@ namespace touchObject{
 		virtual void setKeyString(const std::string &keyString);
 		void keyCallback(touchObject::TouchObjectRef obj );
 		void setKeyboard(std::shared_ptr<class	Keyboard> keyboardRef);
-		std::string getKeyString(){ return mKeyTextObjectRef->getTextString(); };
+		//std::string getKeyString(){ return mKeyTextObjectRef->getTextString(); };
 
 		void setKeyType(KeyType type){ mKeyType = type; };
 		KeyType getKeyType(){ return  mKeyType; };
 	protected:
 
-		bci::TextObjectRef				mKeyTextObjectRef;
+		//bci::TextObjectRef				mKeyTextObjectRef;
 		std::shared_ptr<class Keyboard> mKeyboardRef;
 		KeyType mKeyType;
 	};

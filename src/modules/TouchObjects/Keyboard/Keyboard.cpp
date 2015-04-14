@@ -13,8 +13,8 @@ namespace touchObject{
 	Keyboard::Keyboard(): touchObject::BaseTouchObject(),
 		mInputString("")
 	{
-		mKeyTextObjectRef = bci::TextObject::create(Vec2f(0, 0), Vec2i(300, 200), "ENTER NUMBER");
-		mKeyTextObjectRef->renderTextBox();
+		//mKeyTextObjectRef = bci::TextObject::create(Vec2f(0, 0), Vec2i(300, 200), "ENTER NUMBER");
+		//mKeyTextObjectRef->renderTextBox();
 	}
 
 	KeyboardRef	Keyboard::create(const cinder::Vec2f &pos, const cinder::Vec2i &size){
@@ -44,7 +44,7 @@ namespace touchObject{
 	void	Keyboard::keyPressed(std::shared_ptr<class Key> keyRef){
 		
 		switch (keyRef->getKeyType()){
-		case KeyType::Character: {mInputString += keyRef->getKeyString();
+		case KeyType::Character: {//mInputString += keyRef->getKeyString();
 									 break;
 		}
 		case KeyType::Submit: {console() << "Submit Pressed" << endl;
@@ -61,8 +61,8 @@ namespace touchObject{
 			
 		
 		}
-		mKeyTextObjectRef->setString(mInputString);
-		mKeyTextObjectRef->renderTextBox("textInput");
+		//mKeyTextObjectRef->setString(mInputString);
+		//mKeyTextObjectRef->renderTextBox("textInput");
 	}
 
 	void Keyboard::draw(const cinder::Vec2f &parentTranslatePos){
@@ -79,7 +79,7 @@ namespace touchObject{
 			
 			gl::color(1, 1, 1);
 			
-				gl::draw(mKeyTextObjectRef->getTexture(), mKeyTextObjectRef->getPosition());
+				//gl::draw(mKeyTextObjectRef->getTexture(), mKeyTextObjectRef->getPosition());
 		
 			
 

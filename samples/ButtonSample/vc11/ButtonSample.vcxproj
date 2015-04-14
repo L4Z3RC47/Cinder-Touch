@@ -19,14 +19,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -64,8 +64,8 @@
       <AdditionalIncludeDirectories>"..\..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>"..\..\..\..\..\\lib";"..\..\..\..\..\\lib\msw"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\..\lib;..\..\..\..\..\lib\msw\$(PlatformTarget)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -91,8 +91,8 @@
       <AdditionalIncludeDirectories>"..\..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>"..\..\..\..\..\\lib";"..\..\..\..\..\\lib\msw"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder-$(PlatformToolset).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\..\lib\msw\$(PlatformTarget)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
@@ -107,10 +107,14 @@
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp" />
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.cpp" />
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.cpp" />
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.cpp" />
     <ClCompile Include="..\src\ButtonSampleApp.cpp" />
     <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp" />
     <ClCompile Include="..\..\..\src\core\TouchManager.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp" />
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp" />
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\TUIO.cpp" />
     <ClCompile Include="..\..\..\..\OSC\src\OscBundle.cpp" />
@@ -127,10 +131,14 @@
     <ClCompile Include="..\..\..\..\TUIO\src\TuioClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h" />
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.h" />
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.h" />
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.h" />
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.h" />
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\..\..\src\core\BaseTouchObject.h" />
     <ClInclude Include="..\..\..\src\core\TouchManager.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h" />
     <ClInclude Include="..\..\..\src\modules\TouchDrivers\Mouse.h" />
     <ClInclude Include="..\..\..\src\modules\TouchDrivers\TUIO.h" />
     <ClInclude Include="..\..\..\..\OSC\src\OscArg.h" />

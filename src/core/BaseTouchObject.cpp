@@ -6,6 +6,7 @@ Bluecadet, Paul Rudolph
 #include "cinder/gl/gl.h"
 #include "TouchManager.h"
 #include "BaseTouchObject.h"
+#include "boost/lexical_cast.hpp"
 
 using namespace std;
 using namespace ci;
@@ -34,7 +35,9 @@ BaseTouchObject::BaseTouchObject() :
 	mObjectColor(ColorA::white()),
 	mTouchesCallbackId(-1),
 	mAcceptTouch(true),
-	mUniqueID(ObjectID)
+	mUniqueID(ObjectID),
+	mTranslating(false),
+	mScale(Vec2f(1.0f, 1.0f))
 {
 	TotalObjectCount++;
 	ObjectID++;			
@@ -62,15 +65,12 @@ void BaseTouchObject::setup(const cinder::Vec2f &pos, const cinder::Vec2f &size)
 
 
 void  BaseTouchObject::drawDebugBox( bool translating ){
-	gl::lineWidth(1.0f);
-	
-	if (translating)	gl::drawStrokedRect(Rectf(0.0, 0.0, mWidth, mHeight));
-	else				gl::drawStrokedRect(getRect());
+	gl::lineWidth(2.0f);
+	gl::drawStrokedRect(getRect());
 }
 
 void BaseTouchObject::setPosition( const cinder::Vec2f &pt ){
-	mPosition.x =pt.x;
-	mPosition.y =pt.y;
+	mPosition = pt;
 }
 
 void BaseTouchObject::registerWithTouchMngr(){
@@ -90,17 +90,23 @@ void BaseTouchObject::endTouches(){
 }
 
 bool BaseTouchObject::hasTouchPoint( const Vec2f &pnt ){
-	if( getRect().contains(pnt)){
-		return true;//point is inside the bounding box 
-    }else return false;//point is outside bounding box;
-}
+	//global rectangle to grab the point, whether it's translating or not
+	Rectf globalRectSpace = Rectf(
+		mPosition.x + mParentTranslatePosition.x,
+		mPosition.y + mParentTranslatePosition.y,
+		mPosition.x + mParentTranslatePosition.x + mWidth*mScale.x,
+		mPosition.y + mParentTranslatePosition.y + mHeight*mScale.y);
 
+	if (globalRectSpace.contains(pnt)){
+		return true;//point is inside the bounding box 
+	}
+	else return false;//point is outside bounding box;
+}
 
 //ToString
 std::string BaseTouchObject::getDebugString(){
-	return "BaseTouchObject: UID: "+mUniqueID;
+    return "BaseTouchObject: UID: " + boost::lexical_cast<string>( mUniqueID );
 }
-
 
 //This Will be overridden for each subclass object
 void BaseTouchObject::draw(){	
