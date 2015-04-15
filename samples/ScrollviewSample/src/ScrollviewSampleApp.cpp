@@ -4,8 +4,9 @@
 
 #include "TouchManager.h"
 #include "TouchDrivers/Mouse.h"
+#include "TouchDrivers/TUIO.h"
 #include "TouchObjects/ScrollView/ScrollView.h"
-#include "TouchObjects/ScrollView/ScrollViewSection.h"
+#include "TouchObjects/ScrollView/ScrollViewCell.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -14,32 +15,32 @@ using namespace touchObject;
 class ScrollviewSampleApp : public AppNative {
   public:
 	void setup();
-
 	void update();
 	void draw();
-
+	Tuio mTouchConnection;
 	Mouse mMouseConnection;
 	ScrollViewRef mScrollViewRef;
 };
 
 void ScrollviewSampleApp::setup()
 {
+	//Handle Connections for mouse and tuio
+	mTouchConnection.connect();
 	mMouseConnection.connect();
-	mScrollViewRef = ScrollView::create(Vec2f(0, 0), Vec2f(200, 400), Vec2f(0, 0), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
-
-	for (int i = 0; i < 3; i++){
-		ScrollViewSectionRef section = ScrollViewSection::create(Vec2f(200, 100));
+	mScrollViewRef = ScrollView::create(  Vec2f(50, 50), Vec2f(200, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+	
+	for (int i = 0; i < 5; i++){
+		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
 		Color color;
 
 		if (i == 0)color = Color(255, 0, 0);
-		if (i == 1)color = Color(255, 255, 0);
-		if (i == 2)color = Color(0, 0, 255);
-		
-		section->setBackgroundColor(color);
-		
-		
+		else if (i == 1)color = Color(255, 255, 0);
+		else if (i == 2)color = Color(0, 0, 255);
+		else{
+			color = Color(1, 0, 0);
+		}
+		section->setObjectColor(color);
 		mScrollViewRef->addSection(section);
-
 	}
 
 }
@@ -47,17 +48,18 @@ void ScrollviewSampleApp::setup()
 
 void ScrollviewSampleApp::update()
 {
-
-
 		TouchManager::getInstance()->update();
+		//Scroll views need to be updated to handle easing
 		mScrollViewRef->update();
-
 }
 
 void ScrollviewSampleApp::draw()
 {
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
+	//Draw the touches
+	TouchManager::getInstance()->draw();
+
 	mScrollViewRef->draw();
 }
 

@@ -8,7 +8,7 @@
 
 #pragma once
 #include "BaseTouchObject.h"
-#include "ScrollViewSection.h"
+#include "ScrollViewCell.h"
 #include "cinder/Timeline.h"
 namespace touchObject {
 
@@ -20,26 +20,25 @@ namespace touchObject {
 
 	class ScrollView : public touchObject::BaseTouchObject{
 	public:
-		enum ScrollViewOrientation { Vertical, Horizontal };
+		enum ScrollViewOrientation { Vertical, Horizontal /*,MultiDirectional*/ };
 		//Continous will pop sections to the opposite end
 		//NonContinous will stop scrolling when an end is reached
-		//SinglePage shows only one page at a time 
-		enum ScrollViewType { Continuous, NonContinuous, SinglePage };
+		enum ScrollViewType { Continuous, NonContinuous };
 
 		ScrollView();
-		static ScrollViewRef create(cinder::Vec2f pos, cinder::Vec2f size, cinder::Vec2f sectionSpacing, ScrollViewType scrollType, ScrollViewOrientation scrollOrientation);
-		
+		static ScrollViewRef create(cinder::Vec2f pos, cinder::Vec2f size, ScrollViewType scrollType, ScrollViewOrientation scrollOrientation);
 		virtual void update();
 		virtual void draw();
 
-		void setTouchMulitplier(float multiplier){ mTouchMultiplier = multiplier; };
+		void  setTouchMulitplier(float multiplier){ mTouchMultiplier = multiplier; };
 		float getTouchMultiplier(){ return mTouchMultiplier; };
-		void setMomentum(float momentum){ mMomentum = momentum; };
+		
+		void  setMomentum(float momentum){ mMomentum = momentum; };
 		float getMomentum(){ return mMomentum; };
 
-		void setScrollPercentage(float targetPercentage);
-		void addSection(ScrollViewSectionRef section);
-		void setOffsetPercentageAmount(float offset);
+		void  setScrollPercentage(float targetPercentage);
+		void  addSection(ScrollViewCellRef section);
+		void  setOffsetPercentageAmount(float offset);
 		float getScrollPercentage();
 		virtual void  layoutSections();
 	protected:
@@ -60,9 +59,9 @@ namespace touchObject {
 		void  updateSections_Horiz_NonContinuous(float offsetAmt);
 
 
-		void  popSection(ScrollViewSectionRef section, bool top);
+		void  popSection(ScrollViewCellRef section, bool top);
 
-		ScrollViewSectionRef getNewSectionPointer(ScrollViewSectionRef section, bool previous);
+		ScrollViewCellRef getNewSectionPointer(ScrollViewCellRef section, bool previous);
 		void drawBreakLines();
 
 
@@ -78,14 +77,14 @@ namespace touchObject {
 		float mMomentum;
 		cinder::Anim<float> mUpdateAmount;
 		float mCurrentOffset;
-		ScrollViewSectionRef mTopSection, 
+		ScrollViewCellRef mTopSection, 
 							 mBottomSection,
 						 	 mLeftSection, 
 							 mRightSection;	
 
 		bool mViewCarriesMomentum;
 		
-		std::vector<ScrollViewSectionRef> mSections;
+		std::vector<ScrollViewCellRef> mSections;
 		int mTotalSections;
 	};
 }

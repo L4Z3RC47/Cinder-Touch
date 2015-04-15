@@ -32,7 +32,7 @@ BaseTouchObject::BaseTouchObject() :
 	mParentTranslatePosition(Vec2f::zero()),
 	mWidth(0.0f),
 	mHeight(0.0f),
-	mObjectColor(ColorA::white()),
+	mObjectColor(ColorA(1,0,1,1)),
 	mTouchesCallbackId(-1),
 	mAcceptTouch(true),
 	mUniqueID(ObjectID),
@@ -66,6 +66,7 @@ void BaseTouchObject::setup(const cinder::Vec2f &pos, const cinder::Vec2f &size)
 
 void  BaseTouchObject::drawDebugBox( bool translating ){
 	gl::lineWidth(2.0f);
+	gl::color(getObjectColor());
 	gl::drawStrokedRect(getRect());
 }
 
