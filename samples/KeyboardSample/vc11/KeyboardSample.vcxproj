@@ -26,7 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -50,7 +50,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\include;..\..\..\..\..\boost;..\..\..\src\core;..\..\..\src\modules;..\..\..\..\OSC\src;..\..\..\..\TUIO\include;..\src\TextUtils</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\include;..\..\..\..\..\boost;..\..\..\src\core;..\..\..\src\modules;..\..\..\..\OSC\src;..\..\..\..\TUIO\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -64,8 +64,8 @@
       <AdditionalIncludeDirectories>"..\..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>"..\..\..\..\..\\lib";"..\..\..\..\..\\lib\msw"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\..\\lib;..\..\..\..\..\lib\msw\$(PlatformTarget)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -127,10 +127,6 @@
     <ClCompile Include="..\..\..\..\OSC\src\ip\win32\NetworkingUtils.cpp" />
     <ClCompile Include="..\..\..\..\OSC\src\ip\win32\UdpSocket.cpp" />
     <ClCompile Include="..\..\..\..\TUIO\src\TuioClient.cpp" />
-    <ClCompile Include="..\src\MessageController.cpp" />
-    <ClCompile Include="..\src\PhoneNumberKey.cpp" />
-    <ClCompile Include="..\src\PhoneNumberKeyboard.cpp" />
-    <ClCompile Include="..\src\TextUtils\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h" />
@@ -163,10 +159,6 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioCursor.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioObject.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h" />
-    <ClInclude Include="..\src\MessageController.h" />
-    <ClInclude Include="..\src\PhoneNumberKey.h" />
-    <ClInclude Include="..\src\PhoneNumberKeyboard.h" />
-    <ClInclude Include="..\src\TextUtils\TextObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

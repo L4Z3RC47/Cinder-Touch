@@ -1,6 +1,5 @@
 
 #include "Keyboard.h"
-//#include "Key.h"
 
 using namespace std;
 using namespace ci;
@@ -11,10 +10,11 @@ using namespace boost;
 namespace touchObject{
 
 	Keyboard::Keyboard(): touchObject::BaseTouchObject(),
-		mInputString("")
+		mInputText(""),
+		mInputTextFont(Font("arial", 16.0f)),
+		mInputTextColor(ColorA(1, 1, 1, 1))
 	{
-		//mKeyTextObjectRef = bci::TextObject::create(Vec2f(0, 0), Vec2i(300, 200), "ENTER NUMBER");
-		//mKeyTextObjectRef->renderTextBox();
+
 	}
 
 	KeyboardRef	Keyboard::create(const cinder::Vec2f &pos, const cinder::Vec2i &size){
@@ -23,7 +23,7 @@ namespace touchObject{
 
 		keyboardObjRef->setPosition(pos);
 		keyboardObjRef->setSize(size);
-
+		keyboardObjRef->setObjectColor(ci::ColorA(1, 0, 0, 1));
 
 		return keyboardObjRef;
 	}
@@ -44,25 +44,25 @@ namespace touchObject{
 	void	Keyboard::keyPressed(std::shared_ptr<class Key> keyRef){
 		
 		switch (keyRef->getKeyType()){
-		case KeyType::Character: {//mInputString += keyRef->getKeyString();
-									 break;
+		case KeyType::Character: {
+			mInputText += keyRef->getLabelText();
+			break;
 		}
-		case KeyType::Submit: {console() << "Submit Pressed" << endl;
-									 break;
+		case KeyType::Submit: {
+			mSubmitFn(mInputText);
+			break;
 		}
 		case KeyType::Backspace: {
-			 mInputString = mInputString.substr(0, mInputString.length() - 1);
-									 break;
+			mInputText = mInputText.substr(0, mInputText.length() - 1);
+			break;
 		}
 		case KeyType::Clear: {
-								 mInputString = "";
-									 break;
+			mInputText = "";
+			break;
 		}
 			
 		
 		}
-		//mKeyTextObjectRef->setString(mInputString);
-		//mKeyTextObjectRef->renderTextBox("textInput");
 	}
 
 	void Keyboard::draw(const cinder::Vec2f &parentTranslatePos){
@@ -79,10 +79,9 @@ namespace touchObject{
 			
 			gl::color(1, 1, 1);
 			
-				//gl::draw(mKeyTextObjectRef->getTexture(), mKeyTextObjectRef->getPosition());
-		
-			
+			gl::drawStringCentered(mInputText, Vec2f(getWidth() / 2.0f, 50.0f), mInputTextColor, mInputTextFont);
 
+	
 			//console() << "INPUT STRING:: " << mInputString << endl;
 
 		}gl::popMatrices();

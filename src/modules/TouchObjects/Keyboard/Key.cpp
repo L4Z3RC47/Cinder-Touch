@@ -11,7 +11,10 @@ using namespace boost;
 namespace touchObject{
 	
 	Key::Key() :BaseButton(),
-		mKeyType(Character)
+		mKeyType(Character),
+		mKeyLabelText(""),
+		mLabelFont(Font("arial",12.0f)),
+		mLabelColor(ColorA(1,1,1,1))
 	{
 		
 	}
@@ -24,7 +27,7 @@ namespace touchObject{
 		keyObjRef->registerWithTouchMngr();
 		keyObjRef->setPosition(pos);
 		keyObjRef->setSize(size);
-		keyObjRef->setKeyString(keyString);
+		keyObjRef->setLabelText(keyString);
 		keyObjRef->setCallBackFn(std::bind(&Key::keyCallback, keyObjRef, std::placeholders::_1));
 		return keyObjRef;
 	}
@@ -46,16 +49,6 @@ namespace touchObject{
 	}
 
 
-
-	void Key::setKeyString(const std::string &keyString){
-		/*
-		mKeyTextObjectRef = bci::TextObject::create(Vec2f(0,0), Vec2f(0,0), keyString);
-		mKeyTextObjectRef->renderTextBox("character");
-		Vec2f textureSize = mKeyTextObjectRef->getTexture()->getSize();
-		mKeyTextObjectRef->setPosition(  Vec2f(getWidth() / 2.0f - textureSize.x / 2.0f, getHeight() / 2.0f - textureSize.y / 2.0f));
-		*/
-	}
-
 	void Key::keyCallback(touchObject::TouchObjectRef obj){
 	
 		if (mKeyboardRef){
@@ -74,18 +67,28 @@ namespace touchObject{
 			setParentTranslatePosition(parentTranslatePos);
 
 		gl::pushMatrices(); {
-			gl::translate(mPosition );
+			gl::translate(mPosition);
 
-			gl::color(getObjectColor());
-			drawDebugBox(true);//if translating, let the debug box know
+
 
 			if (!mObjectTouchIDs.empty()){
-				gl::drawSolidRect(Rectf(0, 0, getWidth(), getHeight()));
+				gl::color(44.0f / 255.0f, 251.0f / 255.0f, 232.0f / 255.0f);
+
 			}
-	
+			else{
+				gl::color(1, 1, 1);
+			}
+			gl::lineWidth(2.25f);
+			gl::drawStrokedRoundedRect(Rectf(0, 0, getWidth(), getHeight()), 5.0f);
+
+
 			gl::color(1, 1, 1);
-			//gl::draw(mKeyTextObjectRef->getTexture(), mKeyTextObjectRef->getPosition());
+			gl::drawStringCentered(mKeyLabelText, Vec2f(getWidth() / 2.0f, getHeight() / 2.0f), mLabelColor, mLabelFont);
+
 
 		}gl::popMatrices();
 	}
 };
+
+
+

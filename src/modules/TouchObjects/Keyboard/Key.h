@@ -1,7 +1,6 @@
 #pragma once
 #include "cinder/app/AppBasic.h"
 #include "TouchObjects/Button/BaseButton.h"
-//#include "TextObject.h"
 #include "Keyboard.h"
 
 namespace touchObject{
@@ -19,22 +18,44 @@ namespace touchObject{
 		virtual ~Key(){};
 		static  KeyRef	create(const cinder::Vec2f &pos , const cinder::Vec2i &size, const std::string &keyString);
 
+		//Touch handling
 		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
 		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
-
-
-		void draw(const cinder::Vec2f &parentTranslatePos  =cinder::Vec2f(0.0f,0.0f));
-		virtual void setKeyString(const std::string &keyString);
-		void keyCallback(touchObject::TouchObjectRef obj );
+		
+		void keyCallback(touchObject::TouchObjectRef obj);
 		void setKeyboard(std::shared_ptr<class	Keyboard> keyboardRef);
-		//std::string getKeyString(){ return mKeyTextObjectRef->getTextString(); };
 
+
+		//Drawing
+		void draw(const cinder::Vec2f &parentTranslatePos  =cinder::Vec2f(0.0f,0.0f));
+		
+		
+		//Properties
+		
+		//Type
 		void setKeyType(KeyType type){ mKeyType = type; };
 		KeyType getKeyType(){ return  mKeyType; };
-	protected:
+		
+		//Label
+		virtual void setLabelText(const std::string &labelText){ mKeyLabelText = labelText; };
+		std::string	 getLabelText(){ return mKeyLabelText; };
 
-		//bci::TextObjectRef				mKeyTextObjectRef;
+		//Font
+		virtual void setLabelFont(const ci::Font &labelFont){ mLabelFont = labelFont; };
+		ci::Font	 getLabelFont(){ return mLabelFont; };
+
+		//Color
+		virtual void setLabelColor(const ci::ColorA &labelColor){ mLabelColor = labelColor; };
+		ci::ColorA	 getLabelColor(){ return mLabelColor; };
+
+	protected:
 		std::shared_ptr<class Keyboard> mKeyboardRef;
 		KeyType mKeyType;
+		
+		//Label
+		std::string mKeyLabelText;
+		ci::Font mLabelFont;
+		ci::ColorA mLabelColor;
+
 	};
 };

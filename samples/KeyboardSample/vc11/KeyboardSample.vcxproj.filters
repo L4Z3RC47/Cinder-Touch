@@ -64,9 +64,6 @@
     <Filter Include="Blocks\Touch\src\modules\TouchObjects\Keyboard">
       <UniqueIdentifier>{e2a00947-5c99-4ad3-b759-812f01f671af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\TextUtils">
-      <UniqueIdentifier>{1e93ee84-dbde-48fb-9a08-ac3a46d3824e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\KeyboardSampleApp.cpp">
@@ -213,18 +210,6 @@
     <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.cpp">
       <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TextUtils\TextObject.cpp">
-      <Filter>Source Files\TextUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\PhoneNumberKeyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\PhoneNumberKey.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MessageController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -238,18 +223,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.h">
       <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TextUtils\TextObject.h">
-      <Filter>Source Files\TextUtils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\PhoneNumberKeyboard.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\PhoneNumberKey.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MessageController.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
