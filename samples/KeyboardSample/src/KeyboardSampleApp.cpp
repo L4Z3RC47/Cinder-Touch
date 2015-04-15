@@ -34,12 +34,12 @@ void KeyboardSampleApp::setup()
 	gl::enableAlphaBlending();
 	mTuioConnection.connect();
 	mMouseConnection.connect();
+
 	keyboardRef = Keyboard::create(Vec2f(20, 20), Vec2f(210, 500));
 	keyboardRef->setSubmitFunction(std::bind(&KeyboardSampleApp::keyboardSubmitFn, this, std::placeholders::_1));
 	keyboardRef->setInputFieldColor(ci::ColorA(44.0f / 255.0f, 251.0f / 255.0f, 232.0f / 255.0f,1));
 	keyboardRef->setInputFieldFont(ci::Font("arial", 20.0f));
 	addKeys();
-
 }
 void KeyboardSampleApp::addKeys(){
 
