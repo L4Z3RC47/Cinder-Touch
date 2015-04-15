@@ -9,7 +9,7 @@
 
 #include "TouchManager.h"			//include touch manager
 #include "TouchDrivers/Tuio.h"		//include the driver you want to use (options are Mouse, TUIO)
-#include "TouchObjects/BaseButton.h"//include baseButton
+#include "TouchObjects/Button/BaseButton.h"//include baseButton
 
 using namespace ci;
 using namespace ci::app;

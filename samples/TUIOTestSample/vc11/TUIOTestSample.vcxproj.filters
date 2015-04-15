@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -57,6 +58,9 @@
     <Filter Include="Blocks\TUIO\include">
       <UniqueIdentifier>{ADFFD946-9771-48C9-923B-10BFDF684CB0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Button">
+      <UniqueIdentifier>{6b9eb186-e820-4e52-884e-bf5329f442b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TUIOTestSampleApp.cpp">
@@ -79,12 +83,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\core\TouchManager.h">
       <Filter>Blocks\Touch\src\core</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
     </ClInclude>
     <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp">
       <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
@@ -200,10 +198,16 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h">
       <Filter>Blocks\TUIO\include</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
