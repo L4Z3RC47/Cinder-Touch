@@ -27,9 +27,11 @@ void ScrollviewSampleApp::setup()
 	//Handle Connections for mouse and tuio
 	mTouchConnection.connect();
 	mMouseConnection.connect();
-	mScrollViewRef = ScrollView::create(  Vec2f(50, 50), Vec2f(200, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
-	
-	for (int i = 0; i < 5; i++){
+	mScrollViewRef = ScrollView::create(  Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+	mScrollViewRef->setShouldClipSubviews(true);
+
+
+	for (int i = 0; i < 10; i++){
 		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
 		Color color;
 
