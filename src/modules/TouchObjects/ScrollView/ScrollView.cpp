@@ -98,8 +98,8 @@ namespace touchObject {
 		}
 
 
-		mLeftSection = mTopSection = mScrollViewCells.front();
-		mRightSection = mBottomSection = mScrollViewCells.back();
+		mFrontCell = mScrollViewCells.front();
+	    mBackCell = mScrollViewCells.back();
 	}
 
 
@@ -257,10 +257,10 @@ namespace touchObject {
 
 
 		if (offsetAmt < 0){//If scrolling up
-			section = mBottomSection;//start with the bottom most section and work up 
+			section = mBackCell;//start with the bottom most section and work up 
 		}
 		else{//Scrolling Down
-			section = mTopSection;//Start with the topmost section and work down
+			section = mFrontCell;//Start with the topmost section and work down
 		}
 
 		mCurrentOffset += offsetAmt;
@@ -288,7 +288,7 @@ namespace touchObject {
 
 		ScrollViewCellRef cell;
 		if (offsetAmt<0){//If scrolling up
-			cell = mBottomSection;//start with the bottom most section and work up 
+			cell = mBackCell;//start with the bottom most section and work up 
 
 
 			//check if the right most sections position + width is past the right break point
@@ -300,7 +300,7 @@ namespace touchObject {
 		}
 		else{
 
-			cell = mTopSection;//Start with the topmost section and work down
+			cell = mFrontCell;//Start with the topmost section and work down
 
 			//check if the left most sections position  is past the  left break point
 			float dist = (mBreakLineFront - cell->getPosition().y);
@@ -332,10 +332,10 @@ namespace touchObject {
 
 		ScrollViewCellRef cell;
 		if (offsetAmt < 0){//If scrolling left 
-			cell = mRightSection;//start with the bottom most section and work up 
+			cell = mBackCell;//start with the bottom most section and work up 
 		}
 		else{//Scrolling right
-			cell = mLeftSection;//Start with the topmost section and work down
+			cell = mFrontCell;//Start with the topmost section and work down
 		}
 
 		mCurrentOffset += offsetAmt;
@@ -364,7 +364,7 @@ namespace touchObject {
 	void  ScrollView::updateSections_Horiz_NonContinuous(float offsetAmt){
 		ScrollViewCellRef cell;
 		if (offsetAmt<0){//If scrolling left 
-			cell = mRightSection;//start with the bottom most section and work up 
+			cell = mBackCell;//start with the bottom most section and work up 
 
 
 			//check if the right most sections position + width is past the right break point
@@ -376,7 +376,7 @@ namespace touchObject {
 		}
 		else{//Scrolling right
 
-			cell = mLeftSection;//Start with the topmost section and work down
+			cell = mFrontCell;//Start with the topmost section and work down
 
 			//check if the left most sections position  is past the  left break point
 			float dist = (mBreakLineFront - cell->getPosition().x);
@@ -403,67 +403,48 @@ namespace touchObject {
 
 
 	void ScrollView::popSection(ScrollViewCellRef cell, bool top){
-		if (mScrollViewOrientation == Horizontal){
+	
 			if (top){//cell is moving from Right going to Left
 
-				float xPos = (mLeftSection->getPosition().x - mLeftSection->getLeftPadding());
-				//Subtract the sections height
-				xPos -= cell->getWidth() - cell->getRightPadding();
-				
+				if (mScrollViewOrientation == Vertical){
+					
+					//Get the postion of the top cell
+					float yPos = (mFrontCell->getPosition().y - mFrontCell->getTopPadding());
+					//Subtract the cell height and the bottom padding
+					yPos -= (cell->getHeight() - cell->getBottomPadding());
+					cell->setPosition(Vec2f(cell->getPosition().x, yPos));
+				}else{
 
-				//section->Position.value().y =yPos;
-				cell->setPosition(Vec2f(xPos, cell->getPosition().y));
-
-				//Set this section as New Top Section 
-				mLeftSection = cell;
-
-				//Set the new bottom Section
-				mRightSection = getNewSectionPointer(cell, true);// get the previous section
-
-			}
-			else{//Section->BOTTOM
-				float xPos = mRightSection->getPosition().x + mRightSection->getWidth() + mRightSection->getRightPadding();
-
-				//section->Position.value().y =yPos - section->getTopInset();
-				cell->setPosition(Vec2f(xPos + cell->getLeftPadding(), cell->getPosition().y));
-
-				//Set this section as the new bottom section
-				mRightSection = cell;
-
-				//Set the new top Section
-				mLeftSection = getNewSectionPointer(cell, false);// get the previous section
-			}
-		}
-		else if (mScrollViewOrientation == Vertical){
-			if (top){//cell is moving from Bottom going to TOP
-				
-				//Get the postion of the top cell
-				float yPos = (mTopSection->getPosition().y - mTopSection->getTopPadding());
-				//Subtract the cell height and the bottom padding
-				yPos -= (cell->getHeight() - cell->getBottomPadding());
-
-				cell->setPosition(Vec2f(cell->getPosition().x, yPos));
+					float xPos = (mFrontCell->getPosition().x - mFrontCell->getLeftPadding());
+					//Subtract the sections height
+					xPos -= cell->getWidth() - cell->getRightPadding();
+					cell->setPosition(Vec2f(xPos, cell->getPosition().y));
+				}
 
 				//Set this section as New Top Section 
-				mTopSection = cell;
+				mFrontCell = cell;
 
 				//Set the new bottom Section
-				mBottomSection = getNewSectionPointer(cell, true);// get the previous section
+				mBackCell = getNewSectionPointer(cell, true);// get the previous section
 
-			}
-			else{//cell moving from  TOP  going to  BOTTOM
-				float yPos = mBottomSection->getPosition().y + mBottomSection->getHeight() + mBottomSection->getBottomPadding();
-				//Set the cell postion to the bottom of the previous cell plus the cell's top padding
-				cell->setPosition(Vec2f(cell->getPosition().x, yPos + cell->getTopPadding()));
+			}else{//Section->BOTTOM
+				if (mScrollViewOrientation == Vertical){
+					float yPos = mBackCell->getPosition().y + mBackCell->getHeight() + mBackCell->getBottomPadding();
+					//Set the cell postion to the bottom of the previous cell plus the cell's top padding
+					cell->setPosition(Vec2f(cell->getPosition().x, yPos + cell->getTopPadding()));
+				}else{
+
+					float xPos = mBackCell->getPosition().x + mBackCell->getWidth() + mBackCell->getRightPadding();
+					cell->setPosition(Vec2f(xPos + cell->getLeftPadding(), cell->getPosition().y));
+				}
 
 				//Set this section as the new bottom section
-				mBottomSection = cell;
+				mBackCell = cell;
 
 				//Set the new top Section
-				mTopSection = getNewSectionPointer(cell, false);// get the previous section
+				mFrontCell = getNewSectionPointer(cell, false);// get the previous section
 			}
 		}
-	}
 
 	ScrollViewCellRef ScrollView::getNewSectionPointer(ScrollViewCellRef section, bool previous){
 

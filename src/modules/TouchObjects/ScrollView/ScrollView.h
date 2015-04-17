@@ -123,10 +123,9 @@ namespace touchObject {
 				
 
 	
-		ScrollViewCellRef	 mTopSection, 
-							 mBottomSection,
-						 	 mLeftSection, 
-							 mRightSection;	
+		ScrollViewCellRef	 mFrontCell,
+							 mBackCell;
+					
 
 		
 		std::vector<ScrollViewCellRef> mScrollViewCells;
