@@ -50,7 +50,7 @@ void ScrollviewSampleApp::setup()
 			color = Color(1, 0, 0);
 		}
 		cell->setObjectColor(color);
-		mVerticalScrollViewRef->addSection(cell);
+		mVerticalScrollViewRef->addCell(cell);
 	}
 
 	//Create A Horizontal Scrollview
@@ -74,7 +74,7 @@ void ScrollviewSampleApp::setup()
 			color = Color(1, 0, 0);
 		}
 		cell->setObjectColor(color);
-		mHorizontalScrollViewRef->addSection(cell);
+		mHorizontalScrollViewRef->addCell(cell);
 	}
 
 

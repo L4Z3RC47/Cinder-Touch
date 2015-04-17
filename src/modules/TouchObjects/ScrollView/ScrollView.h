@@ -37,7 +37,7 @@ namespace touchObject {
 		//Creation functions
 		ScrollView();
 		static ScrollViewRef create(cinder::Vec2f pos, cinder::Vec2f size, ScrollViewType scrollType, ScrollViewOrientation scrollOrientation);
-		void  addSection(ScrollViewCellRef section);
+		void  addCell(ScrollViewCellRef cell);
 
 		
 		virtual void update();
@@ -95,9 +95,8 @@ namespace touchObject {
 		void  updateSections_Horiz_Continuous(float offsetAmt);
 		void  updateSections_Horiz_NonContinuous(float offsetAmt);
 
-		void  popSection(ScrollViewCellRef section, bool top);
+		void  popCell(ScrollViewCellRef section, bool toFront);
 
-		ScrollViewCellRef getNewSectionPointer(ScrollViewCellRef section, bool previous);
 		void drawBreakLines();
 
 
