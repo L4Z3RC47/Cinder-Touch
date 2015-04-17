@@ -34,17 +34,23 @@ void ScrollviewSampleApp::setup()
 	mVerticalScrollViewRef->setShouldClipSubviews(false);
 
 	for (int i = 0; i < 5; i++){
-		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
+		ScrollViewCellRef cell = ScrollViewCell::create(Vec2f(200, 100));
 		Color color;
 
-		if (i == 0)color = Color(255, 0, 0);
+
+		if (i == 0){
+			color = Color(255, 0, 100);
+			cell->setTopPadding(-25.0f);
+		}
 		else if (i == 1)color = Color(255, 255, 0);
-		else if (i == 2)color = Color(0, 0, 255);
+		else if (i == 2){
+			color = Color(0, 0, 255);
+		}
 		else{
 			color = Color(1, 0, 0);
 		}
-		section->setObjectColor(color);
-		mVerticalScrollViewRef->addSection(section);
+		cell->setObjectColor(color);
+		mVerticalScrollViewRef->addSection(cell);
 	}
 
 	//Create A Horizontal Scrollview
@@ -53,17 +59,22 @@ void ScrollviewSampleApp::setup()
 	mHorizontalScrollViewRef->setShouldClipSubviews(true);
 
 	for (int i = 0; i < 5; i++){
-		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
+		ScrollViewCellRef cell = ScrollViewCell::create(Vec2f(200, 100));
 		Color color;
 
-		if (i == 0)color = Color(255, 0, 0);
+		if (i == 0){
+			color = Color(255, 0, 100);
+			cell->setLeftPadding(25.0f);
+		}
 		else if (i == 1)color = Color(255, 255, 0);
-		else if (i == 2)color = Color(0, 0, 255);
+		else if (i == 2){
+			color = Color(0, 0, 255);
+		}
 		else{
 			color = Color(1, 0, 0);
 		}
-		section->setObjectColor(color);
-		mHorizontalScrollViewRef->addSection(section);
+		cell->setObjectColor(color);
+		mHorizontalScrollViewRef->addSection(cell);
 	}
 
 

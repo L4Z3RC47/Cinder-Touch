@@ -122,9 +122,7 @@ namespace touchObject {
 				mBreakLineBack;
 				
 
-		float	mVerticalCellSpacing,
-				mHorizontalCellSpacing;
-
+	
 		ScrollViewCellRef	 mTopSection, 
 							 mBottomSection,
 						 	 mLeftSection, 

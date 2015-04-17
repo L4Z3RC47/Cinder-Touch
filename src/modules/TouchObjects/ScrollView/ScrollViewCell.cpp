@@ -14,7 +14,7 @@ using namespace ci::app;
 namespace touchObject {
 
 	ScrollViewCell::ScrollViewCell() : BaseTouchObject(),
-		mInsets(Rectf::zero()),
+		mPadding(Rectf::zero()),
 		mSectionTag(0)
 	{};
 

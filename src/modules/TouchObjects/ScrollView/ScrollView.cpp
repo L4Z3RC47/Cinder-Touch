@@ -21,8 +21,6 @@ namespace touchObject {
 	mMomentum(1.0f),
 	mScrollViewType(Continuous),
 	mTouchMultiplier(0.050f),
-	mVerticalCellSpacing(0.0f),
-	mHorizontalCellSpacing (0.0f),
 	mShouldClipSubviews(true)
 	{
 
@@ -64,13 +62,14 @@ namespace touchObject {
 	Vec2f  ScrollView::getContentSize(){
 		
 			Vec2f contentSize = Vec2f::zero();
-			
+			ScrollViewCellRef lastCell;
 				for (ScrollViewCellRef cell : mScrollViewCells){
-					contentSize.x += cell->getWidth() + mHorizontalCellSpacing;
-					contentSize.y += cell->getHeight() + mVerticalCellSpacing;
+					contentSize.x += cell->getWidthWithPadding();
+					contentSize.y += cell->getHeightWithPadding();
+					
+		
 				}
-				contentSize.x -= mHorizontalCellSpacing;
-				contentSize.y -= mVerticalCellSpacing;
+	
 
 			return contentSize;
 	}
@@ -115,26 +114,26 @@ namespace touchObject {
 		if (mScrollViewOrientation == Horizontal){
 
 			float curPos = mBreakLineFront;//Left break
-			for (ScrollViewCellRef section : mScrollViewCells){
+			for (ScrollViewCellRef cell : mScrollViewCells){
 				
-				float sectionWidth = section->getWidth();
-				float sectionLeftInset = section->getLeftInset();
-				float ypos = getCenter().y - section->getHeight() / 2;
+				float sectionWidth = cell->getWidth();
+				float sectionLeftInset = cell->getLeftPadding();
+				float ypos = getCenter().y - cell->getHeight() / 2;
 
-				section->setPosition(Vec2f(curPos, ypos));
+				cell->setPosition(Vec2f(curPos, ypos));
 				curPos += sectionWidth - sectionLeftInset;
-				curPos += mHorizontalCellSpacing;
+			//	curPos += mHorizontalCellSpacing;
 			}
 		}
 		else if (mScrollViewOrientation == Vertical){
 
 			float curPos = mBreakLineFront;
-			for (ScrollViewCellRef section : mScrollViewCells){
+			for (ScrollViewCellRef cell : mScrollViewCells){
 				
-				float sectionHeight = section->getHeight();
-				float sectionTopInset = section->getTopInset();
+				float sectionHeight = cell->getHeight();
+				float sectionTopInset = cell->getTopPadding();
 
-				section->setPosition(Vec2f(getPosition().x, curPos - sectionTopInset));
+				cell->setPosition(Vec2f(getPosition().x, curPos - sectionTopInset));
 				curPos += sectionHeight - sectionTopInset;
 			}
 		}
@@ -405,12 +404,12 @@ namespace touchObject {
 
 	void ScrollView::popSection(ScrollViewCellRef cell, bool top){
 		if (mScrollViewOrientation == Horizontal){
-			if (top){//Section->TOP
+			if (top){//cell is moving from Right going to Left
 
-				float xPos = (mLeftSection->getPosition().x + mLeftSection->getLeftInset());
+				float xPos = (mLeftSection->getPosition().x - mLeftSection->getLeftPadding());
 				//Subtract the sections height
-				float width = cell->getWidth();
-				xPos = xPos - width;
+				xPos -= cell->getWidth() - cell->getRightPadding();
+				
 
 				//section->Position.value().y =yPos;
 				cell->setPosition(Vec2f(xPos, cell->getPosition().y));
@@ -423,10 +422,10 @@ namespace touchObject {
 
 			}
 			else{//Section->BOTTOM
-				float xPos = mRightSection->getPosition().x + mRightSection->getWidth();
+				float xPos = mRightSection->getPosition().x + mRightSection->getWidth() + mRightSection->getRightPadding();
 
 				//section->Position.value().y =yPos - section->getTopInset();
-				cell->setPosition(Vec2f(xPos - cell->getLeftInset(), cell->getPosition().y));
+				cell->setPosition(Vec2f(xPos + cell->getLeftPadding(), cell->getPosition().y));
 
 				//Set this section as the new bottom section
 				mRightSection = cell;
@@ -436,14 +435,13 @@ namespace touchObject {
 			}
 		}
 		else if (mScrollViewOrientation == Vertical){
-			if (top){//Section is going to TOP
+			if (top){//cell is moving from Bottom going to TOP
+				
+				//Get the postion of the top cell
+				float yPos = (mTopSection->getPosition().y - mTopSection->getTopPadding());
+				//Subtract the cell height and the bottom padding
+				yPos -= (cell->getHeight() - cell->getBottomPadding());
 
-				float yPos = (mTopSection->getPosition().y + mTopSection->getTopInset());
-				//Subtract the sections height
-				float height = cell->getHeight();
-				yPos = yPos - height;
-
-				//section->Position.value().y =yPos;
 				cell->setPosition(Vec2f(cell->getPosition().x, yPos));
 
 				//Set this section as New Top Section 
@@ -453,11 +451,10 @@ namespace touchObject {
 				mBottomSection = getNewSectionPointer(cell, true);// get the previous section
 
 			}
-			else{//Section going to bottom BOTTOM
-				float yPos = mBottomSection->getPosition().y + mBottomSection->getHeight();
-
-				//section->Position.value().y =yPos - section->getTopInset();
-				cell->setPosition(Vec2f(cell->getPosition().x, yPos - cell->getTopInset()));
+			else{//cell moving from  TOP  going to  BOTTOM
+				float yPos = mBottomSection->getPosition().y + mBottomSection->getHeight() + mBottomSection->getBottomPadding();
+				//Set the cell postion to the bottom of the previous cell plus the cell's top padding
+				cell->setPosition(Vec2f(cell->getPosition().x, yPos + cell->getTopPadding()));
 
 				//Set this section as the new bottom section
 				mBottomSection = cell;

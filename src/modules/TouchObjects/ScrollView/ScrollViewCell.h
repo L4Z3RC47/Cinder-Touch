@@ -23,17 +23,21 @@ namespace touchObject {
 		static ScrollViewCellRef create(cinder::Vec2f size);
 		virtual void draw();
 
-		void  setTopInset(float ins){ mInsets.y1 = ins; };
-		float getTopInset(){return mInsets.y1; };
+		void  setTopPadding(float ins){ mPadding.y1 = ins; };
+		float getTopPadding(){ return mPadding.y1; };
 
-		void  setBottomInset(float ins){ mInsets.y2 = ins; };
-		float getBottomInset(){ return mInsets.y2; };
+		void  setBottomPadding(float ins){ mPadding.y2 = ins; };
+		float getBottomPadding(){ return mPadding.y2; };
 		
-		void  setLeftInset(float ins){ mInsets.x1 = ins; };
-		float getLeftInset(){return mInsets.x1; };
+		void  setLeftPadding(float ins){ mPadding.x1 = ins; };
+		float getLeftPadding(){ return mPadding.x1; };
 
-		void  setRightInset(float ins){ mInsets.x2 = ins; };
-		float getRightInset(){return mInsets.x2; };
+		void  setRightPadding(float ins){ mPadding.x2 = ins; };
+		float getRightPadding(){ return mPadding.x2; };
+
+
+		float getWidthWithPadding(){ return getWidth()   + getLeftPadding() + getRightPadding(); };
+		float getHeightWithPadding(){ return getHeight() + getTopPadding() + getBottomPadding(); };
 
 		void setSectionTag(int tag){  mSectionTag=tag; };
 		int  getSectionTag(){ return mSectionTag; };
@@ -43,7 +47,7 @@ namespace touchObject {
 	
 	protected:
 
-		ci::Rectf mInsets;
+		ci::Rectf mPadding;
 		int mSectionTag;
 		cinder::gl::TextureRef mImageTextureRef;
 
