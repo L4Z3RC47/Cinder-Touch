@@ -19,7 +19,8 @@ class ScrollviewSampleApp : public AppNative {
 	void draw();
 	Tuio mTouchConnection;
 	Mouse mMouseConnection;
-	ScrollViewRef mScrollViewRef;
+	ScrollViewRef mVerticalScrollViewRef;
+	ScrollViewRef mHorizontalScrollViewRef;
 };
 
 void ScrollviewSampleApp::setup()
@@ -27,11 +28,12 @@ void ScrollviewSampleApp::setup()
 	//Handle Connections for mouse and tuio
 	mTouchConnection.connect();
 	mMouseConnection.connect();
-	mScrollViewRef = ScrollView::create(  Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
-	mScrollViewRef->setShouldClipSubviews(true);
 
+	//Create a vertical Scrollview
+	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+	mVerticalScrollViewRef->setShouldClipSubviews(false);
 
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 5; i++){
 		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
 		Color color;
 
@@ -42,8 +44,28 @@ void ScrollviewSampleApp::setup()
 			color = Color(1, 0, 0);
 		}
 		section->setObjectColor(color);
-		mScrollViewRef->addSection(section);
+		mVerticalScrollViewRef->addSection(section);
 	}
+
+	//Create A Horizontal Scrollview
+
+	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Horizontal);
+	mHorizontalScrollViewRef->setShouldClipSubviews(true);
+
+	for (int i = 0; i < 5; i++){
+		ScrollViewCellRef section = ScrollViewCell::create(Vec2f(200, 100));
+		Color color;
+
+		if (i == 0)color = Color(255, 0, 0);
+		else if (i == 1)color = Color(255, 255, 0);
+		else if (i == 2)color = Color(0, 0, 255);
+		else{
+			color = Color(1, 0, 0);
+		}
+		section->setObjectColor(color);
+		mHorizontalScrollViewRef->addSection(section);
+	}
+
 
 }
 
@@ -52,7 +74,8 @@ void ScrollviewSampleApp::update()
 {
 		TouchManager::getInstance()->update();
 		//Scroll views need to be updated to handle easing
-		mScrollViewRef->update();
+		mVerticalScrollViewRef->update();
+		mHorizontalScrollViewRef->update();
 }
 
 void ScrollviewSampleApp::draw()
@@ -62,7 +85,8 @@ void ScrollviewSampleApp::draw()
 	//Draw the touches
 	TouchManager::getInstance()->draw();
 
-	mScrollViewRef->draw();
+	mVerticalScrollViewRef->draw();
+	mHorizontalScrollViewRef->draw();
 }
 
 CINDER_APP_NATIVE( ScrollviewSampleApp, RendererGl )

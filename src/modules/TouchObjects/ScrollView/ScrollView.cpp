@@ -15,16 +15,14 @@ using namespace ci::app;
 namespace touchObject {
 	ScrollView::ScrollView() : BaseTouchObject(),
 	mCurrentTouchPosition(Vec2f::zero()),
+	mPreviousTouchPosition(Vec2f::zero()),
 	mUpdateAmount(0.0f),
 	mCurrentOffset(0.0f),
-	mContentSize(0.0f),
-	mTotalSections(0.0f),
-	mViewCarriesMomentum(false),
 	mMomentum(1.0f),
 	mScrollViewType(Continuous),
 	mTouchMultiplier(0.050f),
-	mVerticalSectionSpacing(0.0f),
-	mHorizSectionSpacing (0.0f),
+	mVerticalCellSpacing(0.0f),
+	mHorizontalCellSpacing (0.0f),
 	mShouldClipSubviews(true)
 	{
 
@@ -43,80 +41,70 @@ namespace touchObject {
 		scrollViewRef->mScrollViewOrientation = scrollOrientation;
 		scrollViewRef->mScrollViewType = scrollType;
 
-		//scrollViewRef->setTranslating(true);
+
 		//Setup Fbo
 		gl::Fbo::Format format;
-		
-			//format.setSamples( 4 ); // uncomment this to enable 4x antialiasing
+		format.setSamples( 4 ); // uncomment this to enable 4x antialiasing
 		scrollViewRef->mFbo = gl::Fbo(size.x, size.y, format);
-		
 		
 		return scrollViewRef;
 	}
 
 
 	void ScrollView::addSection(ScrollViewCellRef section){
-		section->setSectionTag(mTotalSections);
+		section->setSectionTag(mScrollViewCells.size());
 		mScrollViewCells.push_back(section);
-		mTotalSections += 1;
-		
-		setSectionPntrs();
-		getTotalSectionSize();
+	
+
 		setBreaklines();
 		layoutSections();
 	}
+	
+	
+	Vec2f  ScrollView::getContentSize(){
+		
+			Vec2f contentSize = Vec2f::zero();
+			
+				for (ScrollViewCellRef cell : mScrollViewCells){
+					contentSize.x += cell->getWidth() + mHorizontalCellSpacing;
+					contentSize.y += cell->getHeight() + mVerticalCellSpacing;
+				}
+				contentSize.x -= mHorizontalCellSpacing;
+				contentSize.y -= mVerticalCellSpacing;
 
-	void ScrollView::getTotalSectionSize(){
-		
-			mContentSize = 0.0f;
-			if (mScrollViewOrientation == Horizontal){
-				for (ScrollViewCellRef section : mScrollViewCells){
-					mContentSize += section->getWidth() + mHorizSectionSpacing;
-				}
-				mContentSize -= mHorizSectionSpacing;
-			}
-			else{
-				for (ScrollViewCellRef section : mScrollViewCells){
-					mContentSize += section->getHeight() + mVerticalSectionSpacing;
-				}
-				mContentSize -= mVerticalSectionSpacing;
-			}
-		
+			return contentSize;
 	}
 
 	//This sets lines where cell will decide If they need be repositioned on the opposite end of the stack
 	void  ScrollView::setBreaklines(){
-		//set brakelines
+
+		Vec2f contentSize = getContentSize();
 		if (mScrollViewOrientation == Horizontal){
 			if (mScrollViewType == Continuous){
 
-				mBreakLineLeft = getCenter().x - (mContentSize / 2);
-				mBreakLineRight = getCenter().x + (mContentSize / 2);
+				mBreakLineFront = getCenter().x - (contentSize.x / 2);
+				mBreakLineBack = getCenter().x + (contentSize.x / 2);
 			}
 			else{
 
-				mBreakLineLeft = getPosition().x;
-				mBreakLineRight =getSize().x;
+				mBreakLineFront = getPosition().x;
+				mBreakLineBack = getSize().x;
 
 			}
 		}
 		else{
 			float screenSize = getHeight();
-			mBreakLineTop = getPosition().y + ((getHeight() / 2) - (mContentSize / 2));
-			mBreakLineBottom = getPosition().y + ((getHeight() / 2) + (mContentSize / 2));
+			mBreakLineFront = getPosition().y + ((getHeight() / 2) - (contentSize.y / 2));
+			mBreakLineBack = getPosition().y + ((getHeight() / 2) + (contentSize.y / 2));
 		}
 
-		setSectionPntrs();
+
+		mLeftSection = mTopSection = mScrollViewCells.front();
+		mRightSection = mBottomSection = mScrollViewCells.back();
 	}
 
 
-	void ScrollView::setSectionPntrs(){
-		if (mScrollViewCells.size() > 0){
-			//section pointers
-			mLeftSection = mTopSection = mScrollViewCells.front();
-			mRightSection = mBottomSection = mScrollViewCells.back();
-		}
-	}
+	
 
 
 	void ScrollView::layoutSections(){
@@ -126,25 +114,21 @@ namespace touchObject {
 
 		if (mScrollViewOrientation == Horizontal){
 
-			//float curPos = getPosition().x;//Left break
-			float curPos = mBreakLineLeft;//Left break
+			float curPos = mBreakLineFront;//Left break
 			for (ScrollViewCellRef section : mScrollViewCells){
 				
 				float sectionWidth = section->getWidth();
 				float sectionLeftInset = section->getLeftInset();
-				//curPos += sectionWidth -sectionLeftInset;
 				float ypos = getCenter().y - section->getHeight() / 2;
 
 				section->setPosition(Vec2f(curPos, ypos));
 				curPos += sectionWidth - sectionLeftInset;
-				curPos += mHorizSectionSpacing;
+				curPos += mHorizontalCellSpacing;
 			}
-
-
 		}
 		else if (mScrollViewOrientation == Vertical){
 
-			float curPos = mBreakLineTop;
+			float curPos = mBreakLineFront;
 			for (ScrollViewCellRef section : mScrollViewCells){
 				
 				float sectionHeight = section->getHeight();
@@ -156,17 +140,20 @@ namespace touchObject {
 		}
 	}
 
+
+
+
 	void	ScrollView::touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
 		//keep track of the touch position so we can later test how far it has moved
-		mOldTouchPosition = mCurrentTouchPosition = touchPnt;
+		mPreviousTouchPosition = mCurrentTouchPosition = touchPnt;
 		mUpdateAmount = 0.0f;
 
 	}
 	void	ScrollView::touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
-		mOldTouchPosition = mCurrentTouchPosition;
+		mPreviousTouchPosition = mCurrentTouchPosition;
 		mCurrentTouchPosition = touchPnt;
 
-		Vec2f offsetAmount = mCurrentTouchPosition - mOldTouchPosition;//Get the difference between the old touch point and the moved touch point
+		Vec2f offsetAmount = mCurrentTouchPosition - mPreviousTouchPosition;//Get the difference between the old touch point and the moved touch point
 
 		if (mScrollViewOrientation == Horizontal)            mUpdateAmount.value() += floor(offsetAmount.x);//have the sections update their positions
 		else if (mScrollViewOrientation == Vertical)         mUpdateAmount.value() += floor(offsetAmount.y);//have the sections update their positions
@@ -185,12 +172,12 @@ namespace touchObject {
 
 		if (mScrollViewOrientation == Horizontal){
 			sectionSize = mScrollViewCells.front()->getWidth();
-			breaklineDistance = mBreakLineRight - mBreakLineLeft;
+			breaklineDistance = mBreakLineBack - mBreakLineFront;
 
 		}
 		else{
 			sectionSize = mScrollViewCells.front()->getHeight();
-			breaklineDistance = mBreakLineBottom - mBreakLineTop;
+			breaklineDistance = mBreakLineBack - mBreakLineFront;
 
 		}
 		float endPostion = (mScrollViewCells.size()*sectionSize) - (breaklineDistance);
@@ -210,14 +197,14 @@ namespace touchObject {
 
 		if (mScrollViewOrientation == Horizontal){
 			sectionSize = mScrollViewCells.front()->getWidth();
-			currentOffset = mScrollViewCells.front()->getPosition().x - mBreakLineLeft;
-			breaklineDistance = mBreakLineRight - mBreakLineLeft;
+			currentOffset = mScrollViewCells.front()->getPosition().x - mBreakLineFront;
+			breaklineDistance = mBreakLineBack - mBreakLineFront;
 			endOffset = (mScrollViewCells.size()*sectionSize) - (breaklineDistance);
 		}
 		else{
 			sectionSize = mScrollViewCells.front()->getHeight();
-			currentOffset = mScrollViewCells.front()->getPosition().y - mBreakLineTop;
-			breaklineDistance = mBreakLineBottom - mBreakLineTop;
+			currentOffset = mScrollViewCells.front()->getPosition().y - mBreakLineFront;
+			breaklineDistance = mBreakLineBack - mBreakLineFront;
 			endOffset = -((mScrollViewCells.size()*sectionSize) - (breaklineDistance));
 		}
 
@@ -278,7 +265,7 @@ namespace touchObject {
 		}
 
 		mCurrentOffset += offsetAmt;
-		for (int i = 0; i<mTotalSections; i++){
+		for (auto cell : mScrollViewCells ){
 			float xPos = section->getPosition().x;
 			float yPos = section->getPosition().y + offsetAmt;
 			section->setPosition(Vec2f(xPos, yPos));
@@ -287,8 +274,8 @@ namespace touchObject {
 			float bottom = section->getPosition().y + section->getHeight();
 
 			//Check if the section has gone past the bottom set it to the top of the scroll view 
-			if (top  > mBreakLineBottom)popSection(section, true);//section->top
-			else if ((bottom) < mBreakLineTop)popSection(section, false);//section ->bottom
+			if (top  > mBreakLineBack)popSection(section, true);//section->top
+			else if ((bottom) < mBreakLineFront)popSection(section, false);//section ->bottom
 
 			//Get the next Section
 			if (offsetAmt < 0)section = getNewSectionPointer(section, true);//Work our way up from the bottom
@@ -308,7 +295,7 @@ namespace touchObject {
 			//check if the right most sections position + width is past the right break point
 			//get the distance from the rightsight of the rightmost section to the rightbreak point
 			float sectionBottomEdge = cell->getPosition().y + cell->getHeight();
-			float dist = sectionBottomEdge - mBreakLineBottom;
+			float dist = sectionBottomEdge - mBreakLineBack;
 			if (abs(offsetAmt)>dist) offsetAmt = -dist;
 
 		}
@@ -317,13 +304,13 @@ namespace touchObject {
 			cell = mTopSection;//Start with the topmost section and work down
 
 			//check if the left most sections position  is past the  left break point
-			float dist = (mBreakLineTop - cell->getPosition().y);
+			float dist = (mBreakLineFront - cell->getPosition().y);
 			if (offsetAmt > dist) offsetAmt = dist;
 
 		}
 
 		mCurrentOffset += offsetAmt;
-		for (int i = 0; i<mTotalSections; i++){
+		for (auto cell : mScrollViewCells){
 			float xPos = cell->getPosition().x;
 			float yPos = cell->getPosition().y + offsetAmt;
 			cell->setPosition(Vec2f(xPos, yPos));
@@ -332,8 +319,8 @@ namespace touchObject {
 			float bottom = cell->getPosition().y + cell->getHeight();
 
 			//Check if the section has gone past the bottom set it to the top of the scroll view 
-			if (top  > mBreakLineBottom)popSection(cell, true);//section->top
-			else if ((bottom) < mBreakLineTop)popSection(cell, false);//section ->bottom
+			if (top  > mBreakLineBack)popSection(cell, true);//section->top
+			else if ((bottom) < mBreakLineFront)popSection(cell, false);//section ->bottom
 
 			//Get the next Section
 			if (offsetAmt < 0)cell = getNewSectionPointer(cell, true);//Work our way up from the bottom
@@ -347,14 +334,13 @@ namespace touchObject {
 		ScrollViewCellRef cell;
 		if (offsetAmt < 0){//If scrolling left 
 			cell = mRightSection;//start with the bottom most section and work up 
-
 		}
 		else{//Scrolling right
 			cell = mLeftSection;//Start with the topmost section and work down
 		}
 
 		mCurrentOffset += offsetAmt;
-		for (int i = 0; i < mTotalSections; i++){
+		for (auto c : mScrollViewCells){
 
 			float xPos = cell->getPosition().x + offsetAmt;
 			float yPos = cell->getPosition().y;
@@ -365,8 +351,8 @@ namespace touchObject {
 			float right = cell->getPosition().x + cell->getWidth();
 
 			//Check if the section has gone past the bottom set it to the top of the scroll view 
-			if (left > mBreakLineRight)			popSection(cell, true);//section->top
-			else if ((right) < mBreakLineLeft)	popSection(cell, false);//section ->bottom
+			if (left > mBreakLineBack)			popSection(cell, true);//section->top
+			else if ((right) < mBreakLineFront)	popSection(cell, false);//section ->bottom
 
 
 			//Get the next Section to reposition
@@ -385,7 +371,7 @@ namespace touchObject {
 			//check if the right most sections position + width is past the right break point
 			//get the distance from the rightsight of the rightmost section to the rightbreak point
 			float sectionRightEdge = cell->getPosition().x + cell->getWidth();
-			float dist = sectionRightEdge - mBreakLineRight;
+			float dist = sectionRightEdge - mBreakLineBack;
 			if (abs(offsetAmt)>dist) offsetAmt = -dist;
 
 		}
@@ -394,13 +380,13 @@ namespace touchObject {
 			cell = mLeftSection;//Start with the topmost section and work down
 
 			//check if the left most sections position  is past the  left break point
-			float dist = (mBreakLineLeft - cell->getPosition().x);
+			float dist = (mBreakLineFront - cell->getPosition().x);
 			if (offsetAmt > dist) offsetAmt = dist;
 
 		}
 
 		mCurrentOffset += offsetAmt;
-		for (int i = 0; i < mTotalSections; i++){
+		for (auto cell : mScrollViewCells){
 
 			float xPos = cell->getPosition().x + offsetAmt;
 			float yPos = cell->getPosition().y;
@@ -495,7 +481,7 @@ namespace touchObject {
 		else{
 			int nextIndex = ((section->getSectionTag()) + 1);
 			//if the index is  past the end of the child objects vector set it to the begining 
-			if (nextIndex >= mTotalSections)	nextIndex = 0;
+			if (nextIndex >= mScrollViewCells.size())	nextIndex = 0;
 			nextSection = mScrollViewCells.at(nextIndex);
 		}
 
@@ -552,16 +538,16 @@ namespace touchObject {
 		if (mScrollViewOrientation == Horizontal){
 
 			gl::color(0, 1, 0);
-			gl::drawLine(Vec2f(mBreakLineLeft, 0) + pos, Vec2f(mBreakLineLeft, getHeight()) + pos);
+			gl::drawLine(Vec2f(mBreakLineFront, 0) + pos, Vec2f(mBreakLineFront, getHeight()) + pos);
 			gl::color(1, 0, 0);
-			gl::drawLine(Vec2f(mBreakLineRight, 0) + pos, Vec2f(mBreakLineRight, getHeight()) + pos);
+			gl::drawLine(Vec2f(mBreakLineBack, 0) + pos, Vec2f(mBreakLineBack, getHeight()) + pos);
 
 		}
 		else{
 			gl::color(0, 1, 0);
-			gl::drawLine(Vec2f(0, mBreakLineTop) + pos, Vec2f(getWidth(), mBreakLineTop) + pos);
+			gl::drawLine(Vec2f(0, mBreakLineFront) + pos, Vec2f(getWidth(), mBreakLineFront) + pos);
 			gl::color(1, 0, 0);
-			gl::drawLine(Vec2f(0, mBreakLineBottom) + pos, Vec2f(getWidth(), mBreakLineBottom) + pos);
+			gl::drawLine(Vec2f(0, mBreakLineBack) + pos, Vec2f(getWidth(), mBreakLineBack) + pos);
 		}
 	}
 }

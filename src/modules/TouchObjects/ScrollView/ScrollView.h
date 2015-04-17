@@ -21,29 +21,47 @@ namespace touchObject {
 
 	class ScrollView : public touchObject::BaseTouchObject{
 	public:
+
+		/**
+		* Controls the orientation the in which cells move
+		*/
 		enum ScrollViewOrientation { Vertical, Horizontal /*,MultiDirectional*/ };
-		//Continous will pop sections to the opposite end
-		//NonContinous will stop scrolling when an end is reached
+		
+		/**
+		*	Continous will will allow cells to wrap around
+		*	NonContinous will stop scrolling when an end is reached
+		*/
 		enum ScrollViewType { Continuous, NonContinuous };
 
+
+		//Creation functions
 		ScrollView();
 		static ScrollViewRef create(cinder::Vec2f pos, cinder::Vec2f size, ScrollViewType scrollType, ScrollViewOrientation scrollOrientation);
+		void  addSection(ScrollViewCellRef section);
+
+		
 		virtual void update();
-		virtual void render();
 		virtual void draw();
 
+		//Properties
+		
+		/**
+		* Controls how far the view is scrolled in relation to input movement
+		*/
 		void  setTouchMulitplier(float multiplier){ mTouchMultiplier = multiplier; };
 		float getTouchMultiplier(){ return mTouchMultiplier; };
 		
+		/**
+		*	Controls how far the view continues to scroll after input has eneded
+		*/
 		void  setMomentum(float momentum){ mMomentum = momentum; };
 		float getMomentum(){ return mMomentum; };
 
-		void  setScrollPercentage(float targetPercentage);
-		void  addSection(ScrollViewCellRef section);
-		void  setOffsetPercentageAmount(float offset);
-		float getScrollPercentage();
-		virtual void  layoutSections();
 
+		void  setScrollPercentage(float targetPercentage);
+		float getScrollPercentage();
+
+		
 		/**
 		* Default is TRUE, Subviews are drawn to an fbo on update.
 		*
@@ -61,11 +79,17 @@ namespace touchObject {
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
 
-
-		void  getTotalSectionSize();
+		virtual void render();
+		virtual void layoutSections();
+		/**
+		*	Calculates the width and height of all the cell combined with the cell spacing
+		*/
+		ci::Vec2f getContentSize();
 		void  setBreaklines();
-		void  setSectionPntrs();
+		
 		void  repositionSections(float offsetAmt);
+		
+		
 		void  updateSections_Vertical_Continuous(float offsetAmt);
 		void  updateSections_Vertical_NonContinuous(float offsetAmt);
 		void  updateSections_Horiz_Continuous(float offsetAmt);
@@ -77,32 +101,40 @@ namespace touchObject {
 		void drawBreakLines();
 
 
+		//Properties
 
 		ScrollViewOrientation mScrollViewOrientation;
 		ScrollViewType mScrollViewType;
+		bool mShouldClipSubviews;
 
-		cinder::Vec2f mCurrentTouchPosition, mOldTouchPosition;
+
+		//Movement
+		cinder::Vec2f	mCurrentTouchPosition, 
+						mPreviousTouchPosition;
 	
-		float mBreakLineTop, mBreakLineBottom, mBreakLineLeft, mBreakLineRight;
-		float mContentSize;
-		float mVerticalSectionSpacing, mHorizSectionSpacing;
 		float mTouchMultiplier;
 		float mMomentum;
 		cinder::Anim<float> mUpdateAmount;
 		float mCurrentOffset;
-		ScrollViewCellRef mTopSection, 
+
+		//Layout
+		float	mBreakLineFront,
+				mBreakLineBack;
+				
+
+		float	mVerticalCellSpacing,
+				mHorizontalCellSpacing;
+
+		ScrollViewCellRef	 mTopSection, 
 							 mBottomSection,
 						 	 mLeftSection, 
 							 mRightSection;	
 
-		bool mViewCarriesMomentum;
 		
 		std::vector<ScrollViewCellRef> mScrollViewCells;
-		int mTotalSections;
 
+		//Used for Masking the view 
 		cinder::gl::Fbo				mFbo;
 		
-		bool mShouldClipSubviews;
-	
 	};
 }
