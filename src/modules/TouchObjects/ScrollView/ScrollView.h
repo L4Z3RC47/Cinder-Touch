@@ -32,7 +32,7 @@ namespace touchObject {
 		*	NonContinous will stop scrolling when an end is reached
 		*/
 		enum ScrollViewType { Continuous, NonContinuous };
-
+		enum ScrollViewEnd { FRONT = 0, BACK };
 
 		//Creation functions
 		ScrollView();
@@ -90,10 +90,9 @@ namespace touchObject {
 		void  repositionSections(float offsetAmt);
 		
 		
-		void  updateSections_Continuous(float offsetAmt);
-		void  updateSections_Vertical_NonContinuous(float offsetAmt);
+		void  updateCells_Continuous(float offsetAmt);
+		void  updateCells_NonContinuous(float offsetAmt);
 		
-		void  updateSections_Horiz_NonContinuous(float offsetAmt);
 		/**
 		*	Updates a cells position based on what the type of scrollview it is.
 		*	Returns the Front and Back Edges of the cellin a Vec2f
@@ -124,7 +123,7 @@ namespace touchObject {
 		float	mBreakLineFront,
 				mBreakLineBack;
 				
-
+		bool mNeedsLayout;
 	
 		ScrollViewCellRef	 mFrontCell,
 							 mBackCell;

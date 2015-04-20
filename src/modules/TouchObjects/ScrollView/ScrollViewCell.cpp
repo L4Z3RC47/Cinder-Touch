@@ -21,6 +21,7 @@ namespace touchObject {
 
 	ScrollViewCellRef ScrollViewCell::create(cinder::Vec2f size){
 		ScrollViewCellRef  sectionRef(new ScrollViewCell());
+
 		sectionRef->setSize(size);
 		return sectionRef;
 	}
