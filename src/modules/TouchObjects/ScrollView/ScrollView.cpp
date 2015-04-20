@@ -110,24 +110,22 @@ namespace touchObject {
 
 		//set top and bottom section pointers- thsese keep track of where the top and bototm of the sections stack is 
 
-
+		float curPos = mBreakLineFront;
 		if (mScrollViewOrientation == Horizontal){
 
-			float curPos = mBreakLineFront;//Left break
+		
 			for (ScrollViewCellRef cell : mScrollViewCells){
 				
 				float sectionWidth = cell->getWidth();
 				float sectionLeftInset = cell->getLeftPadding();
-				float ypos = getCenter().y - cell->getHeight() / 2;
-
-				cell->setPosition(Vec2f(curPos, ypos));
+				cell->setPosition(Vec2f(curPos - sectionLeftInset, getPosition().y));
 				curPos += sectionWidth - sectionLeftInset;
-			//	curPos += mHorizontalCellSpacing;
+			
 			}
 		}
 		else if (mScrollViewOrientation == Vertical){
 
-			float curPos = mBreakLineFront;
+		
 			for (ScrollViewCellRef cell : mScrollViewCells){
 				
 				float sectionHeight = cell->getHeight();
@@ -215,11 +213,9 @@ namespace touchObject {
 			repositionSections(mUpdateAmount* mTouchMultiplier);
 			//Gradually slow scrolling
 			timeline().apply(&mUpdateAmount, 0.0f, mMomentum, EaseOutExpo());
-		
-		
-
 		}
-		if (mShouldClipSubviews){
+		
+if (mShouldClipSubviews){
 			render();
 		}
 		

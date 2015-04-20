@@ -40,7 +40,7 @@ void ScrollviewSampleApp::setup()
 
 		if (i == 0){
 			color = Color(255, 0, 100);
-			cell->setTopPadding(-25.0f);
+			cell->setTopPadding(25.0f);
 		}
 		else if (i == 1)color = Color(255, 255, 0);
 		else if (i == 2){
