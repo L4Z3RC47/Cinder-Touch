@@ -74,6 +74,8 @@ namespace touchObject {
 			return contentSize;
 	}
 
+	
+
 	//This sets lines where cell will decide If they need be repositioned on the opposite end of the stack
 	void  ScrollView::setBreaklines(){
 
@@ -99,9 +101,8 @@ namespace touchObject {
 
 
 		mFrontCell = mScrollViewCells.front();
-	    mBackCell = mScrollViewCells.back();
+		mBackCell = mScrollViewCells.back();
 	}
-
 
 	
 
