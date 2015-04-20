@@ -105,30 +105,24 @@ namespace touchObject {
 	}
 
 	
-
-
 	void ScrollView::layoutSections(){
 
 		//set top and bottom section pointers- thsese keep track of where the top and bototm of the sections stack is 
 
 		float curPos = mBreakLineFront;
-		if (mScrollViewOrientation == Horizontal){
 
-		
-			for (ScrollViewCellRef cell : mScrollViewCells){
-				
+
+		for (ScrollViewCellRef cell : mScrollViewCells){
+
+			if (mScrollViewOrientation == Horizontal){
+
 				float sectionWidth = cell->getWidth();
 				float sectionLeftInset = cell->getLeftPadding();
 				cell->setPosition(Vec2f(curPos - sectionLeftInset, getPosition().y));
 				curPos += sectionWidth - sectionLeftInset;
-			
 			}
-		}
-		else if (mScrollViewOrientation == Vertical){
+			else if (mScrollViewOrientation == Vertical){
 
-		
-			for (ScrollViewCellRef cell : mScrollViewCells){
-				
 				float sectionHeight = cell->getHeight();
 				float sectionTopInset = cell->getTopPadding();
 
@@ -137,7 +131,6 @@ namespace touchObject {
 			}
 		}
 	}
-
 
 
 
@@ -490,7 +483,7 @@ if (mShouldClipSubviews){
 		
 	
 
-		//drawBreakLines();
+		drawBreakLines();
 	}
 
 	void ScrollView::drawBreakLines(){
