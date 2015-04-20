@@ -15,7 +15,7 @@ namespace touchObject {
 
 	ScrollViewCell::ScrollViewCell() : BaseTouchObject(),
 		mPadding(Rectf::zero())
-		//mSectionTag(0)
+		
 	{};
 
 

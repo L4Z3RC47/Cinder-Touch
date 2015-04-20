@@ -30,7 +30,7 @@ void ScrollviewSampleApp::setup()
 	mMouseConnection.connect();
 
 	//Create a vertical Scrollview
-	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::NonContinuous, ScrollView::ScrollViewOrientation::Vertical);
 	mVerticalScrollViewRef->setShouldClipSubviews(false);
 
 	for (int i = 0; i < 5; i++){
@@ -55,7 +55,7 @@ void ScrollviewSampleApp::setup()
 
 	//Create A Horizontal Scrollview
 
-	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Horizontal);
+	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::NonContinuous, ScrollView::ScrollViewOrientation::Horizontal);
 	mHorizontalScrollViewRef->setShouldClipSubviews(true);
 
 	for (int i = 0; i < 5; i++){

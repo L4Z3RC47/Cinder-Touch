@@ -90,11 +90,15 @@ namespace touchObject {
 		void  repositionSections(float offsetAmt);
 		
 		
-		void  updateSections_Vertical_Continuous(float offsetAmt);
+		void  updateSections_Continuous(float offsetAmt);
 		void  updateSections_Vertical_NonContinuous(float offsetAmt);
-		void  updateSections_Horiz_Continuous(float offsetAmt);
+		
 		void  updateSections_Horiz_NonContinuous(float offsetAmt);
-
+		/**
+		*	Updates a cells position based on what the type of scrollview it is.
+		*	Returns the Front and Back Edges of the cellin a Vec2f
+		*/
+		ci::Vec2f  updateCellPosition(ScrollViewCellRef cell, float offsetAmt);
 		void  popCell(ScrollViewCellRef section, bool toFront);
 
 		void drawBreakLines();
