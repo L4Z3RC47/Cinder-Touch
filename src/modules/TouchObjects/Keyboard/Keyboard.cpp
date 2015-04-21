@@ -22,6 +22,7 @@ namespace touchObject{
 
 
 		keyboardObjRef->setPosition(pos);
+		
 		keyboardObjRef->setSize(size);
 		keyboardObjRef->setObjectColor(ci::ColorA(1, 0, 0, 1));
 
@@ -32,6 +33,7 @@ namespace touchObject{
 		std::shared_ptr<Keyboard> keyboardRef = dynamic_pointer_cast<Keyboard>(shared_from_this());
 		shared_from_this();
 		keyRef->setKeyboard(keyboardRef);
+		keyRef->setParentPosition(getGlobalPosition());
 		mKeys.push_back(keyRef);
 	}
 
@@ -65,15 +67,15 @@ namespace touchObject{
 		}
 	}
 
-	void Keyboard::draw(const cinder::Vec2f &parentTranslatePos){
+	void Keyboard::draw(cinder::Vec2f translationOffset){
 		gl::pushMatrices(); {
-			gl::translate(mPosition);
+			gl::translate(translationOffset);
 
 			gl::color(getObjectColor());
-			drawDebugBox(true);//if translating, let the debug box know
+			drawDebugBox();//if translating, let the debug box know
 
-			for (auto k : mKeys){
-				k->draw(mPosition + parentTranslatePos);
+			for (auto key : mKeys){
+				key->draw(getPosition());
 			}
 
 			

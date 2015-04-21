@@ -60,14 +60,11 @@ namespace touchObject{
 	void Key::setKeyboard(std::shared_ptr<class	Keyboard> keyboardRef){
 		mKeyboardRef = keyboardRef; 
 	}
-
-	void Key::draw(const cinder::Vec2f &parentTranslatePos){
-
-		if (parentTranslatePos != Vec2f::zero())
-			setParentTranslatePosition(parentTranslatePos);
+	
+	void	Key::draw(cinder::Vec2f translationOffset){
 
 		gl::pushMatrices(); {
-			gl::translate(mPosition);
+			gl::translate(translationOffset);
 
 
 
@@ -79,11 +76,11 @@ namespace touchObject{
 				gl::color(1, 1, 1);
 			}
 			gl::lineWidth(2.25f);
-			gl::drawStrokedRoundedRect(Rectf(0, 0, getWidth(), getHeight()), 5.0f);
+			gl::drawStrokedRoundedRect(getRect(LOCAL), 5.0f);
 
 
 			gl::color(1, 1, 1);
-			gl::drawStringCentered(mKeyLabelText, Vec2f(getWidth() / 2.0f, getHeight() / 2.0f), mLabelColor, mLabelFont);
+			gl::drawStringCentered(mKeyLabelText, getCenter(), mLabelColor, mLabelFont);
 
 
 		}gl::popMatrices();

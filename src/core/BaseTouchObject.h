@@ -44,7 +44,7 @@ namespace touchObject {
 		//Positioning Functions
 		virtual void				setPosition ( const cinder::Vec2f &pt);
 		const cinder::Vec2f&		getPosition()										{ return mPosition; };
-		const cinder::Vec2f		getGlobalPosition()									{ return mPosition + mParentPosition; };
+		const cinder::Vec2f		    getGlobalPosition()									{ return mPosition + mParentPosition; };
 
 		void						setParentPosition(cinder::Vec2f parentPoint)		{ mParentPosition = parentPoint; };
 		const cinder::Vec2f&		getParentPosition()									{ return mParentPosition; };

@@ -27,8 +27,7 @@ namespace touchObject{
 
 
 		//Drawing
-		void draw(const cinder::Vec2f &parentTranslatePos  =cinder::Vec2f(0.0f,0.0f));
-		
+		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 		
 		//Properties
 		

@@ -19,7 +19,7 @@ namespace touchObject{
 		static  KeyboardRef	create(const cinder::Vec2f &pos, const cinder::Vec2i &size);
 		void	addKey(std::shared_ptr<class Key> keyRef);
 		virtual void	keyPressed(std::shared_ptr<class Key> touchedKey);
-		void	draw(const cinder::Vec2f &parentTranslatePos  =cinder::Vec2f(0.0f,0.0f));
+		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 		void	keyHasTouchDown(bool state, std::shared_ptr<class Key> key);
 		void	setSubmitFunction(SubmitFunction fn)     { mSubmitFn = fn; };
 
