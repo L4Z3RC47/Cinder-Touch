@@ -7,8 +7,7 @@ using namespace touchObject;
 
 SampleObject::SampleObject() : BaseTouchObject(),
 mCurPos(Vec2f(0.0f, 0.0f)),
-mPrevPos(Vec2f(0.0f, 0.0f)),
-mParentTranslatePos(Vec2f(0.0f, 0.0f))
+mPrevPos(Vec2f(0.0f, 0.0f))
 {
 }
 
@@ -51,14 +50,16 @@ void SampleObject::touchesMovedHandler(int touchID, const cinder::Vec2f &touchPn
 void SampleObject::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
 	console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 }
+void	SampleObject::setPosition(const cinder::Vec2f &pt){
+	BaseTouchObject::setPosition(pt);
 
-void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
+	for (auto child : mChildVector){
+		child->setParentPosition(getGlobalPosition());
+	}
+}
+void SampleObject::draw(cinder::Vec2f translationOffset) {
 	
 		
-	//If the parent of this object translated the space, we need to know about it 
-	//so we can set the new translation position in the TouchManager. 
-	if (parentTranslatePos != Vec2f::zero())
-		setParentTranslatePosition(parentTranslatePos);
 
 	//////////////////////////////
 	//OPTION 1 : TO MOVE THE OBJECTS TOGETHER
@@ -66,24 +67,26 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 
 	//push & translate
 	gl::pushMatrices(); {
-		gl::translate(mPosition);
-		setTranslating(true);
+		gl::translate(translationOffset);
+		console() << "TRANSLATION OFFSET " << translationOffset << endl;
+
 
 		//draw the object
 		gl::color(getObjectColor());
-		gl::drawSolidCircle(getSize() / 2, getWidth() / 2); //center the circle in the middle of the touch area
+		gl::drawSolidCircle(getRect(LOCAL).getCenter(), getWidth()/ 2.0f); //center the circle in the middle of the touch area
 		
 		//SHOW YOUR TOUCHABLE AREA :: this is a debug option
-		drawDebugBox(true);
+		drawDebugBox();
 
 		//draw the children of this object
 		for (auto child : mChildVector){
-			child->draw(mPosition + parentTranslatePos);
+			child->draw(getPosition());
 
 			//line connecting to child
 			gl::color(1.0f, 1.0f, 1.0f);
-			gl::drawLine(Vec2f::zero() + getSize() / 2, child->getPosition() + child->getSize() / 2);
+			gl::drawLine(getCenter(), child->getCenter() + getPosition() );
 		}
+
 	}gl::popMatrices();
 	
 

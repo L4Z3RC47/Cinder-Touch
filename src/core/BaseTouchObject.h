@@ -24,7 +24,7 @@ namespace touchObject {
 	typedef std::map       <int, TouchObjectWeakRef>			TouchObjectMap;
 
 	enum TouchType { TOUCH, OBJECT, MOUSE };
-
+	enum CoordinateSpace { LOCAL, GLOBAL };
 	class BaseTouchObject : public std::enable_shared_from_this<BaseTouchObject> {
    
 	public:
@@ -36,16 +36,18 @@ namespace touchObject {
 		
 		
 		//Drawing Functions
-		virtual void				draw();
+		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 		//Draws an the outer box of the object, and the objects to string in the center, helpful for debugging pourposes.
-		virtual void				drawDebugBox(bool isTranslating = false);
+		virtual void				drawDebugBox();
     
 
 		//Positioning Functions
 		virtual void				setPosition ( const cinder::Vec2f &pt);
 		const cinder::Vec2f&		getPosition()										{ return mPosition; };
+		const cinder::Vec2f		getGlobalPosition()									{ return mPosition + mParentPosition; };
 
-		void						setParentTranslatePosition(cinder::Vec2f translatePoint){ mParentTranslatePosition = translatePoint; };
+		void						setParentPosition(cinder::Vec2f parentPoint)		{ mParentPosition = parentPoint; };
+		const cinder::Vec2f&		getParentPosition()									{ return mParentPosition; };
 
 		//Size Functions
 		virtual void                setSize(const cinder::Vec2f &size)					{ mWidth = size.x; mHeight = size.y; };
@@ -56,27 +58,25 @@ namespace touchObject {
 		virtual float						getHeight()											{ return mHeight; };
 		
 		//Get position and size as a rectObject
-		const cinder::Rectf 		getRect(){ 
+		const cinder::Rectf 		getRect(CoordinateSpace coordinateSpace){
 			//for drawing, we need to be able to draw these differently depening on if the object is already being translated. 
 			//But for finding if a touch point exists within this space, we need to know the global location -- so that is handled separately
-			if (mTranslating){
+			if (coordinateSpace == LOCAL){
 				return  cinder::Rectf(
-					0.0f,
-					0.0f,
-					mWidth,
-					mHeight);
-			}
-			else{
+					mPosition.x ,
+					mPosition.y ,
+					mPosition.x + mWidth*mScale.x,
+					mPosition.y + mHeight*mScale.y);
+			}else{
 				return  cinder::Rectf(
-					mPosition.x,
-					mPosition.y,
-					mPosition.x + mWidth,
-					mPosition.y + mHeight);
+					mPosition.x + mParentPosition.x,
+					mPosition.y + mParentPosition.y,
+					mPosition.x + mParentPosition.x + mWidth*mScale.x,
+					mPosition.y + mParentPosition.y + mHeight*mScale.y);
 			}
 		}
-		const void					setTranslating(bool isTranslating)					{ mTranslating = isTranslating; };
-
-		const cinder::Vec2f			getCenter()											{ return getRect().getCenter();}
+	
+		const cinder::Vec2f			getCenter()											{ return getRect(LOCAL).getCenter();}
     
 		//Color
 		virtual void                setObjectColor(  const cinder::ColorA &color )		{ mObjectColor = color; };
@@ -113,7 +113,7 @@ namespace touchObject {
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
 
-	cinder::Vec2f				mPosition, mParentTranslatePosition, mScale;
+		cinder::Vec2f				mPosition, mParentPosition, mScale;
 
 		float						mWidth,
 									mHeight;
@@ -135,7 +135,7 @@ private://No one other than this class can access these variables
 
 
 		bool						mAcceptTouch;
-		bool						mTranslating;
+	
 		//Object Identification 
 		int							mUniqueID,
 									mTouchesCallbackId;

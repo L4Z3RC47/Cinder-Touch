@@ -52,16 +52,27 @@ void MultipleTouchObjectsApp::addObjects(){
 
 		//add this redObject to the vector of all the greenObject's children
 		mGreenObject->mChildVector.push_back(redObject);
-		redObject->setup(Vec2f(150.0f, i*150.0f), Vec2f(50.0f, 50.0f), ColorA(1.0f, 0.0f, 0.0f, 1.0f));
-
+		
+		redObject->setup(Vec2f(100.0f, i*150.0f), Vec2f(50.0f, 50.0f), ColorA(1.0f, 0.0f, 0.0f, 1.0f));
+		//Need to tell the red object about the Green object's position so we can detect touches
+		console() << "Green Global Pos " << mGreenObject->getGlobalPosition().x << " , " << mGreenObject->getGlobalPosition().y << endl;
+		redObject->setParentPosition(mGreenObject->getGlobalPosition() );
+		
 		//add 3 blue objects to each red object
 		for (int j = 0; j < 3; j++){
 			shared_ptr< class SampleObject > blueObject = shared_ptr<class SampleObject>(new SampleObject());
 			//add this blueObject to the vector of all the redObject's children
 			redObject->mChildVector.push_back(blueObject);
-			blueObject->setup(Vec2f(240.0f, j*50.0f), Vec2f(25.0f, 20.0f), ColorA(0.0f, 0.0f, 1.0f, 1.0f));
+			blueObject->setup(Vec2f(100.0f, j*50.0f), Vec2f(25.0f, 20.0f), ColorA(0.0f, 0.0f, 1.0f, 1.0f));
+			//Need to tell the blue object about the ReD object's position so we can detect touches
+		
+			console() << "redObject Global Pos " << redObject->getGlobalPosition().x << " , " << redObject->getGlobalPosition().y << endl;
+			blueObject->setParentPosition(redObject->getGlobalPosition());
+
 		}
+		
 	}
+	
 }
 
 void MultipleTouchObjectsApp::update(){

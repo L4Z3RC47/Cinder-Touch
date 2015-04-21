@@ -27,13 +27,17 @@ namespace touchObject {
 	}
 
 
+	void	ScrollViewCell::draw(cinder::Vec2f translationOffset){
+		gl::pushMatrices(); {
+			gl::translate(translationOffset);
+			gl::color(Color(1, 1, 1));
 
-	void ScrollViewCell::draw(){
-		gl::color(Color(1,1,1));
-	
-		drawDebugBox(true);
-		if (mImageTextureRef){
-			gl::draw(mImageTextureRef, getRect());
-		}
+			drawDebugBox();
+			//if (mImageTextureRef){
+			//	gl::draw(mImageTextureRef, getRect(LOCAL));
+			//}
+		}gl::popMatrices(); 
+
+
 	}
 }

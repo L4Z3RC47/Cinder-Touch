@@ -18,7 +18,7 @@ namespace touchObject {
 		mPreviousTouchPosition(Vec2f::zero()),
 		mUpdateAmount(0.0f),
 		mCurrentOffset(0.0f),
-		mMomentum(1.0f),
+		mMomentum(1.50f),
 		mScrollViewType(Continuous),
 		mTouchMultiplier(0.050f),
 		mShouldClipSubviews(true),
@@ -56,7 +56,7 @@ namespace touchObject {
 			cell->setPrevCell(lastCell);
 			lastCell->setNextCell(cell);
 		}
-
+		cell->setParentPosition(getPosition());
 		mScrollViewCells.push_back(cell);
 	
 	}
@@ -78,7 +78,7 @@ namespace touchObject {
 	void  ScrollView::setBreaklines(){
 
 		Vec2f contentSize = getContentSize();
-	
+
 			if (mScrollViewType == Continuous){
 				console() << "CENTER POINT " << getCenter() << endl;
 				float screenCenter = (mScrollViewOrientation == Horizontal) ? getCenter().x       : getCenter().y;
@@ -97,6 +97,7 @@ namespace touchObject {
 
 		mFrontCell = mScrollViewCells.front();
 		mBackCell = mScrollViewCells.back();
+	
 	}
 
 	
@@ -394,7 +395,6 @@ namespace touchObject {
 			mFbo.bindFramebuffer(); {
 				gl::translate(-getPosition());
 				
-
 					// clear out the FBO 
 					gl::clear(Color(0.0, 0.0, 0.0));
 					for (auto section : mScrollViewCells){
@@ -406,45 +406,48 @@ namespace touchObject {
 	}
 
 
-	void ScrollView::draw(){
+	void	ScrollView::draw(cinder::Vec2f translationOffset ){
+
 		//Draw ScrollView Background
-		//draw the sections 
-		
-		drawDebugBox(true);
+		gl::pushMatrices(); {
+			gl::translate(translationOffset);
+			drawDebugBox();
 
-		if (mShouldClipSubviews){
+			
+			if (mShouldClipSubviews){
 
-			gl::color(1, 1, 1);
-			gl::draw(mFbo.getTexture(), getRect());
+				gl::color(1, 1, 1);
+				gl::draw(mFbo.getTexture(), getRect(LOCAL));
 
-		}
-		else{
-			for (ScrollViewCellRef section : mScrollViewCells){
-				section->draw();
+			}else{
+			
+				for (ScrollViewCellRef cell : mScrollViewCells){
+					cell->draw();
+				}
 			}
-		}
 		
-	
-
-		drawBreakLines();
+			drawBreakLines();
+		}gl::popMatrices();
 	}
 
 	void ScrollView::drawBreakLines(){
+	
 		Vec2f pos = getPosition();
 		gl::lineWidth(2.0f);
 		if (mScrollViewOrientation == Horizontal){
 
 			gl::color(0, 1, 0);
-			gl::drawLine(Vec2f(mBreakLineFront, 0) + pos, Vec2f(mBreakLineFront, getHeight()) + pos);
+			gl::drawLine(Vec2f(mBreakLineFront, 0) , Vec2f(mBreakLineFront, getHeight()) );
 			gl::color(1, 0, 0);
-			gl::drawLine(Vec2f(mBreakLineBack, 0) + pos, Vec2f(mBreakLineBack, getHeight()) + pos);
+			gl::drawLine(Vec2f(mBreakLineBack, 0) , Vec2f(mBreakLineBack, getHeight()) );
 
 		}
 		else{
 			gl::color(0, 1, 0);
-			gl::drawLine(Vec2f(0, mBreakLineFront) + pos, Vec2f(getWidth(), mBreakLineFront) + pos);
+			gl::drawLine(Vec2f(0, mBreakLineFront) , Vec2f(getWidth(), mBreakLineFront) );
 			gl::color(1, 0, 0);
-			gl::drawLine(Vec2f(0, mBreakLineBack) + pos, Vec2f(getWidth(), mBreakLineBack) + pos);
+			gl::drawLine(Vec2f(0, mBreakLineBack) , Vec2f(getWidth(), mBreakLineBack) );
 		}
+	
 	}
 }

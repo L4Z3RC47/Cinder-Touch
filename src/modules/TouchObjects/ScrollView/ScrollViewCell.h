@@ -21,7 +21,8 @@ namespace touchObject {
 
 		ScrollViewCell();
 		static ScrollViewCellRef create(cinder::Vec2f size);
-		virtual void draw();
+		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
+
 
 		void  setTopPadding(float ins){ mPadding.y1 = ins; };
 		float getTopPadding(){ return mPadding.y1; };

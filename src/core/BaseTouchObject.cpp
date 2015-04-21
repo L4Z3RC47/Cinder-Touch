@@ -29,14 +29,13 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 BaseTouchObject::BaseTouchObject() :
 	mPosition(Vec2f::zero()),
-	mParentTranslatePosition(Vec2f::zero()),
+	mParentPosition(Vec2f::zero()),
 	mWidth(0.0f),
 	mHeight(0.0f),
 	mObjectColor(ColorA(1,0,1,1)),
 	mTouchesCallbackId(-1),
 	mAcceptTouch(true),
 	mUniqueID(ObjectID),
-	mTranslating(false),
 	mScale(Vec2f(1.0f, 1.0f))
 {
 	TotalObjectCount++;
@@ -64,10 +63,10 @@ void BaseTouchObject::setup(const cinder::Vec2f &pos, const cinder::Vec2f &size)
 }
 
 
-void  BaseTouchObject::drawDebugBox( bool translating ){
+void  BaseTouchObject::drawDebugBox(){
 	gl::lineWidth(2.0f);
 	gl::color(getObjectColor());
-	gl::drawStrokedRect(getRect());
+	gl::drawStrokedRect(getRect(LOCAL));
 }
 
 void BaseTouchObject::setPosition( const cinder::Vec2f &pt ){
@@ -92,11 +91,7 @@ void BaseTouchObject::endTouches(){
 
 bool BaseTouchObject::hasTouchPoint( const Vec2f &pnt ){
 	//global rectangle to grab the point, whether it's translating or not
-	Rectf globalRectSpace = Rectf(
-		mPosition.x + mParentTranslatePosition.x,
-		mPosition.y + mParentTranslatePosition.y,
-		mPosition.x + mParentTranslatePosition.x + mWidth*mScale.x,
-		mPosition.y + mParentTranslatePosition.y + mHeight*mScale.y);
+	Rectf globalRectSpace = getRect(GLOBAL);
 
 	if (globalRectSpace.contains(pnt)){
 		return true;//point is inside the bounding box 
@@ -110,9 +105,11 @@ std::string BaseTouchObject::getDebugString(){
 }
 
 //This Will be overridden for each subclass object
-void BaseTouchObject::draw(){	
-	//SHOW YOUR TOUCHABLE AREA
-	drawDebugBox();
+void	BaseTouchObject::draw(cinder::Vec2f translationOffset){
+	gl::pushMatrices(); {
+		gl::translate(translationOffset);
+		drawDebugBox();
+	}
 }
 
 };
