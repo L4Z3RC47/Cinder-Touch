@@ -30,7 +30,7 @@ void ScrollviewSampleApp::setup()
 	mMouseConnection.connect();
 
 	//Create a vertical Scrollview
-	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 100), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
 	mVerticalScrollViewRef->setShouldClipSubviews(false);
 
 	for (int i = 0; i < 6; i++){
@@ -86,7 +86,7 @@ void ScrollviewSampleApp::update()
 		TouchManager::getInstance()->update();
 		//Scroll views need to be updated to handle easing
 		mVerticalScrollViewRef->update();
-	//	mHorizontalScrollViewRef->update();
+		mHorizontalScrollViewRef->update();
 }
 
 void ScrollviewSampleApp::draw()

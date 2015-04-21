@@ -20,10 +20,10 @@ namespace touchObject {
 
 
 	ScrollViewCellRef ScrollViewCell::create(cinder::Vec2f size){
-		ScrollViewCellRef  sectionRef(new ScrollViewCell());
-
-		sectionRef->setSize(size);
-		return sectionRef;
+		ScrollViewCellRef  cellRef(new ScrollViewCell());
+		console() << "CELL POS " << cellRef->getRect(LOCAL).getUpperLeft() << endl;
+		cellRef->setSize(size);
+		return cellRef;
 	}
 
 
@@ -31,11 +31,9 @@ namespace touchObject {
 		gl::pushMatrices(); {
 			gl::translate(translationOffset);
 			gl::color(Color(1, 1, 1));
-
+		
 			drawDebugBox();
-			//if (mImageTextureRef){
-			//	gl::draw(mImageTextureRef, getRect(LOCAL));
-			//}
+
 		}gl::popMatrices(); 
 
 

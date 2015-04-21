@@ -39,10 +39,7 @@ namespace touchObject {
 
 		float getWidthWithPadding(){ return getWidth()   + getLeftPadding() + getRightPadding(); };
 		float getHeightWithPadding(){ return getHeight() + getTopPadding() + getBottomPadding(); };
-
-		//void setSectionTag(int tag){  mSectionTag=tag; };
-		//int  getSectionTag(){ return mSectionTag; };
-		
+	
 		void setPrevCell(ScrollViewCellRef cell){ mPrevCell = cell; };
 		ScrollViewCellRef getPrevCell(){ return mPrevCell; };
 		void clearPrevCell(){ mPrevCell.reset(); };
@@ -50,13 +47,11 @@ namespace touchObject {
 		void setNextCell(ScrollViewCellRef cell){ mNextCell = cell; };
 		ScrollViewCellRef getNextCell(){ return mNextCell; };
 		void clearNextCell(){ mNextCell.reset(); };
-		void setImage(cinder::gl::TextureRef texRef){ mImageTextureRef = texRef; };
 	
 	protected:
 
 		ci::Rectf mPadding;
-		//int mSectionTag;
-		cinder::gl::TextureRef mImageTextureRef;
+	
 		ScrollViewCellRef mPrevCell,mNextCell;
 			
 	};

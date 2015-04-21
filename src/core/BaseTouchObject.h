@@ -54,8 +54,8 @@ namespace touchObject {
 		const cinder::Vec2f			getSize()											{ return ci::Vec2f(mWidth, mHeight); };
 		
 
-		virtual float						getWidth()											{ return mWidth; };
-		virtual float						getHeight()											{ return mHeight; };
+		virtual float				getWidth()											{ return mWidth; };
+		virtual float				getHeight()											{ return mHeight; };
 		
 		//Get position and size as a rectObject
 		const cinder::Rectf 		getRect(CoordinateSpace coordinateSpace){
