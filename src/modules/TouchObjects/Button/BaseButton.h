@@ -25,7 +25,8 @@ namespace touchObject {
 
 		static  ButtonRef			create(cinder::Vec2f pos, cinder::Vec2f size, CallbackFunction callBackFn = CallbackFunction());
 		//Drawing Functions
-		virtual void				draw();
+		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
+
 
 		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);

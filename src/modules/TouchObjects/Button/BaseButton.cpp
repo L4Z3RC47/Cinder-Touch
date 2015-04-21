@@ -76,16 +76,17 @@ namespace touchObject {
 		}
 	}
 
-	void BaseButton::draw(){
+	void	BaseButton::draw(cinder::Vec2f translationOffset ){
+
 		gl::pushMatrices(); {
-			gl::translate(mPosition);
+			gl::translate(translationOffset);
 		
 
 			gl::color(getObjectColor());
 			drawDebugBox();//if translating, let the debug box know
 
 			if (!mObjectTouchIDs.empty()){
-				gl::drawSolidRect(Rectf(0,0,getWidth(),getHeight()));
+				gl::drawSolidRect(getRect(LOCAL));
 			}
 
 		}gl::popMatrices();

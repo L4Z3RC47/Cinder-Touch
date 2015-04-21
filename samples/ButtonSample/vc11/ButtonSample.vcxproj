@@ -108,10 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.cpp" />
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.cpp" />
     <ClCompile Include="..\src\ButtonSampleApp.cpp" />
     <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp" />
     <ClCompile Include="..\..\..\src\core\TouchManager.cpp" />
@@ -132,10 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.h" />
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.h" />
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\..\..\src\core\BaseTouchObject.h" />
     <ClInclude Include="..\..\..\src\core\TouchManager.h" />

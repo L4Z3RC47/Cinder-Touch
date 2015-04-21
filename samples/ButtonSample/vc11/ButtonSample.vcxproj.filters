@@ -61,12 +61,6 @@
     <Filter Include="Blocks\Touch\src\modules\TouchObjects\Button">
       <UniqueIdentifier>{e81a2111-2c63-41cd-a710-fddf2d76a47f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Keyboard">
-      <UniqueIdentifier>{b4952c88-2472-422e-9a1b-526c03a1092b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Blocks\Touch\src\modules\TouchObjects\Scrollview">
-      <UniqueIdentifier>{1ca1c17d-6380-4272-918b-ee86b2fb0799}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ButtonSampleApp.cpp">
@@ -207,18 +201,6 @@
     <ClCompile Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.cpp">
       <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.cpp">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -226,18 +208,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\modules\TouchObjects\Button\BaseButton.h">
       <Filter>Blocks\Touch\src\modules\TouchObjects\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Key.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\Keyboard\Keyboard.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollView.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\modules\TouchObjects\ScrollView\ScrollViewSection.h">
-      <Filter>Blocks\Touch\src\modules\TouchObjects\Scrollview</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
