@@ -55,8 +55,8 @@ void ScrollviewSampleApp::setup()
 
 	//Create A Horizontal Scrollview
 	
-	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Horizontal);
-	mHorizontalScrollViewRef->setShouldClipSubviews(false);
+	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::NonContinuous, ScrollView::ScrollViewOrientation::Horizontal);
+	mHorizontalScrollViewRef->setShouldClipSubviews(true);
 
 	for (int i = 0; i < 5; i++){
 		ScrollViewCellRef cell = ScrollViewCell::create(Vec2f(100, 100));
@@ -86,7 +86,7 @@ void ScrollviewSampleApp::update()
 		TouchManager::getInstance()->update();
 		//Scroll views need to be updated to handle easing
 		mVerticalScrollViewRef->update();
-		mHorizontalScrollViewRef->update();
+	//	mHorizontalScrollViewRef->update();
 }
 
 void ScrollviewSampleApp::draw()

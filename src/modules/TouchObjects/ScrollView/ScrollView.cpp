@@ -166,7 +166,7 @@ namespace touchObject {
 		//get An update amount
 		float updateAmount = percentageDifference*endPostion;
 		console() << "UpdateAmount " << updateAmount << endl;
-		repositionSections(updateAmount);
+		updateCellPositions(updateAmount);
 
 	}
 	float ScrollView::getScrollPercentage(){
@@ -197,11 +197,12 @@ namespace touchObject {
 			mNeedsLayout = false;
 		}
 
-		if (mUpdateAmount != 0){
-			repositionSections(mUpdateAmount* mTouchMultiplier);
+		if (abs(mUpdateAmount) > 0.01){
+			updateCellPositions(mUpdateAmount* mTouchMultiplier);
 			//Gradually slow scrolling
 			timeline().apply(&mUpdateAmount, 0.0f, mMomentum, EaseOutExpo());
 		}
+	
 		
 		if (mShouldClipSubviews){
 			render();
@@ -209,8 +210,8 @@ namespace touchObject {
 		
 	}
 
-	void ScrollView::repositionSections(float offsetAmt){
-	
+	void ScrollView::updateCellPositions(float offsetAmt){
+		console() << "UPDATE CELL POSITIONS" << endl;
 			if (mScrollViewType == Continuous){
 				updateCells_Continuous(offsetAmt);
 			}
@@ -229,12 +230,10 @@ namespace touchObject {
 		ScrollViewCellRef currentCell = (offsetAmt < 0) ? mBackCell : mFrontCell;////If scrolling up start with the bottom most section and work up //If Scrolling Down start with the topmost section and work down
 		
 		mCurrentOffset += offsetAmt;
-		console() << "------------------" << endl;
+		
 		for (auto cell : mScrollViewCells ){
 			Vec2f cellEdges = updateCellPosition(currentCell, offsetAmt);
-			console() << " FRONT EDGE" << cellEdges[FRONT] << " > " << mBreakLineBack << endl;
-			console() << " BACK EDGE" << cellEdges[BACK] << " < " << mBreakLineFront << "\n" << endl;
-			//Check if the section has gone past the bottom set it to the top of the scroll view 
+				//Check if the section has gone past the bottom set it to the top of the scroll view 
 			if (cellEdges[FRONT]  > mBreakLineBack)			{
 				popCell(currentCell, true);//current cell goes to FRONT
 			}
@@ -244,7 +243,7 @@ namespace touchObject {
 			currentCell = (offsetAmt < 0) ? currentCell->getPrevCell() : currentCell->getNextCell();//Work our way up from the bottom else Work our way down the sections
 		
 		}
-		console() << "------------------" << endl;
+	
 	}
 
 	void  ScrollView::updateCells_NonContinuous(float offsetAmt){

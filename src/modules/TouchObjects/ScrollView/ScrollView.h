@@ -88,7 +88,7 @@ namespace touchObject {
 		ci::Vec2f getContentSize();
 		void  setBreaklines();
 		
-		void  repositionSections(float offsetAmt);
+		void  updateCellPositions(float offsetAmt);
 		
 		
 		void  updateCells_Continuous(float offsetAmt);
