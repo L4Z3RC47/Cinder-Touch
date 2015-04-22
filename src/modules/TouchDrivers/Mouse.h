@@ -13,19 +13,29 @@ class Mouse{
 public:
 	Mouse();
 	~Mouse();
-	void connect();
+	void connect(bool debugMode = false);
 	void disconnect();
 
 private:
 	 //Mouse Event Callbacks
     boost::signals2::scoped_connection  mMouseBeganCallBack,
                                         mMouseMovedCallBack,
-                                        mMouseEndCallBack;
+                                        mMouseEndCallBack,
+										mKeyboardKeyDownCallBack,
+										mKeyboardKeyUpCallBack;
+
    
    void mouseBegan(const cinder::app::MouseEvent &event);
    void mouseMoved(const cinder::app::MouseEvent &event);
    void mouseEnded(const cinder::app::MouseEvent &event);
    
+   //DEBUG
+   void keyDown(const cinder::app::KeyEvent &event);
+   void keyUp(const cinder::app::KeyEvent &event);
+
    std::shared_ptr<class TouchManager>	mTouchManagerPntr;
    int									mTouchId;
+   
+   bool mDebugMode,mCrtlPressed, mIsAcceptingCntrPoint;
+   ci::Vec2f mDebugCenterPoint;
 };
