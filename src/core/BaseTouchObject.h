@@ -109,6 +109,7 @@ namespace touchObject {
 		//TOString - prints what the object actually is 
 		virtual std::string			getDebugString();
 
+		
 
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     

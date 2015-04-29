@@ -89,6 +89,8 @@ void BaseTouchObject::endTouches(){
 	}
 }
 
+
+
 bool BaseTouchObject::hasTouchPoint( const Vec2f &pnt ){
 	//global rectangle to grab the point, whether it's translating or not
 	Rectf globalRectSpace = getRect(GLOBAL);
