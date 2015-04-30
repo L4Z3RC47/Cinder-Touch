@@ -66,7 +66,7 @@ public:
     cinder::Vec2f   keepScaleWithinBounds(cinder::Vec2f newScale);
     
     float           getDistanceBetweenPoints( const cinder::Vec2f &pnt1, const cinder::Vec2f &pnt2 );
-    
+	bool            isWidthGreaterThanHeight();
     bool            isWidthProportionGreaterThanHeight();
     void            settleImageWithEasing();
     const cinder::Vec2f   getCenterOfTwoFingers();

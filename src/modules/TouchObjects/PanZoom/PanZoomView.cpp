@@ -56,21 +56,26 @@ namespace touchObject{
 	void	PanZoomView::addObject(PanZoomObjectRef pzObject){
 		mPanZoomObject = pzObject;
 		mPanZoomObject->setParentPosition(getPosition());
+		
+		//Set min scale
+		float newScale = mPanZoomObject->isWidthGreaterThanHeight() ? (getWidth() / mPanZoomObject->getWidth()) : (getHeight() / mPanZoomObject->getHeight());
+		console() << "Original Min Scale was : " << mPanZoomObject->getMinScale() << "New scale will be " << newScale << endl;
+		mPanZoomObject->setMinScale(Vec2f(newScale, newScale));
+		mPanZoomObject->setScale(Vec2f(newScale, newScale));
 	};
 
 	//External interaction functions
 
 	void	PanZoomView::setContentOffset(ci::Vec2f pnt, bool animated ){
-		console() << "PanZoomView:: SetContentOffset :" << pnt << endl;
-	
+
 		if (animated){
-			timeline().appendTo(&mMomentumUpdateAmount, mPanZoomObject->getPosition() - pnt, 1.0f).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));
+			timeline().appendTo(&mMomentumUpdateAmount, pnt, 1.0f).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));
 		}else{
 			mPanZoomObject->setPosition(pnt);
 		}
 	}
 	void PanZoomView::momentumUpdateFn(){
-		mOffsetUpdateAmount += mMomentumUpdateAmount;	
+		mOffsetUpdateAmount = mOffsetUpdateAmount.value() + mMomentumUpdateAmount;
 	}
 	void	PanZoomView::zoomToScale(float scale, bool animated){}
 
@@ -197,13 +202,16 @@ namespace touchObject{
 	
 			updateObjectPosition(mOffsetUpdateAmount);
 			mOffsetUpdateAmount = Vec2f::zero();
-	
 		
-		if (abs(mScaleUpdateAmount) > 0.00025){
+
 			updateObjectScale(mScaleUpdateAmount);
 			mScaleUpdateAmount = 0.0f;
-		}
-		
+
+
+			console() << "Object position " << mPanZoomObject->getPosition() << "  -- Scale " << mPanZoomObject->getScale().x << endl;
+
+
+
 		
 	
 		 render();

@@ -84,8 +84,8 @@ namespace touchObject {
 										mCurrentTouchDistance;
 	
 
-		ci::Vec2f mOffsetUpdateAmount;
-		cinder::Anim<ci::Vec2f>			mMomentumUpdateAmount;
+		
+		cinder::Anim<ci::Vec2f>			mOffsetUpdateAmount,mMomentumUpdateAmount;
 		cinder::Anim<float>				mScaleUpdateAmount;
 		
 		ci::Rectf						mContentInsets;

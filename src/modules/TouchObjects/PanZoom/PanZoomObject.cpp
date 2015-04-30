@@ -131,6 +131,9 @@ namespace touchObject{
 		return Vec2f(minScale, minScale);
 	}
 	*/
+	bool PanZoomObject::isWidthGreaterThanHeight(){
+		return (getWidth() > getHeight());
+	}
 	bool PanZoomObject::isWidthProportionGreaterThanHeight(){
 
 		float widthProportion = mImageBounds.getWidth() / mImage->getWidth();
