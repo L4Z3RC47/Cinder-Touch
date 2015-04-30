@@ -2,6 +2,7 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/Rand.h"
+#include "cinder/Timeline.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -10,15 +11,30 @@ using namespace std;
 namespace touchObject{
 
 	PanZoomView::PanZoomView() :
+		mPreviousTouchPosition(Vec2f::zero()),
+		mCurrentTouchPosition(Vec2f::zero()),
+		mTouchTimeStamp(0),
+		mInitalTouchDistance(0.0f),
 		mCurrentTouchDistance(0.0f),
-		mPositionUpdateAmount(Vec2f::zero()),
-		mScaleUpdateAmount(0.0f)
+
+		mOffsetUpdateAmount(Vec2f::zero()),
+		mMomentumUpdateAmount(Vec2f::zero()),
+		mScaleUpdateAmount(0.0f),
+
+		mContentInsets(Rectf::zero()),
+		mScrollBounceEnabled(true),
+		mZoomBouceEnabled(true),
+		mTracking(false),
+		mZooming(false),
+		mDecelerationRate(.50)
 	{
 
 	}
 
 	PanZoomView::~PanZoomView(){
 	}
+
+	//Creation Functions
 
 	PanZoomViewRef PanZoomView::create(Vec2f pos, Vec2f size){
 
@@ -37,6 +53,34 @@ namespace touchObject{
 		return panZoomViewRef;
 	}
 
+	void	PanZoomView::addObject(PanZoomObjectRef pzObject){
+		mPanZoomObject = pzObject;
+		mPanZoomObject->setParentPosition(getPosition());
+	};
+
+	//External interaction functions
+
+	void	PanZoomView::setContentOffset(ci::Vec2f pnt, bool animated ){
+		console() << "PanZoomView:: SetContentOffset :" << pnt << endl;
+	
+		if (animated){
+			timeline().appendTo(&mMomentumUpdateAmount, mPanZoomObject->getPosition() - pnt, 1.0f).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));
+		}else{
+			mPanZoomObject->setPosition(pnt);
+		}
+	}
+	void PanZoomView::momentumUpdateFn(){
+		mOffsetUpdateAmount += mMomentumUpdateAmount;	
+	}
+	void	PanZoomView::zoomToScale(float scale, bool animated){}
+
+	void    PanZoomView::zoomToPoint(const cinder::Vec2f &point, const cinder::Vec2f &scale, bool zoomOutAndIn){}
+
+	void    PanZoomView::resetContent(){}
+
+
+
+
 
 
 	void PanZoomView::touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
@@ -50,12 +94,13 @@ namespace touchObject{
 
 			//update touch point tracking variables - if the first one is not taken, create touch point 1, otherwise create touch point 2
 			if (mTouchMap.size() == 1){
-				mCurrentTouchPosition = touchPnt;
+				mPreviousTouchPosition = mCurrentTouchPosition = touchPnt;
+				mTouchTimeStamp = getElapsedSeconds();
 			
 			}else if (mTouchMap.size() == 2){
 
 				mCurrentTouchPosition = getTouchesMidpoint();
-				mCurrentTouchDistance = getTouchesDistance();
+				mInitalTouchDistance = mCurrentTouchDistance = getTouchesDistance();
 			}
 
 		}
@@ -75,16 +120,23 @@ namespace touchObject{
 			//now we just focus on scale changes
 			float mPreviousTouchDistance = mCurrentTouchDistance;
 			mCurrentTouchDistance = getTouchesDistance();
-			mScaleUpdateAmount = ((mCurrentTouchDistance - mPreviousTouchDistance) / mPreviousTouchDistance) ;
-		
+			if (mCurrentTouchDistance>10){
+				console() << "Inital DISTANCE DIFFERNECE :" << mInitalTouchDistance - mCurrentTouchDistance << endl;
+				console() << "DISTANCE DIFFERNECE :" << 1 - (mPreviousTouchDistance/mCurrentTouchDistance ) << endl;
+				float updateAmt = 1 - (mPreviousTouchDistance / mCurrentTouchDistance);
+
+				mScaleUpdateAmount = (1 - (mPreviousTouchDistance / mCurrentTouchDistance))*0.25f;
+			}
+
+
 		}
 			//not pinching, just one finger moving things around
 		else if (mTouchMap.size() == 1 ) {
 
 				//update position tracking
-				Vec2f previousTouchPosition = mCurrentTouchPosition;
+				mPreviousTouchPosition = mCurrentTouchPosition;
 				mCurrentTouchPosition = mTouchMap[mObjectTouchIDs.front()];
-				mPositionUpdateAmount = mCurrentTouchPosition - previousTouchPosition;
+				mOffsetUpdateAmount = mCurrentTouchPosition - mPreviousTouchPosition;
 			}
 		}
 
@@ -95,7 +147,12 @@ namespace touchObject{
 		removeTouch(touchID);
 			if (mTouchMap.size() == 2){//Scaling
 				mCurrentTouchPosition = mTouchMap[mObjectTouchIDs.front()];
+				mInitalTouchDistance = 0.0f;
+
 			}else{
+					
+				mMomentumUpdateAmount = (mCurrentTouchPosition - mPreviousTouchPosition) / 2;
+				timeline().apply(&mMomentumUpdateAmount, Vec2f::zero(), mDecelerationRate, EaseOutQuad()).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));;
 				mCurrentTouchPosition = Vec2f::zero();
 			}
 	}
@@ -136,17 +193,19 @@ namespace touchObject{
 
 
 	void PanZoomView::update(){
-		if (abs(mPositionUpdateAmount.value().x) > 0.00025 || abs(mPositionUpdateAmount.value().y) > 0.00025){
-			updateObjectPosition(mPositionUpdateAmount);
-		}
+		
+	
+			updateObjectPosition(mOffsetUpdateAmount);
+			mOffsetUpdateAmount = Vec2f::zero();
+	
 		
 		if (abs(mScaleUpdateAmount) > 0.00025){
 			updateObjectScale(mScaleUpdateAmount);
+			mScaleUpdateAmount = 0.0f;
 		}
 		
-		 timeline().apply(&mPositionUpdateAmount, Vec2f::zero(), 0.50, EaseOutExpo());
-		 timeline().apply(&mScaleUpdateAmount, 0.0f, 1.0, EaseOutExpo());
-		 console() << "POSITION UPDATE AMT " << mPositionUpdateAmount << endl;
+		
+	
 		 render();
 	 }
 
@@ -189,14 +248,15 @@ namespace touchObject{
 	 void		PanZoomView::updateObjectScale(float scaleUpdateAmt){
 
 			 Vec2f updatedScale = mPanZoomObject->getScale() + Vec2f(scaleUpdateAmt, scaleUpdateAmt);
-			 console() << "UPDATED SCALE : " << updatedScale << endl;
+		
 			 if (  updatedScale.x > mPanZoomObject->getMinScale().x  && updatedScale.x < mPanZoomObject->getMaxScale().x){
 				 mPanZoomObject->updateScale(scaleUpdateAmt, getTouchesMidpoint()-getPosition() );
 			
 			
-				 //Vec2f scalePositionOffset = -(mPanZoomObject->getSize()* scaleUpdateAmt / 2.0f) - getTouchesMidpoint();
-					// updateObjectPosition(scalePositionOffset);
+				 Vec2f scalePositionOffset = -(mPanZoomObject->getSize()* scaleUpdateAmt / 2.0f);
+					 updateObjectPosition(scalePositionOffset);
 			 }
+
 		 }
 
 	 void PanZoomView::render(){
@@ -216,49 +276,21 @@ namespace touchObject{
 		 }
 		 gl::setMatricesWindow(getWindowSize(), true);
 	 }
-	/*
-	void PanZoomView::zoomToPoint(const int &hotspotID, const Vec2f &hotspotCoordinate, const Vec2f &hotspotScale, bool zoomOutAndIn){
+	
 
-		//the old point =
-		//the new point =
-		//so the distance between should be used to determine the duration of time it takes to make that move
 
-		//tell the object to move to the corrent spot
-		//the distance traveled in the zoom to point will tell the overlay when to show
-		//if(mMainObject)             mMainObject->prepareToZoomAndMove(hotspotCoordinate, mMainObject->getCenterOfImageView(), hotspotScale, true, false, zoomOutAndIn);
-		//hide the hotspots
-		//if(mHotspotController)      mHotspotController->hideHotspots(hotspotID);
-		//show correct overlay
-		// if(mOverlay)                mOverlay->addActiveOverlay(hotspotID);
-
-		//only the first time a hotspot is touched
-		//if(mFirstHotspotTouch){
-		//    mFirstHotspotTouch = false;
-		//    mViewFinderController->firstHotspotTouched();
-		// }
-	}
-	*/
-
-	/*
-	void PanZoomView::resetImage(){
-
-		//if(mMainObject)             mMainObject->resetImage();
-
-	}
-	*/
 	void PanZoomView::draw(cinder::Vec2f translationOffset) {
 		//draw the main object, this is always drawing
 		//Draw ScrollView Background
 		gl::pushMatrices(); {
 			gl::translate(translationOffset);
 			
-			
 			gl::color(1, 1, 1);
-			//gl::draw(mFbo.getTexture(), getPosition());
+			gl::draw(mFbo.getTexture(), getPosition());
 
 			gl::enableAlphaBlending();
 			gl::color(ColorA(1, 0, 0, .5));
-			mPanZoomObject->draw(getPosition());
+			//mPanZoomObject->draw(getPosition());
 			drawDebugBox();
 		}gl::popMatrices();
 	}

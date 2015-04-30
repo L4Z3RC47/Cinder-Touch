@@ -20,26 +20,37 @@ namespace touchObject {
 		PanZoomView();
 		~PanZoomView();
 
-
+		//Creation Functions
 		static PanZoomViewRef create(cinder::Vec2f pos, cinder::Vec2f size);
-		void	addObject(PanZoomObjectRef pzObject){ 
-			mPanZoomObject = pzObject;
-			mPanZoomObject->setParentPosition(getPosition());
-		};
+		void			addObject(PanZoomObjectRef pzObject);
 
-		virtual void update();
+
+		
+		//External Interaction
+		/**
+		*	Programatically shifts the content to a new origin
+		*/
+		void			setContentOffset(ci::Vec2f pnt, bool animated=true);
+		/**
+		*	Programatically adjusts Zoom 
+		*/
+		void			zoomToScale(float scale, bool animated=true);
+		/**
+		*	Programatically adjusts orign and zoom level
+		*	@Param "zoomOutAndIn" will animate the zoom level out first, then to the new zoom level while panning to the new origin point.
+		*/
+		void			zoomToPoint(const cinder::Vec2f &point, const cinder::Vec2f &scale, bool zoomOutAndIn=true);
+		
+		/**
+		*	Resets content's origin and zoom to original location.
+		*/
+		void			resetContent();
+
+		virtual void	update();
 		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 
+		void momentumUpdateFn();
 
-		void    zoomToPoint(const int &hotspotID, const cinder::Vec2f &hotspotCoordinate, const cinder::Vec2f &hotspotScale, bool zoomOutAndIn);
-
-		void    mainImageWasTouched();
-
-		void    resetImage();
-
-
-		const ci::Vec2f getTouchesMidpoint();
-		const float getTouchesDistance();
 	protected:
 		//use virtual to override the BaseTouchObject calls
 		//with these functions, we will drag the objects around on the screen
@@ -47,26 +58,48 @@ namespace touchObject {
 		virtual void	touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
 		virtual void	touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
 		
+		void			addTouch(int touchID, cinder::Vec2f touchPnt);
+		void			removeTouch(int touchID);
+		
+		const ci::Vec2f getTouchesMidpoint();
+		const float		getTouchesDistance();
+
 		void			updateObjectPosition(ci::Vec2f posUpdateAmt);
 		void			updateObjectScale(float scaleUpdateAmt);
 		void			render();
-		void			addTouch(int touchID, cinder::Vec2f touchPnt);
-		void			removeTouch(int touchID);
+	
+	
 
 	private:
 
 		//Touch Handling
 		std::map<int, cinder::Vec2f>	mTouchMap;
-		cinder::Vec2f					mCurrentTouchPosition;
-		float							mCurrentTouchDistance;
+		
+		cinder::Vec2f					mPreviousTouchPosition,
+										mCurrentTouchPosition;
+		
+		double							mTouchTimeStamp;
+		
+		float							mInitalTouchDistance,
+										mCurrentTouchDistance;
+	
 
+		ci::Vec2f mOffsetUpdateAmount;
+		cinder::Anim<ci::Vec2f>			mMomentumUpdateAmount;
+		cinder::Anim<float>				mScaleUpdateAmount;
+		
+		ci::Rectf						mContentInsets;
 
-		cinder::Anim<ci::Vec2f> mPositionUpdateAmount;
-		cinder::Anim<float>		mScaleUpdateAmount;
+		bool							mScrollBounceEnabled,mZoomBouceEnabled, mTracking,mZooming;
+		
+		float							mDecelerationRate;
 
-		PanZoomObjectRef mPanZoomObject;
+		
+
+		PanZoomObjectRef				mPanZoomObject;
+		
 		//Used for Masking the view 
-		cinder::gl::Fbo				mFbo;
+		cinder::gl::Fbo					mFbo;
 
 	};
 };
