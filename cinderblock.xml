@@ -19,6 +19,10 @@
 	<headerPattern>src/modules/TouchObjects/Button/*.h</headerPattern>
 	<sourcePattern>src/modules/TouchObjects/Keyboard/*.cpp</sourcePattern>
 	<headerPattern>src/modules/TouchObjects/Keyboard/*.h</headerPattern>
+  <sourcePattern>src/modules/TouchObjects/ScrollView/*.cpp</sourcePattern>
+  <headerPattern>src/modules/TouchObjects/ScrollView/*.h</headerPattern>
+  <sourcePattern>src/modules/TouchObjects/PanZoom/*.cpp</sourcePattern>
+  <headerPattern>src/modules/TouchObjects/PanZoom/*.h</headerPattern>
 	<sourcePattern>src/modules/TouchDrivers/*.cpp</sourcePattern>
 	<headerPattern>src/modules/TouchDrivers/*.h</headerPattern>
 	

@@ -24,12 +24,14 @@ std::shared_ptr<TouchManager> TouchManager::getInstance(){
 }
 
 void TouchManager::update(){
-	updateTouches();
+	if (!mTouchManagerInstance){ TouchManager::getInstance(); }
+	mTouchManagerInstance->updateTouches();
 }
 
 void TouchManager::updateTouches(){
 	mUpdateMutex.lock();
 		if (!mTouchUpdateQueue.empty()){
+	
 			for (std::pair<TouchEventType, TouchObject> touchEvent : mTouchUpdateQueue){
 				TouchEventType touchEventType =touchEvent.first;
 				TouchObject	   touchObject = touchEvent.second;
@@ -212,8 +214,12 @@ touchObject::TouchObjectRef TouchManager::findTouchingObject(const cinder::Vec2f
 }
 
 void TouchManager::draw(){
-	mTouchMapLock.lock();
-		for (auto touch : mTouchMap) {
+
+	if (!mTouchManagerInstance){
+		getInstance();
+	}
+	mTouchManagerInstance->mTouchMapLock.lock();
+	for (auto touch : mTouchManagerInstance->mTouchMap) {
 			//ID of the touch
 			int touchId = touch.first;
 			//location of the touch
@@ -228,5 +234,5 @@ void TouchManager::draw(){
 			//gl::disableAlphaBlending();
 
 		}
-	mTouchMapLock.unlock();
+	mTouchManagerInstance->mTouchMapLock.unlock();
 }

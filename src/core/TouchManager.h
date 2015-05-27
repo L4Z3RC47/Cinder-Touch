@@ -26,8 +26,8 @@ public:
 	static std::shared_ptr<TouchManager> getInstance();
 	~TouchManager();
 
-	void					update();
-    void					draw(); 
+	static void					update();
+    static void					draw(); 
     
 	//Touch functions
 	void					touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType, TouchEventType eventType);

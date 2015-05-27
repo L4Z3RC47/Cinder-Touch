@@ -75,7 +75,9 @@ namespace touchObject{
 		}
 	}
 	void PanZoomView::momentumUpdateFn(){
+		
 		mOffsetUpdateAmount = mOffsetUpdateAmount.value() + mMomentumUpdateAmount;
+		console() << "MOMENTUM " << mOffsetUpdateAmount << endl;
 	}
 	void	PanZoomView::zoomToScale(float scale, bool animated){}
 
@@ -103,7 +105,7 @@ namespace touchObject{
 				mTouchTimeStamp = getElapsedSeconds();
 			
 			}else if (mTouchMap.size() == 2){
-
+			
 				mCurrentTouchPosition = getTouchesMidpoint();
 				mInitalTouchDistance = mCurrentTouchDistance = getTouchesDistance();
 			}
@@ -153,12 +155,11 @@ namespace touchObject{
 			if (mTouchMap.size() == 2){//Scaling
 				mCurrentTouchPosition = mTouchMap[mObjectTouchIDs.front()];
 				mInitalTouchDistance = 0.0f;
-
+		
 			}else{
-					
-				mMomentumUpdateAmount = (mCurrentTouchPosition - mPreviousTouchPosition) / 2;
-				timeline().apply(&mMomentumUpdateAmount, Vec2f::zero(), mDecelerationRate, EaseOutQuad()).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));;
+				settle();
 				mCurrentTouchPosition = Vec2f::zero();
+
 			}
 	}
 	void PanZoomView::addTouch(int touchID, cinder::Vec2f touchPnt){
@@ -208,7 +209,7 @@ namespace touchObject{
 			mScaleUpdateAmount = 0.0f;
 
 
-			console() << "Object position " << mPanZoomObject->getPosition() << "  -- Scale " << mPanZoomObject->getScale().x << endl;
+		//	console() << "Object position " << mPanZoomObject->getPosition() << "  -- Scale " << mPanZoomObject->getScale().x << endl;
 
 
 
@@ -266,6 +267,42 @@ namespace touchObject{
 			 }
 
 		 }
+
+	 void PanZoomView::settle(){
+	 
+		 mMomentumUpdateAmount = (mCurrentTouchPosition - mPreviousTouchPosition) / 2;
+
+		 //Should we center horizontally
+		 Vec2f objectSize = mPanZoomObject->getSize()* mPanZoomObject->getScale();
+		 Vec2f objectCenter = mPanZoomObject->getRect(LOCAL).getCenter();
+		 Vec2f viewCenter =	  getRect(LOCAL).getCenter();
+		 /*
+		 if (objectSize.x < getWidth()){
+			//Find offset needed to center object horizontally
+			 float centerXDiff = viewCenter.x - objectCenter.x;
+			 mMomentumUpdateAmount = Vec2f(mMomentumUpdateAmount.value().x + centerXDiff,0.0);
+		 }
+		 if (objectSize.y < getHeight()){
+			 //Find offset needed to center object horizontally
+			 float centerYDiff = (objectCenter.y - viewCenter.y) / 2;
+			 
+			 if (viewCenter.y > objectCenter.y){
+				 mPanZoomObject->setPosition(mPanZoomObject->getPosition() - Vec2f(0, centerYDiff));
+			 }
+			 else{
+				 mPanZoomObject->setPosition(mPanZoomObject->getPosition() + Vec2f(0, centerYDiff));
+			 
+			 }
+			
+			 
+			 console() << "CENTERING y :: " << centerYDiff << endl;
+			 mMomentumUpdateAmount = Vec2f(0.0,  centerYDiff);
+		
+		 }
+		 */
+		 timeline().apply(&mMomentumUpdateAmount, Vec2f::zero(), mDecelerationRate, EaseOutQuad()).updateFn(std::bind(&PanZoomView::momentumUpdateFn, this));
+
+	 }
 
 	 void PanZoomView::render(){
 		 Area area = gl::getViewport();

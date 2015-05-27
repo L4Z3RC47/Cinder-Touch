@@ -68,7 +68,7 @@ namespace touchObject {
 		void			updateObjectScale(float scaleUpdateAmt);
 		void			render();
 	
-	
+		void settle();
 
 	private:
 

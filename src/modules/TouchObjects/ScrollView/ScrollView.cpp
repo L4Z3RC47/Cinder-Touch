@@ -14,6 +14,7 @@ using namespace ci;
 using namespace ci::app;
 namespace touchObject {
 	ScrollView::ScrollView() : BaseTouchObject(),
+		mInitalTouchPosition(Vec2f::zero()),
 		mCurrentTouchPosition(Vec2f::zero()),
 		mPreviousTouchPosition(Vec2f::zero()),
 		mUpdateAmount(0.0f),
@@ -22,7 +23,8 @@ namespace touchObject {
 		mScrollViewType(Continuous),
 		mTouchMultiplier(0.050f),
 		mShouldClipSubviews(true),
-		mNeedsLayout(true)
+		mNeedsLayout(true),
+		mTapMovementThreshold(10.0f)
 	{
 
 		
@@ -40,16 +42,20 @@ namespace touchObject {
 		scrollViewRef->mScrollViewOrientation = scrollOrientation;
 		scrollViewRef->mScrollViewType = scrollType;
 
-
-		//Setup Fbo
-		gl::Fbo::Format format;
-		format.setSamples( 4 ); // uncomment this to enable 4x antialiasing
-		scrollViewRef->mFbo = gl::Fbo(size.x, size.y, format);
+		scrollViewRef->setupFbo();
 		
 		return scrollViewRef;
 	}
 
+	void ScrollView::setupFbo(){
+		//Setup Fbo
+		gl::Fbo::Format format;
+		format.setSamples(4); // uncomment this to enable 4x antialiasing
+		mFbo = gl::Fbo(getWidth(), getHeight(), format);
 
+	}
+	
+	
 	void ScrollView::addCell(ScrollViewCellRef cell){
 		if (mScrollViewCells.size() > 0){
 		ScrollViewCellRef lastCell = mScrollViewCells.back();
@@ -94,10 +100,10 @@ namespace touchObject {
 				mBreakLineBack = (mScrollViewOrientation == Horizontal) ? ( getSize().x) : ( getSize().y);
 
 			}
-
-		mFrontCell = mScrollViewCells.front();
-		mBackCell = mScrollViewCells.back();
-	
+			if (mScrollViewCells.size() > 0){
+				mFrontCell = mScrollViewCells.front();
+				mBackCell = mScrollViewCells.back();
+			}
 	}
 
 	
@@ -126,7 +132,7 @@ namespace touchObject {
 
 	void	ScrollView::touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
 		//keep track of the touch position so we can later test how far it has moved
-		mPreviousTouchPosition = mCurrentTouchPosition = touchPnt;
+		mInitalTouchPosition = mPreviousTouchPosition = mCurrentTouchPosition = touchPnt;
 		mUpdateAmount = 0.0f;
 
 	}
@@ -141,6 +147,23 @@ namespace touchObject {
 	
 	}
 	
+	void	ScrollView::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
+		
+
+		Vec2f offsetAmount = mInitalTouchPosition - mPreviousTouchPosition;//Get the difference between the inital touch point and the Current touch point
+
+		/*
+		if ((mScrollViewOrientation == Horizontal && (abs(offsetAmount.x) < mTapMovementThreshold)) || 
+			(mScrollViewOrientation == Vertical && (abs(offsetAmount.y) < mTapMovementThreshold))) {
+			passTouchToCells();
+		}
+		*/
+
+	}
+
+	void  ScrollView::passTouchToCells(){
+		console() << "Checking if Cells take the touch "  << endl;
+	}
 
 
 	void ScrollView::setScrollPercentage(float targetPercentage){
@@ -410,7 +433,7 @@ namespace touchObject {
 		//Draw ScrollView Background
 		gl::pushMatrices(); {
 			gl::translate(translationOffset);
-			drawDebugBox();
+			//drawDebugBox();
 
 			
 			if (mShouldClipSubviews){
@@ -419,13 +442,13 @@ namespace touchObject {
 				gl::draw(mFbo.getTexture(), getRect(LOCAL));
 
 			}else{
-			
+		
 				for (ScrollViewCellRef cell : mScrollViewCells){
 					cell->draw(getPosition());
 				}
 			}
 		
-			drawBreakLines();
+		//	drawBreakLines();
 		}gl::popMatrices();
 
 	}

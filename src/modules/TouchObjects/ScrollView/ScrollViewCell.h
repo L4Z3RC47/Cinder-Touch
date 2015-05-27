@@ -9,6 +9,7 @@
 
 #include "BaseTouchObject.h"
 
+
 namespace touchObject {
 
 	typedef std::shared_ptr<class		ScrollViewCell>		ScrollViewCellRef;
@@ -21,6 +22,8 @@ namespace touchObject {
 
 		ScrollViewCell();
 		static ScrollViewCellRef create(cinder::Vec2f size);
+		//void setParentScrollview(touchObject::ScrollViewWeakRef scrollViewRef){ mParentScrollViewRef = scrollViewRef; };
+
 		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 
 
@@ -48,11 +51,17 @@ namespace touchObject {
 		ScrollViewCellRef getNextCell(){ return mNextCell; };
 		void clearNextCell(){ mNextCell.reset(); };
 	
+		
+		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
+		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
+		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
+		
 	protected:
 
 		ci::Rectf mPadding;
 	
 		ScrollViewCellRef mPrevCell,mNextCell;
-			
+
+		//touchObject::ScrollViewWeakRef mParentScrollViewRef;
 	};
 }

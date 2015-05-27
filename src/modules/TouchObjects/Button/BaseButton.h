@@ -31,7 +31,7 @@ namespace touchObject {
 		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
-
+		virtual void				handleTap();
 		void						setCallBackFn(CallbackFunction fn)     { mCallbackFunction=fn; };
 	
 

@@ -31,7 +31,7 @@ void ScrollviewSampleApp::setup()
 
 	//Create a vertical Scrollview
 	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 100), Vec2f(400, 400), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
-	mVerticalScrollViewRef->setShouldClipSubviews(false);
+	mVerticalScrollViewRef->setShouldClipSubviews(true);
 
 	for (int i = 0; i < 6; i++){
 		ScrollViewCellRef cell = ScrollViewCell::create(Vec2f(100, 100));
@@ -56,7 +56,7 @@ void ScrollviewSampleApp::setup()
 	//Create A Horizontal Scrollview
 	
 	mHorizontalScrollViewRef = ScrollView::create(Vec2f(500, 50), Vec2f(400, 400), ScrollView::ScrollViewType::NonContinuous, ScrollView::ScrollViewOrientation::Horizontal);
-	mHorizontalScrollViewRef->setShouldClipSubviews(true);
+	mHorizontalScrollViewRef->setShouldClipSubviews(false);
 
 	for (int i = 0; i < 5; i++){
 		ScrollViewCellRef cell = ScrollViewCell::create(Vec2f(100, 100));

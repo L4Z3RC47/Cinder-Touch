@@ -5,6 +5,7 @@ using namespace ci::app;
 Mouse::Mouse() :
 	mTouchManagerPntr(NULL),
 	mDebugMode(false),
+	mCrtlPressed(false),
 	mIsAcceptingCntrPoint(false),
 	mDebugCenterPoint(ci::Vec2f::zero()),
 	mTouchId( -1)

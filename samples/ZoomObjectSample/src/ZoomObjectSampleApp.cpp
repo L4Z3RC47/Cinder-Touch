@@ -38,12 +38,12 @@ void ZoomObjectSampleApp::setup()
 
 	//Load an image
 	ci::gl::TextureRef mImageTextureRef;
-	fs::path                path(getAssetPath("motorcycle1.jpg"));
+	fs::path                path(getAssetPath("motorcycle.jpg"));
 	if (fs::exists(path)){ mImageTextureRef = cinder::gl::Texture::create(ci::loadImage(path)); }
 
 	//create Panzoom object and view
 	PanZoomObjectRef panZoomObjectRef = PanZoomObject::createZoomableImage(mImageTextureRef, 0.50, 2.0);
-	panZoomViewRef = PanZoomView::create(Vec2f(100, 100), Vec2f(1000, 1000));
+	panZoomViewRef = PanZoomView::create(Vec2f(100, 100), Vec2f(700, 700));
 	panZoomViewRef->addObject(panZoomObjectRef);
 
 	

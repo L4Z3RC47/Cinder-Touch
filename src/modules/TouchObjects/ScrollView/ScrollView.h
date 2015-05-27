@@ -41,7 +41,7 @@ namespace touchObject {
 
 		
 		virtual void update();
-		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
+		virtual void draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 
 
 		//Properties
@@ -75,13 +75,17 @@ namespace touchObject {
 
 	protected:
 
+		virtual void setupFbo();
+
 		//Override base class touch B/M/E handlers to say how we are going to listen to touches and how the object will respond
 		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
-		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
+		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 
 		virtual void render();
 		virtual void layoutSections();
+
+		virtual void passTouchToCells();
 		/**
 		*	Calculates the width and height of all the cell combined with the cell spacing
 		*/
@@ -109,10 +113,11 @@ namespace touchObject {
 		ScrollViewOrientation mScrollViewOrientation;
 		ScrollViewType mScrollViewType;
 		bool mShouldClipSubviews;
-
+		float mTapMovementThreshold; 
 
 		//Movement
-		cinder::Vec2f	mCurrentTouchPosition, 
+		cinder::Vec2f	mInitalTouchPosition,
+						mCurrentTouchPosition, 
 						mPreviousTouchPosition;
 	
 		float mTouchMultiplier;

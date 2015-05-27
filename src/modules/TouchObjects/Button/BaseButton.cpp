@@ -11,7 +11,9 @@ using namespace ci::app;
 namespace touchObject {
 	BaseButton::BaseButton() :BaseTouchObject(),
 		mTouchCanceled(false)
+		
 	{
+		mToString = "Base Button";
 	}
 
 	BaseButton::~BaseButton(){
@@ -65,7 +67,7 @@ namespace touchObject {
 			if (!mTouchCanceled){
 				//Fire off the selected signal here
 				try{
-					mCallbackFunction(shared_from_this());
+						handleTap();
 				}
 				catch (...){
 					console() << "Missing Function to call" << endl;
@@ -75,16 +77,20 @@ namespace touchObject {
 			mTouchCanceled = false;
 		}
 	}
+	
+	void	BaseButton::handleTap(){
+		mCallbackFunction(shared_from_this());
 
+	}
 	void	BaseButton::draw(cinder::Vec2f translationOffset ){
 
 		gl::pushMatrices(); {
 			gl::translate(translationOffset);
 		
 
-			gl::color(getObjectColor());
-			drawDebugBox();//if translating, let the debug box know
-
+		
+			drawDebugBox();
+			//gl::drawStrokedRect(getRect(LOCAL));
 			if (!mObjectTouchIDs.empty()){
 				gl::drawSolidRect(getRect(LOCAL));
 			}
