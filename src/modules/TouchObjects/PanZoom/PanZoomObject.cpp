@@ -44,6 +44,7 @@ namespace touchObject{
 		
 		objectRef->registerWithTouchMngr();
 		objectRef->setAcceptTouch(true);
+		
 		//SET THE BOUNDARIES FOR THE VIEWABLE SPACE OF THE IMAGE
 		//objectRef-> mImageBounds = Rectf(ci::Vec2f::zero(), objectRef->getImage()->getSize());
 

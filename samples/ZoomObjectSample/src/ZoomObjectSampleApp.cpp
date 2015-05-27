@@ -52,7 +52,6 @@ void ZoomObjectSampleApp::setup()
 void ZoomObjectSampleApp::keyDown(KeyEvent event){
 	if (event.getChar() == '1'){
 		panZoomViewRef->setContentOffset(Vec2f(50, 50),true);
-	
 	}
 }
 

@@ -92,6 +92,7 @@ namespace touchObject {
 
 		bool							mScrollBounceEnabled,mZoomBouceEnabled, mTracking,mZooming;
 		
+		
 		float							mDecelerationRate;
 
 		

@@ -16,11 +16,9 @@ namespace touchObject{
 		mTouchTimeStamp(0),
 		mInitalTouchDistance(0.0f),
 		mCurrentTouchDistance(0.0f),
-
 		mOffsetUpdateAmount(Vec2f::zero()),
 		mMomentumUpdateAmount(Vec2f::zero()),
 		mScaleUpdateAmount(0.0f),
-
 		mContentInsets(Rectf::zero()),
 		mScrollBounceEnabled(true),
 		mZoomBouceEnabled(true),
@@ -79,6 +77,8 @@ namespace touchObject{
 		mOffsetUpdateAmount = mOffsetUpdateAmount.value() + mMomentumUpdateAmount;
 		console() << "MOMENTUM " << mOffsetUpdateAmount << endl;
 	}
+
+
 	void	PanZoomView::zoomToScale(float scale, bool animated){}
 
 	void    PanZoomView::zoomToPoint(const cinder::Vec2f &point, const cinder::Vec2f &scale, bool zoomOutAndIn){}
@@ -105,7 +105,7 @@ namespace touchObject{
 				mTouchTimeStamp = getElapsedSeconds();
 			
 			}else if (mTouchMap.size() == 2){
-			
+				
 				mCurrentTouchPosition = getTouchesMidpoint();
 				mInitalTouchDistance = mCurrentTouchDistance = getTouchesDistance();
 			}
@@ -150,18 +150,25 @@ namespace touchObject{
 	void PanZoomView::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
 
 		//before removing the touch, if the total touches are less than 2 then ease the image to a stop
-
-		removeTouch(touchID);
+	
+		if(std::find(mObjectTouchIDs.begin(), mObjectTouchIDs.end(), touchID) != mObjectTouchIDs.end() ){
+		
 			if (mTouchMap.size() == 2){//Scaling
 				mCurrentTouchPosition = mTouchMap[mObjectTouchIDs.front()];
 				mInitalTouchDistance = 0.0f;
-		
-			}else{
+			}
+			else{
+
 				settle();
 				mCurrentTouchPosition = Vec2f::zero();
-
+				mInitalTouchDistance = 0.0f;
 			}
+
+			mObjectTouchIDs.clear();
+			mTouchMap.clear();
+		}
 	}
+	
 	void PanZoomView::addTouch(int touchID, cinder::Vec2f touchPnt){
 		mObjectTouchIDs.push_back(touchID);
 		mTouchMap.insert(make_pair(touchID, touchPnt));
@@ -204,22 +211,15 @@ namespace touchObject{
 			updateObjectPosition(mOffsetUpdateAmount);
 			mOffsetUpdateAmount = Vec2f::zero();
 		
-
 			updateObjectScale(mScaleUpdateAmount);
 			mScaleUpdateAmount = 0.0f;
-
-
-		//	console() << "Object position " << mPanZoomObject->getPosition() << "  -- Scale " << mPanZoomObject->getScale().x << endl;
-
-
-
-		
 	
-		 render();
+			render();
 	 }
 
 	 void		PanZoomView::updateObjectPosition(ci::Vec2f posUpdateAmt){
-		//Make sure the update keeps the object in bounds
+		
+		 //Make sure the update keeps the object in bounds
 		 Rectf objectRect = mPanZoomObject->getRect(GLOBAL);
 		 Rectf viewRect = getRect(GLOBAL);
 		 Rectf edgeDistanceRect = objectRect - viewRect;
