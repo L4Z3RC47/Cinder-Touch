@@ -117,8 +117,10 @@ namespace touchObject{
 	*/
 
 	void		PanZoomObject::setImage(const cinder::gl::TextureRef &image){
-		mImage = image; 
-		setSize(mImage->getSize());
+        if(image){
+            mImage = image;
+            setSize(mImage->getSize());
+        }
 	}
 	/*
 	Vec2f PanZoomObject::setMinScale(){
@@ -536,8 +538,9 @@ namespace touchObject{
 			
 
 			gl::color(1, 1, 1);
-			gl::draw(mImage, getRect(LOCAL) );
-			
+            if(mImage){
+                gl::draw(mImage, getRect(LOCAL) );
+            }
 			drawDebugBox();
 		}gl::popMatrices();
 

@@ -1,0 +1,637 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0091D8F80E81B9330029341E /* OpenGL.framework */; };
+		00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784AF0FF439BC000DE1D7 /* Accelerate.framework */; };
+		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
+		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
+		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		21D6052E869A42559A7770DB /* ScrollViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4552876EEF8443B9EBDBD53 /* ScrollViewCell.cpp */; };
+		2F1BDE68365F4B9ABFA3D327 /* BaseTouchObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE7821F154D84D4BAC7E4E24 /* BaseTouchObject.cpp */; };
+		3E8160D4B5AF41A9A8410115 /* ScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021F5459AC2D4E8B9307CEE4 /* ScrollView.cpp */; };
+		42727B519FB14DD78483F97F /* OscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D67026CE98648AF81460F76 /* OscSender.cpp */; };
+		4A4BABF7D08948D19FD03AA8 /* NativeTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B2BAD9AE0843AC8DBC9073 /* NativeTouch.cpp */; };
+		4DC90D5694094CB2A1D549F9 /* OscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA677FB1F65B4147A758A176 /* OscBundle.cpp */; };
+		4E5EDB329E284CDA9D7A9C26 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E5F365DA20C400E8E555AE7 /* NetworkingUtils.cpp */; };
+		525D487F54AF4AB687766B11 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D52E3F62E1D4BC99774C5C2 /* OscReceivedElements.cpp */; };
+		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
+		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
+		6C7AA6FFDFD843C4BFB7F206 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4F4BEEA062684009A6D1AB8A /* CinderApp.icns */; };
+		6F10852EA4B349BFB7680714 /* OscListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6A2D4CEF4EE4538A5250C30 /* OscListener.cpp */; };
+		730F44616FFE4B71AA1AE15E /* PanZoomView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 177A213ED80841B8B5F3807E /* PanZoomView.cpp */; };
+		75BBD13764E44E17A718E6E8 /* OscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F901EBD83F94F228BAB4B49 /* OscMessage.cpp */; };
+		79E0A46566FD405E9AE80E4C /* ScrollviewSampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 906726C825D6412B8E82818D /* ScrollviewSampleApp.cpp */; };
+		7E1671DD819445E8B3E9706F /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91C21AFDB40A4DED96B4C4B4 /* Mouse.cpp */; };
+		86344E1CBA2140819D427B6F /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA243CC72E0848E2A20C998B /* Keyboard.cpp */; };
+		8BC6F9C742B84614AB0E4107 /* BaseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A119E3C26FA4695915537D9 /* BaseButton.cpp */; };
+		8C2DE4D1D4BC442C852F58EB /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A68AC430BB42998B7126F9 /* OscOutboundPacketStream.cpp */; };
+		8C3C8D13CE55497BA87E07B1 /* TUIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EEE949B0E471F9A2982CD /* TUIO.cpp */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		95ACAF78D5144430B400AC61 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAC1605DE1C54A26A0C2CEF2 /* Key.cpp */; };
+		97F14931722E454C9AADED13 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B616486360484CDFBB3E6222 /* OscTypes.cpp */; };
+		A04FF3D72D614A64B337E41F /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D867400026A42E69DF3F446 /* OscPrintReceivedElements.cpp */; };
+		AF2579C3828242E7A1ABFA73 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29EE5F92C8484DD3B3799314 /* IpEndpointName.cpp */; };
+		B89962D2E3024B4DB28D1700 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1077B68587A04EAF9268A8EE /* UdpSocket.cpp */; };
+		EB99581852F04B719372B9A8 /* TuioClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0547B26F475408A921165EF /* TuioClient.cpp */; };
+		EE3037B38C164F59B7D8897B /* PanZoomObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D468F3AED37C464DA98415CF /* PanZoomObject.cpp */; };
+		F979CC9F56E44B0B988A68D3 /* TouchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B358C1AC3844DB5AFDB9666 /* TouchManager.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0091D8F80E81B9330029341E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		00B784AF0FF439BC000DE1D7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		021F5459AC2D4E8B9307CEE4 /* ScrollView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ScrollView.cpp; path = ../../../src/modules/TouchObjects/ScrollView/ScrollView.cpp; sourceTree = "<group>"; };
+		05C31544B0924FC398CAD0B1 /* IpEndpointName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IpEndpointName.h; path = ../../../../OSC/src/ip/IpEndpointName.h; sourceTree = "<group>"; };
+		062790086ACD4ACEA5298F2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D67026CE98648AF81460F76 /* OscSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscSender.cpp; path = ../../../../OSC/src/OscSender.cpp; sourceTree = "<group>"; };
+		0E9FB7C7347649C78023CD67 /* OscHostEndianness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscHostEndianness.h; path = ../../../../OSC/src/osc/OscHostEndianness.h; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1077B68587A04EAF9268A8EE /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = UdpSocket.cpp; path = ../../../../OSC/src/ip/posix/UdpSocket.cpp; sourceTree = "<group>"; };
+		177A213ED80841B8B5F3807E /* PanZoomView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = PanZoomView.cpp; path = ../../../src/modules/TouchObjects/PanZoom/PanZoomView.cpp; sourceTree = "<group>"; };
+		1D43ED3F1456441F827892FF /* ScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScrollView.h; path = ../../../src/modules/TouchObjects/ScrollView/ScrollView.h; sourceTree = "<group>"; };
+		1D79CB4054E74841A6B8DE9D /* TuioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioObject.h; path = ../../../../TUIO/include/TuioObject.h; sourceTree = "<group>"; };
+		1F0B75802AB94967A525F328 /* ScrollViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScrollViewCell.h; path = ../../../src/modules/TouchObjects/ScrollView/ScrollViewCell.h; sourceTree = "<group>"; };
+		2773714B8B9243CAA829CECC /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Key.h; path = ../../../src/modules/TouchObjects/Keyboard/Key.h; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		29EE5F92C8484DD3B3799314 /* IpEndpointName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = IpEndpointName.cpp; path = ../../../../OSC/src/ip/IpEndpointName.cpp; sourceTree = "<group>"; };
+		312ED550A0294D0EBDBED7CD /* Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mouse.h; path = ../../../src/modules/TouchDrivers/Mouse.h; sourceTree = "<group>"; };
+		34E4E8A304BB4705878A0238 /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscOutboundPacketStream.h; path = ../../../../OSC/src/osc/OscOutboundPacketStream.h; sourceTree = "<group>"; };
+		38218822ECCE45E2960F3EE6 /* BaseTouchObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseTouchObject.h; path = ../../../src/core/BaseTouchObject.h; sourceTree = "<group>"; };
+		3B358C1AC3844DB5AFDB9666 /* TouchManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = TouchManager.cpp; path = ../../../src/core/TouchManager.cpp; sourceTree = "<group>"; };
+		3E1EEE949B0E471F9A2982CD /* TUIO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = TUIO.cpp; path = ../../../src/modules/TouchDrivers/TUIO.cpp; sourceTree = "<group>"; };
+		439D291EE4B44A73964C8E6F /* TuioClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioClient.h; path = ../../../../TUIO/include/TuioClient.h; sourceTree = "<group>"; };
+		4C2B5B6C66174398922F9739 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MessageMappingOscPacketListener.h; path = ../../../../OSC/src/osc/MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
+		4F4BEEA062684009A6D1AB8A /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		55231424D05C4E58A10F9F47 /* PanZoomObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PanZoomObject.h; path = ../../../src/modules/TouchObjects/PanZoom/PanZoomObject.h; sourceTree = "<group>"; };
+		55678E7F530B499CB30F96E9 /* OscArg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscArg.h; path = ../../../../OSC/src/OscArg.h; sourceTree = "<group>"; };
+		5E5F365DA20C400E8E555AE7 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NetworkingUtils.cpp; path = ../../../../OSC/src/ip/posix/NetworkingUtils.cpp; sourceTree = "<group>"; };
+		64F7857B9A9941339F4EE3E5 /* Keyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Keyboard.h; path = ../../../src/modules/TouchObjects/Keyboard/Keyboard.h; sourceTree = "<group>"; };
+		66A68AC430BB42998B7126F9 /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscOutboundPacketStream.cpp; path = ../../../../OSC/src/osc/OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
+		6A119E3C26FA4695915537D9 /* BaseButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = BaseButton.cpp; path = ../../../src/modules/TouchObjects/Button/BaseButton.cpp; sourceTree = "<group>"; };
+		6D52E3F62E1D4BC99774C5C2 /* OscReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscReceivedElements.cpp; path = ../../../../OSC/src/osc/OscReceivedElements.cpp; sourceTree = "<group>"; };
+		6F901EBD83F94F228BAB4B49 /* OscMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscMessage.cpp; path = ../../../../OSC/src/OscMessage.cpp; sourceTree = "<group>"; };
+		790EEFF033674564B4E19C73 /* OscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscSender.h; path = ../../../../OSC/src/OscSender.h; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* ScrollviewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollviewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D49EF88C459447696D31DBC /* BaseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseButton.h; path = ../../../src/modules/TouchObjects/Button/BaseButton.h; sourceTree = "<group>"; };
+		90228C12F855432E827D25D2 /* PanZoomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PanZoomView.h; path = ../../../src/modules/TouchObjects/PanZoom/PanZoomView.h; sourceTree = "<group>"; };
+		906726C825D6412B8E82818D /* ScrollviewSampleApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ScrollviewSampleApp.cpp; path = ../src/ScrollviewSampleApp.cpp; sourceTree = "<group>"; };
+		91C21AFDB40A4DED96B4C4B4 /* Mouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Mouse.cpp; path = ../../../src/modules/TouchDrivers/Mouse.cpp; sourceTree = "<group>"; };
+		93C1EF912CE448B0A73EB025 /* NetworkingUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NetworkingUtils.h; path = ../../../../OSC/src/ip/NetworkingUtils.h; sourceTree = "<group>"; };
+		9626C413E995435B805EA5A7 /* OscReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscReceivedElements.h; path = ../../../../OSC/src/osc/OscReceivedElements.h; sourceTree = "<group>"; };
+		9D7082A1D41645C092BFA612 /* TUIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TUIO.h; path = ../../../src/modules/TouchDrivers/TUIO.h; sourceTree = "<group>"; };
+		9D867400026A42E69DF3F446 /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscPrintReceivedElements.cpp; path = ../../../../OSC/src/osc/OscPrintReceivedElements.cpp; sourceTree = "<group>"; };
+		9FD8279D6243439DB00BDA6F /* NativeTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NativeTouch.h; path = ../../../src/modules/TouchDrivers/NativeTouch.h; sourceTree = "<group>"; };
+		AA243CC72E0848E2A20C998B /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Keyboard.cpp; path = ../../../src/modules/TouchObjects/Keyboard/Keyboard.cpp; sourceTree = "<group>"; };
+		AA677FB1F65B4147A758A176 /* OscBundle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscBundle.cpp; path = ../../../../OSC/src/OscBundle.cpp; sourceTree = "<group>"; };
+		ACFC571048BC4697951172D2 /* TouchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TouchManager.h; path = ../../../src/core/TouchManager.h; sourceTree = "<group>"; };
+		AFFFE5CEFC1E48A2A800A2D4 /* OscMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscMessage.h; path = ../../../../OSC/src/OscMessage.h; sourceTree = "<group>"; };
+		B4B88AB49A7E44509284A122 /* TuioCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioCursor.h; path = ../../../../TUIO/include/TuioCursor.h; sourceTree = "<group>"; };
+		B4E4BF8518FE40BA8DA7DBE0 /* UdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = ../../../../OSC/src/ip/UdpSocket.h; sourceTree = "<group>"; };
+		B616486360484CDFBB3E6222 /* OscTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscTypes.cpp; path = ../../../../OSC/src/osc/OscTypes.cpp; sourceTree = "<group>"; };
+		B91FE82F5C1945158EAA0312 /* OscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscPacketListener.h; path = ../../../../OSC/src/osc/OscPacketListener.h; sourceTree = "<group>"; };
+		BE7821F154D84D4BAC7E4E24 /* BaseTouchObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = BaseTouchObject.cpp; path = ../../../src/core/BaseTouchObject.cpp; sourceTree = "<group>"; };
+		C04B397F173145CB99B3C9E6 /* OscTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscTypes.h; path = ../../../../OSC/src/osc/OscTypes.h; sourceTree = "<group>"; };
+		C0547B26F475408A921165EF /* TuioClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = TuioClient.cpp; path = ../../../../TUIO/src/TuioClient.cpp; sourceTree = "<group>"; };
+		C3B2BAD9AE0843AC8DBC9073 /* NativeTouch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NativeTouch.cpp; path = ../../../src/modules/TouchDrivers/NativeTouch.cpp; sourceTree = "<group>"; };
+		C6A2D4CEF4EE4538A5250C30 /* OscListener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscListener.cpp; path = ../../../../OSC/src/OscListener.cpp; sourceTree = "<group>"; };
+		CAC1605DE1C54A26A0C2CEF2 /* Key.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Key.cpp; path = ../../../src/modules/TouchObjects/Keyboard/Key.cpp; sourceTree = "<group>"; };
+		CFB7A734308D4912A921D3A9 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscPrintReceivedElements.h; path = ../../../../OSC/src/osc/OscPrintReceivedElements.h; sourceTree = "<group>"; };
+		D201D068A8E64DAB8430F5E7 /* PacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PacketListener.h; path = ../../../../OSC/src/ip/PacketListener.h; sourceTree = "<group>"; };
+		D468F3AED37C464DA98415CF /* PanZoomObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = PanZoomObject.cpp; path = ../../../src/modules/TouchObjects/PanZoom/PanZoomObject.cpp; sourceTree = "<group>"; };
+		D5132E4A9400426D9D960620 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		DBA5580A4F9B43149CEF4022 /* ScrollviewSample_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = ScrollviewSample_Prefix.pch; sourceTree = "<group>"; };
+		E31060FE1B3F4194AE37B27A /* TuioProfileBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioProfileBase.h; path = ../../../../TUIO/include/TuioProfileBase.h; sourceTree = "<group>"; };
+		E4552876EEF8443B9EBDBD53 /* ScrollViewCell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ScrollViewCell.cpp; path = ../../../src/modules/TouchObjects/ScrollView/ScrollViewCell.cpp; sourceTree = "<group>"; };
+		EC25EBFCD891474CAA2EC399 /* TimerListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TimerListener.h; path = ../../../../OSC/src/ip/TimerListener.h; sourceTree = "<group>"; };
+		EEDFF724D9024DC28A9C09D4 /* OscException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscException.h; path = ../../../../OSC/src/osc/OscException.h; sourceTree = "<group>"; };
+		EEED9831D3DE4B6CB2EB6F2E /* OscListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscListener.h; path = ../../../../OSC/src/OscListener.h; sourceTree = "<group>"; };
+		FA016CEEC4774B2F90E94F57 /* OscBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscBundle.h; path = ../../../../OSC/src/OscBundle.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
+				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
+				5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */,
+				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
+				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
+				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
+				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				51030A3A19C647B18624D976 /* Touch */,
+				5949A101ECA94764AEB82A62 /* OSC */,
+				73B8240197F44F139D513175 /* TUIO */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
+		080E96DDFE201D6D7F000001 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				906726C825D6412B8E82818D /* ScrollviewSampleApp.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		08CD055FF74D4C45A1AE12A3 /* ip */ = {
+			isa = PBXGroup;
+			children = (
+				29EE5F92C8484DD3B3799314 /* IpEndpointName.cpp */,
+				05C31544B0924FC398CAD0B1 /* IpEndpointName.h */,
+				93C1EF912CE448B0A73EB025 /* NetworkingUtils.h */,
+				D201D068A8E64DAB8430F5E7 /* PacketListener.h */,
+				EC25EBFCD891474CAA2EC399 /* TimerListener.h */,
+				B4E4BF8518FE40BA8DA7DBE0 /* UdpSocket.h */,
+				7E3827EA9C1F4A37B1AA942B /* posix */,
+			);
+			name = ip;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00B784AF0FF439BC000DE1D7 /* Accelerate.framework */,
+				00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */,
+				00B784B10FF439BC000DE1D7 /* AudioUnit.framework */,
+				00B784B20FF439BC000DE1D7 /* CoreAudio.framework */,
+				5323E6B50EAFCA7E003A9687 /* QTKit.framework */,
+				5323E6B10EAFCA74003A9687 /* CoreVideo.framework */,
+				0091D8F80E81B9330029341E /* OpenGL.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		13A6AB9C79F742B19A36E9AE /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				66A68AC430BB42998B7126F9 /* OscOutboundPacketStream.cpp */,
+				9D867400026A42E69DF3F446 /* OscPrintReceivedElements.cpp */,
+				6D52E3F62E1D4BC99774C5C2 /* OscReceivedElements.cpp */,
+				B616486360484CDFBB3E6222 /* OscTypes.cpp */,
+				4C2B5B6C66174398922F9739 /* MessageMappingOscPacketListener.h */,
+				EEDFF724D9024DC28A9C09D4 /* OscException.h */,
+				0E9FB7C7347649C78023CD67 /* OscHostEndianness.h */,
+				34E4E8A304BB4705878A0238 /* OscOutboundPacketStream.h */,
+				B91FE82F5C1945158EAA0312 /* OscPacketListener.h */,
+				CFB7A734308D4912A921D3A9 /* OscPrintReceivedElements.h */,
+				9626C413E995435B805EA5A7 /* OscReceivedElements.h */,
+				C04B397F173145CB99B3C9E6 /* OscTypes.h */,
+			);
+			name = osc;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* ScrollviewSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2380D6BD7FCC4449AC9B2465 /* PanZoom */ = {
+			isa = PBXGroup;
+			children = (
+				D468F3AED37C464DA98415CF /* PanZoomObject.cpp */,
+				177A213ED80841B8B5F3807E /* PanZoomView.cpp */,
+				55231424D05C4E58A10F9F47 /* PanZoomObject.h */,
+				90228C12F855432E827D25D2 /* PanZoomView.h */,
+			);
+			name = PanZoom;
+			sourceTree = "<group>";
+		};
+		2733BC7F5C6441F49B74C1A7 /* TouchObjects */ = {
+			isa = PBXGroup;
+			children = (
+				6690BE3B67E7496F94B7686F /* Button */,
+				B1D0F679AB7D4CDB9597EA17 /* Keyboard */,
+				B8018C02AAE24946B04430DD /* ScrollView */,
+				2380D6BD7FCC4449AC9B2465 /* PanZoom */,
+			);
+			name = TouchObjects;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* ScrollviewSample */ = {
+			isa = PBXGroup;
+			children = (
+				01B97315FEAEA392516A2CEA /* Blocks */,
+				29B97315FDCFA39411CA2CEA /* Headers */,
+				080E96DDFE201D6D7F000001 /* Source */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = ScrollviewSample;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				D5132E4A9400426D9D960620 /* Resources.h */,
+				DBA5580A4F9B43149CEF4022 /* ScrollviewSample_Prefix.pch */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4F4BEEA062684009A6D1AB8A /* CinderApp.icns */,
+				062790086ACD4ACEA5298F2F /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FDE4324F84B41E9968E7B84 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C0547B26F475408A921165EF /* TuioClient.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		41434EE33D6E48F69E02D4AA /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				2733BC7F5C6441F49B74C1A7 /* TouchObjects */,
+				BA19482224944F10B9F0D8D6 /* TouchDrivers */,
+			);
+			name = modules;
+			sourceTree = "<group>";
+		};
+		51030A3A19C647B18624D976 /* Touch */ = {
+			isa = PBXGroup;
+			children = (
+				7BF2912D6207447AA641FE30 /* src */,
+			);
+			name = Touch;
+			sourceTree = "<group>";
+		};
+		5949A101ECA94764AEB82A62 /* OSC */ = {
+			isa = PBXGroup;
+			children = (
+				5AB201138FF84264BBCD0971 /* src */,
+			);
+			name = OSC;
+			sourceTree = "<group>";
+		};
+		5AB201138FF84264BBCD0971 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AA677FB1F65B4147A758A176 /* OscBundle.cpp */,
+				C6A2D4CEF4EE4538A5250C30 /* OscListener.cpp */,
+				6F901EBD83F94F228BAB4B49 /* OscMessage.cpp */,
+				0D67026CE98648AF81460F76 /* OscSender.cpp */,
+				08CD055FF74D4C45A1AE12A3 /* ip */,
+				13A6AB9C79F742B19A36E9AE /* osc */,
+				55678E7F530B499CB30F96E9 /* OscArg.h */,
+				FA016CEEC4774B2F90E94F57 /* OscBundle.h */,
+				EEED9831D3DE4B6CB2EB6F2E /* OscListener.h */,
+				AFFFE5CEFC1E48A2A800A2D4 /* OscMessage.h */,
+				790EEFF033674564B4E19C73 /* OscSender.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		62E8BE6F0F104784B2306808 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				BE7821F154D84D4BAC7E4E24 /* BaseTouchObject.cpp */,
+				3B358C1AC3844DB5AFDB9666 /* TouchManager.cpp */,
+				38218822ECCE45E2960F3EE6 /* BaseTouchObject.h */,
+				ACFC571048BC4697951172D2 /* TouchManager.h */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		6690BE3B67E7496F94B7686F /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				6A119E3C26FA4695915537D9 /* BaseButton.cpp */,
+				8D49EF88C459447696D31DBC /* BaseButton.h */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		73B8240197F44F139D513175 /* TUIO */ = {
+			isa = PBXGroup;
+			children = (
+				3FDE4324F84B41E9968E7B84 /* src */,
+				ACBCD644B3FB4CBAA829FB47 /* include */,
+			);
+			name = TUIO;
+			sourceTree = "<group>";
+		};
+		7BF2912D6207447AA641FE30 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				62E8BE6F0F104784B2306808 /* core */,
+				41434EE33D6E48F69E02D4AA /* modules */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		7E3827EA9C1F4A37B1AA942B /* posix */ = {
+			isa = PBXGroup;
+			children = (
+				5E5F365DA20C400E8E555AE7 /* NetworkingUtils.cpp */,
+				1077B68587A04EAF9268A8EE /* UdpSocket.cpp */,
+			);
+			name = posix;
+			sourceTree = "<group>";
+		};
+		ACBCD644B3FB4CBAA829FB47 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				439D291EE4B44A73964C8E6F /* TuioClient.h */,
+				B4B88AB49A7E44509284A122 /* TuioCursor.h */,
+				1D79CB4054E74841A6B8DE9D /* TuioObject.h */,
+				E31060FE1B3F4194AE37B27A /* TuioProfileBase.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		B1D0F679AB7D4CDB9597EA17 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1605DE1C54A26A0C2CEF2 /* Key.cpp */,
+				AA243CC72E0848E2A20C998B /* Keyboard.cpp */,
+				2773714B8B9243CAA829CECC /* Key.h */,
+				64F7857B9A9941339F4EE3E5 /* Keyboard.h */,
+			);
+			name = Keyboard;
+			sourceTree = "<group>";
+		};
+		B8018C02AAE24946B04430DD /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				021F5459AC2D4E8B9307CEE4 /* ScrollView.cpp */,
+				E4552876EEF8443B9EBDBD53 /* ScrollViewCell.cpp */,
+				1D43ED3F1456441F827892FF /* ScrollView.h */,
+				1F0B75802AB94967A525F328 /* ScrollViewCell.h */,
+			);
+			name = ScrollView;
+			sourceTree = "<group>";
+		};
+		BA19482224944F10B9F0D8D6 /* TouchDrivers */ = {
+			isa = PBXGroup;
+			children = (
+				91C21AFDB40A4DED96B4C4B4 /* Mouse.cpp */,
+				C3B2BAD9AE0843AC8DBC9073 /* NativeTouch.cpp */,
+				3E1EEE949B0E471F9A2982CD /* TUIO.cpp */,
+				312ED550A0294D0EBDBED7CD /* Mouse.h */,
+				9FD8279D6243439DB00BDA6F /* NativeTouch.h */,
+				9D7082A1D41645C092BFA612 /* TUIO.h */,
+			);
+			name = TouchDrivers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* ScrollviewSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ScrollviewSample" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrollviewSample;
+			productInstallPath = "$(HOME)/Applications";
+			productName = ScrollviewSample;
+			productReference = 8D1107320486CEB800E47090 /* ScrollviewSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ScrollviewSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* ScrollviewSample */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* ScrollviewSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C7AA6FFDFD843C4BFB7F206 /* CinderApp.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79E0A46566FD405E9AE80E4C /* ScrollviewSampleApp.cpp in Sources */,
+				2F1BDE68365F4B9ABFA3D327 /* BaseTouchObject.cpp in Sources */,
+				F979CC9F56E44B0B988A68D3 /* TouchManager.cpp in Sources */,
+				8BC6F9C742B84614AB0E4107 /* BaseButton.cpp in Sources */,
+				95ACAF78D5144430B400AC61 /* Key.cpp in Sources */,
+				86344E1CBA2140819D427B6F /* Keyboard.cpp in Sources */,
+				3E8160D4B5AF41A9A8410115 /* ScrollView.cpp in Sources */,
+				21D6052E869A42559A7770DB /* ScrollViewCell.cpp in Sources */,
+				EE3037B38C164F59B7D8897B /* PanZoomObject.cpp in Sources */,
+				730F44616FFE4B71AA1AE15E /* PanZoomView.cpp in Sources */,
+				7E1671DD819445E8B3E9706F /* Mouse.cpp in Sources */,
+				4A4BABF7D08948D19FD03AA8 /* NativeTouch.cpp in Sources */,
+				8C3C8D13CE55497BA87E07B1 /* TUIO.cpp in Sources */,
+				4DC90D5694094CB2A1D549F9 /* OscBundle.cpp in Sources */,
+				6F10852EA4B349BFB7680714 /* OscListener.cpp in Sources */,
+				75BBD13764E44E17A718E6E8 /* OscMessage.cpp in Sources */,
+				42727B519FB14DD78483F97F /* OscSender.cpp in Sources */,
+				AF2579C3828242E7A1ABFA73 /* IpEndpointName.cpp in Sources */,
+				8C2DE4D1D4BC442C852F58EB /* OscOutboundPacketStream.cpp in Sources */,
+				A04FF3D72D614A64B337E41F /* OscPrintReceivedElements.cpp in Sources */,
+				525D487F54AF4AB687766B11 /* OscReceivedElements.cpp in Sources */,
+				97F14931722E454C9AADED13 /* OscTypes.cpp in Sources */,
+				4E5EDB329E284CDA9D7A9C26 /* NetworkingUtils.cpp in Sources */,
+				B89962D2E3024B4DB28D1700 /* UdpSocket.cpp in Sources */,
+				EB99581852F04B719372B9A8 /* TuioClient.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ScrollviewSample_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				PRODUCT_NAME = ScrollviewSample;
+				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ScrollviewSample_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
+				PRODUCT_NAME = ScrollviewSample;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				CINDER_PATH = ../../../../..;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				CINDER_PATH = ../../../../..;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ScrollviewSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ScrollviewSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

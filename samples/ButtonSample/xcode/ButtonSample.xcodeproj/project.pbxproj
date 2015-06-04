@@ -25,13 +25,13 @@
 		9262D12BDA1B4696B99D2759 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39DD53660C8E4C3581C914B2 /* OscTypes.cpp */; };
 		AB143D57E8084B3FA2931608 /* OscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BB50F4294E486CAA74CD70 /* OscMessage.cpp */; };
 		BD5EF4B50250439487C95258 /* OscListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D5EDFB7E7A4545B84AA3D3 /* OscListener.cpp */; };
+		C3BFA88F1B20E17F00818C3C /* BaseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3BFA88D1B20E17F00818C3C /* BaseButton.cpp */; };
 		C7A280B06B9744A5991CDBEB /* ButtonSampleApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2441BD1D679C4C368C2D3D6E /* ButtonSampleApp.cpp */; };
 		C985C7B84A3F4562828FB95B /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8DE1BF90912247E6BABAECA8 /* OscOutboundPacketStream.cpp */; };
 		DB270A9F3AD44E8FB5B1C75A /* OscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DAA276D5E4C4B9EFFD18B /* OscBundle.cpp */; };
 		DC720AAA0C77455CAAD3EBFC /* TouchManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EE65658C439486181F3D4B8 /* TouchManager.cpp */; };
 		DF5422C7D1C14D80AC348551 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 979071EC6CD84DB99B9E3ADD /* NetworkingUtils.cpp */; };
 		E3AC87BC17EF454DABF245BC /* OscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5DF8AC9884E828CD73D04 /* OscSender.cpp */; };
-		F16DF625953848EBA9E4EB37 /* BaseButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E36C5EF4D07A49298E8399E3 /* BaseButton.cpp */; };
 		F7F38A679D194B9C893BE7C9 /* TuioClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3D0D1F521FD476892C00F88 /* TuioClient.cpp */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +80,6 @@
 		8DE1BF90912247E6BABAECA8 /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = OscOutboundPacketStream.cpp; path = ../../../../OSC/src/osc/OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
 		8FE4364B0CDE4FE085DC8F61 /* OscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscSender.h; path = ../../../../OSC/src/OscSender.h; sourceTree = "<group>"; };
 		979071EC6CD84DB99B9E3ADD /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = NetworkingUtils.cpp; path = ../../../../OSC/src/ip/posix/NetworkingUtils.cpp; sourceTree = "<group>"; };
-		AB8A6F0C40CE47FAA924B216 /* BaseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseButton.h; path = ../../../src/modules/TouchObjects/BaseButton.h; sourceTree = "<group>"; };
 		AC0E424FFB5941AE93452C5F /* TUIO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = TUIO.cpp; path = ../../../src/modules/TouchDrivers/TUIO.cpp; sourceTree = "<group>"; };
 		AE97302762964BEFB1121F00 /* TuioProfileBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioProfileBase.h; path = ../../../../TUIO/include/TuioProfileBase.h; sourceTree = "<group>"; };
 		B58F0189764C4AE7814629F7 /* UdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UdpSocket.h; path = ../../../../OSC/src/ip/UdpSocket.h; sourceTree = "<group>"; };
@@ -88,10 +87,11 @@
 		BF9BC69FD8794B9781864AD9 /* OscMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscMessage.h; path = ../../../../OSC/src/OscMessage.h; sourceTree = "<group>"; };
 		C1135265B0DB4D3CA78C6A2B /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MessageMappingOscPacketListener.h; path = ../../../../OSC/src/osc/MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
 		C1A1AE6F80894A788C7B45B2 /* TUIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TUIO.h; path = ../../../src/modules/TouchDrivers/TUIO.h; sourceTree = "<group>"; };
+		C3BFA88D1B20E17F00818C3C /* BaseButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseButton.cpp; path = ../../../src/modules/TouchObjects/Button/BaseButton.cpp; sourceTree = "<group>"; };
+		C3BFA88E1B20E17F00818C3C /* BaseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseButton.h; path = ../../../src/modules/TouchObjects/Button/BaseButton.h; sourceTree = "<group>"; };
 		CB4A3985EF1D42D084A97195 /* Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mouse.h; path = ../../../src/modules/TouchDrivers/Mouse.h; sourceTree = "<group>"; };
 		D366C15243B849C8AB2904E1 /* OscBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscBundle.h; path = ../../../../OSC/src/OscBundle.h; sourceTree = "<group>"; };
 		D3D0D1F521FD476892C00F88 /* TuioClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = TuioClient.cpp; path = ../../../../TUIO/src/TuioClient.cpp; sourceTree = "<group>"; };
-		E36C5EF4D07A49298E8399E3 /* BaseButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = BaseButton.cpp; path = ../../../src/modules/TouchObjects/BaseButton.cpp; sourceTree = "<group>"; };
 		E6F893A9031D4E8C9A0A8F11 /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = UdpSocket.cpp; path = ../../../../OSC/src/ip/posix/UdpSocket.cpp; sourceTree = "<group>"; };
 		EEE46CC21F5440FBBBC652D8 /* TuioObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TuioObject.h; path = ../../../../TUIO/include/TuioObject.h; sourceTree = "<group>"; };
 		FB7E5B82F7584A08AEDBA392 /* OscHostEndianness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscHostEndianness.h; path = ../../../../OSC/src/osc/OscHostEndianness.h; sourceTree = "<group>"; };
@@ -170,8 +170,7 @@
 		181638A70CF34D1999AF62D6 /* TouchObjects */ = {
 			isa = PBXGroup;
 			children = (
-				E36C5EF4D07A49298E8399E3 /* BaseButton.cpp */,
-				AB8A6F0C40CE47FAA924B216 /* BaseButton.h */,
+				C3BFA88C1B20E15D00818C3C /* Button */,
 			);
 			name = TouchObjects;
 			sourceTree = "<group>";
@@ -339,6 +338,15 @@
 			name = osc;
 			sourceTree = "<group>";
 		};
+		C3BFA88C1B20E15D00818C3C /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				C3BFA88D1B20E17F00818C3C /* BaseButton.cpp */,
+				C3BFA88E1B20E17F00818C3C /* BaseButton.h */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
 		C7697DFAB0DA4E719B45E95A /* TouchDrivers */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +392,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ButtonSample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -421,12 +431,12 @@
 				C7A280B06B9744A5991CDBEB /* ButtonSampleApp.cpp in Sources */,
 				4D6712BD54FA4C76BECA92A7 /* BaseTouchObject.cpp in Sources */,
 				DC720AAA0C77455CAAD3EBFC /* TouchManager.cpp in Sources */,
-				F16DF625953848EBA9E4EB37 /* BaseButton.cpp in Sources */,
 				41991E24ED3A4259BFBA9D54 /* Mouse.cpp in Sources */,
 				47D2762AE0AC41E794D40077 /* TUIO.cpp in Sources */,
 				DB270A9F3AD44E8FB5B1C75A /* OscBundle.cpp in Sources */,
 				BD5EF4B50250439487C95258 /* OscListener.cpp in Sources */,
 				AB143D57E8084B3FA2931608 /* OscMessage.cpp in Sources */,
+				C3BFA88F1B20E17F00818C3C /* BaseButton.cpp in Sources */,
 				E3AC87BC17EF454DABF245BC /* OscSender.cpp in Sources */,
 				72935FDE2FE4473D9E421C10 /* IpEndpointName.cpp in Sources */,
 				C985C7B84A3F4562828FB95B /* OscOutboundPacketStream.cpp in Sources */,
@@ -445,6 +455,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -463,6 +474,7 @@
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
 				PRODUCT_NAME = ButtonSample;
 				SYMROOT = ./build;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules/** ../../../../OSC/src ../../../../TUIO/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -470,6 +482,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -486,6 +499,7 @@
 				PRODUCT_NAME = ButtonSample;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules/** ../../../../OSC/src ../../../../TUIO/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -503,7 +517,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include ../../../src/modules/TouchObjects/Button";
 			};
 			name = Debug;
 		};
@@ -520,7 +534,7 @@
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include";
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../src/core ../../../src/modules ../../../../OSC/src ../../../../TUIO/include ../../../src/modules/TouchObjects/Button";
 			};
 			name = Release;
 		};
