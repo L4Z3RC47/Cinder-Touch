@@ -52,16 +52,18 @@ namespace touchObject {
 		void clearNextCell(){ mNextCell.reset(); };
 	
 		
-		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
-		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
-		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){};
+		virtual	void	touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){ ci::app::console() << "WARNING::ScrollViewCells Cannot Receive Normal Touch Events. See TapEventHandler" << std::endl; };
+		virtual void	touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){ ci::app::console() << "WARNING::ScrollViewCells Cannot Receive Normal Touch Events. See TapEventHandler" << std::endl; };
+		virtual void	touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){ ci::app::console() << "WARNING::ScrollViewCells Cannot Receive Normal Touch Events. See TapEventHandler" << std::endl; };
 		
+		virtual void	tapEventHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 	protected:
 
 		ci::Rectf mPadding;
 	
 		ScrollViewCellRef mPrevCell,mNextCell;
 
-		//touchObject::ScrollViewWeakRef mParentScrollViewRef;
+		//touchObject::ScrollViewWeakRef mParentScrollViewRef
+
 	};
 }

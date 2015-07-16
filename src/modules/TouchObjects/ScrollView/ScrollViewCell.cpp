@@ -15,7 +15,6 @@ namespace touchObject {
 
 	ScrollViewCell::ScrollViewCell() : BaseTouchObject(),
 		mPadding(Rectf::zero())
-		
 	{
 		mToString = "Scroll View Cell";
 	};
@@ -66,11 +65,18 @@ namespace touchObject {
 		}
 	}
 	*/
+
+	void	ScrollViewCell::tapEventHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
+		console() << "Scrollview Cell recivied Tap Event" << endl;
+	}
+
+
 	void	ScrollViewCell::draw(cinder::Vec2f translationOffset){
 		gl::pushMatrices(); {
 			gl::translate(translationOffset);
 			gl::color(Color(1, 1, 1));
 		
+			
 			drawDebugBox();
 
 		}gl::popMatrices(); 

@@ -169,6 +169,7 @@ void TouchManager::unregisterObjectForInput(touchObject::TouchObjectRef obj){
 				mRegisteredObjectLock.lock();
 				mRegisteredObjectsDeque.erase(mRegisteredObjectsDeque.begin() + i);
 				mRegisteredObjectLock.unlock();
+				return;
 			}
 			i++;
 		}
@@ -183,7 +184,19 @@ cinder::Vec2f TouchManager::getCurrentTouchPoint(int touchId){
 		pnt = mTouchMap[touchId].touchPoint;
 	return pnt;
 }
+void	TouchManager::sendTouchToObject(int touchId, touchObject::TouchObjectRef obj){
+	
+	//LOCK
+	mTouchMapLock.lock();
+	
+		mTouchMap[touchId].touchingObjectPntr= obj;
+		obj->touchesBeganHandler(mTouchMap[touchId].touchId, mTouchMap[touchId].touchPoint, mTouchMap[touchId].touchType);
+	
+	//UNLOCK
+	mTouchMapLock.unlock();
 
+		
+}
 void TouchManager::endTouch(int touchID){
 	//LOCK
 	mTouchMapLock.lock();

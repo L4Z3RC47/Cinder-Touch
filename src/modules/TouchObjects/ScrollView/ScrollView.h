@@ -85,7 +85,7 @@ namespace touchObject {
 		virtual void render();
 		virtual void layoutSections();
 
-		virtual void passTouchToCells();
+		virtual void cellTouched(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		/**
 		*	Calculates the width and height of all the cell combined with the cell spacing
 		*/

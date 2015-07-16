@@ -152,17 +152,30 @@ namespace touchObject {
 
 		Vec2f offsetAmount = mInitalTouchPosition - mPreviousTouchPosition;//Get the difference between the inital touch point and the Current touch point
 
-		/*
+		
 		if ((mScrollViewOrientation == Horizontal && (abs(offsetAmount.x) < mTapMovementThreshold)) || 
 			(mScrollViewOrientation == Vertical && (abs(offsetAmount.y) < mTapMovementThreshold))) {
-			passTouchToCells();
+			
+			cellTouched(touchID, touchPnt, touchType);
 		}
-		*/
+		
 
 	}
+	
+	void  ScrollView::cellTouched(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
+		console() << "PASSING TOUCH SCROLLVIEW -> CELL " << endl;
 
-	void  ScrollView::passTouchToCells(){
-		console() << "Checking if Cells take the touch "  << endl;
+		for (auto cell : mScrollViewCells){
+			bool cellHasTouch = cell->hasTouchPoint(touchPnt);
+			if (cellHasTouch){
+				console() << "cell @" << cell->getPosition() << "Has Touch point " << touchPnt << endl;
+				if (cell->isAcceptingTouch()){
+					cell->tapEventHandler(touchID, touchPnt, touchType);
+				}
+
+			}
+		}
+
 	}
 
 

@@ -47,7 +47,7 @@ public:
 	cinder::Vec2f			getCurrentTouchPoint(int touchId);
 	
 	void					endTouch(int touchID);
-
+	void					sendTouchToObject(int touchId, touchObject::TouchObjectRef obj);
     float                   getLatestTouchTime(){return mLatestTouchTime;};
 
 private:
