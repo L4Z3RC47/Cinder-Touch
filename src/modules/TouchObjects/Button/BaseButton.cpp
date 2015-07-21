@@ -26,6 +26,7 @@ namespace touchObject {
 		btnRef->setPosition(pos);
 		btnRef->setSize(size);
 		btnRef->setCallBackFn(callBackFn);
+		btnRef->mToString = "BaseButton : " + to_string(btnRef->getUniqueID());
 		return btnRef;
 	}
 
@@ -48,7 +49,8 @@ namespace touchObject {
 				mTouchCanceled = true;
 
 				//the button no longer has this touch
-				mObjectTouchIDs.clear();
+				touchesEndedHandler(touchID, touchPnt, touchType);
+			
 			
 			}
 		}
@@ -57,6 +59,7 @@ namespace touchObject {
 	void BaseButton::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
 
 		if (!mObjectTouchIDs.empty()){
+		
 			int currentTouchId = mObjectTouchIDs.front();
 			if (currentTouchId == touchID){
 				//clear the touch ids
@@ -73,13 +76,30 @@ namespace touchObject {
 					console() << "Missing Function to call" << endl;
 				}
 			}
+			else{
+				mTouchCanceled = false;
+				mObjectTouchIDs.clear();
+				//try{
+					handleTouchCanceled(touchID, touchPnt, touchType);
+			/*
+			}
+				catch (...){
+					console() << "No touch Cancel Function Set" << endl;
+				}
+				*/
 
-			mTouchCanceled = false;
+			}
+
+		
 		}
 	}
 	
+	void	BaseButton::	handleTouchCanceled(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType){
+		mCancelCallbackFunction(shared_from_this(), touchID);
+	}
+
 	void	BaseButton::handleTap(){
-		mCallbackFunction(shared_from_this());
+		mTapCallbackFunction(shared_from_this());
 
 	}
 	void	BaseButton::draw(cinder::Vec2f translationOffset ){

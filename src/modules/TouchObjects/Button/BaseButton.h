@@ -14,7 +14,8 @@ namespace touchObject {
 	typedef std::shared_ptr<const class BaseButton>		ButtonConstRef;
 	typedef std::weak_ptr  <class		BaseButton>		ButtonWeakRef;
 
-	typedef std::function <void(touchObject::TouchObjectRef)>		CallbackFunction;
+	typedef std::function <void(touchObject::TouchObjectRef)>					CallbackFunction;
+	typedef std::function <void(touchObject::TouchObjectRef,int touchId)>		CancelCallbackFunction;
 
 	class BaseButton :public touchObject::BaseTouchObject{
 	public://anyone can get access to this stuff with the "." accessor
@@ -32,11 +33,15 @@ namespace touchObject {
 		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
 		virtual void				handleTap();
-		void						setCallBackFn(CallbackFunction fn)     { mCallbackFunction=fn; };
-	
+
+		virtual void				handleTouchCanceled(int touchID, const cinder::Vec2f &touchPnt, TouchType touchType);
+		void						setCallBackFn(CallbackFunction fn)     { mTapCallbackFunction = fn; };
+		void						setCancelCallBackFn(CancelCallbackFunction fn)     { mCancelCallbackFunction = fn; };
+
 
 	protected:
 		bool														mTouchCanceled;
-		CallbackFunction											mCallbackFunction;
+		CallbackFunction											mTapCallbackFunction;
+		CancelCallbackFunction											mCancelCallbackFunction;
 	};
 }

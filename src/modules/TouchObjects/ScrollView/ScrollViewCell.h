@@ -6,9 +6,7 @@
 //
 //
 #pragma once
-
 #include "BaseTouchObject.h"
-
 
 namespace touchObject {
 
@@ -19,10 +17,9 @@ namespace touchObject {
 
 	class ScrollViewCell : public touchObject::BaseTouchObject{
 	public:
-
 		ScrollViewCell();
 		static ScrollViewCellRef create(cinder::Vec2f size);
-		//void setParentScrollview(touchObject::ScrollViewWeakRef scrollViewRef){ mParentScrollViewRef = scrollViewRef; };
+		void setParentScrollview(TouchObjectRef scrollViewRef){ mParentScrollViewRef = scrollViewRef; };
 
 		virtual void	draw(cinder::Vec2f translationOffset = cinder::Vec2f::zero());
 
@@ -62,8 +59,6 @@ namespace touchObject {
 		ci::Rectf mPadding;
 	
 		ScrollViewCellRef mPrevCell,mNextCell;
-
-		//touchObject::ScrollViewWeakRef mParentScrollViewRef
-
+		TouchObjectRef mParentScrollViewRef;
 	};
 }

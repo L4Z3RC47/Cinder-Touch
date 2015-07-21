@@ -5,7 +5,8 @@
 #include "TouchDrivers/Mouse.h"
 #include "TouchDrivers/TUIO.h"
 #include "TouchObjects/ScrollView/ScrollView.h"
-#include "ScrollViewCellButton.h"
+#include "ScrollViewCell_W_Button.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -21,7 +22,10 @@ class ScrollViewWButtonsSampleApp : public AppNative {
 
 	Tuio mTouchConnection;
 	Mouse mMouseConnection;
-	ScrollViewRef mVerticalScrollViewRef;
+	ScrollViewRef mVerticalScrollViewRef; 
+
+
+
 };
 
 void ScrollViewWButtonsSampleApp::prepareSettings(Settings *settings){
@@ -38,10 +42,14 @@ void ScrollViewWButtonsSampleApp::setup(){
 
 	//Create a vertical Scrollview
 	mVerticalScrollViewRef = ScrollView::create(Vec2f(50, 100), Vec2f(800, 800), ScrollView::ScrollViewType::Continuous, ScrollView::ScrollViewOrientation::Vertical);
+
+
 	mVerticalScrollViewRef->setShouldClipSubviews(true);
+	
 
 	for (int i = 0; i < 6; i++){
-		ScrollViewCellButtonRef cell = ScrollViewCellButton::create(Vec2f(200, 200));
+		ScrollViewCell_W_ButtonRef cell = ScrollViewCell_W_Button::create(Vec2f(200, 200));
+
 		Color color;
 
 		switch (i){
@@ -57,12 +65,13 @@ void ScrollViewWButtonsSampleApp::setup(){
 
 		cell->setObjectColor(color);
 		mVerticalScrollViewRef->addCell(cell);
+		
 	}
 
-
-
-
 }
+
+
+
 
 void ScrollViewWButtonsSampleApp::update()
 {
@@ -83,6 +92,7 @@ void ScrollViewWButtonsSampleApp::draw()
 	TouchManager::getInstance()->draw();
 
 	mVerticalScrollViewRef->draw();
+
 }
 
 CINDER_APP_NATIVE( ScrollViewWButtonsSampleApp, RendererGl )

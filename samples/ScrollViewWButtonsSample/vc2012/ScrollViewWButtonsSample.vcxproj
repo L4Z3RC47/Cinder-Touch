@@ -107,7 +107,7 @@
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ScrollViewCellButton.cpp" />
+    <ClCompile Include="..\src\ScrollViewCell_W_Button.cpp" />
     <ClCompile Include="..\src\ScrollViewWButtonsSampleApp.cpp" />
     <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp" />
     <ClCompile Include="..\..\..\src\core\TouchManager.cpp" />
@@ -170,7 +170,7 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioCursor.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioObject.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h" />
-    <ClInclude Include="..\src\ScrollViewCellButton.h" />
+    <ClInclude Include="..\src\ScrollViewCell_W_Button.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

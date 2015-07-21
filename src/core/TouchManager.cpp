@@ -64,11 +64,13 @@ void TouchManager::touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchO
 
 void TouchManager::mainThreadTouchesBegan(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
 
+
 		mTouchMapLock.lock();
 
 			//specifically for the markers if you move them quickly -- but don't want to add a new object if the old one still exists
 			touchObject::TouchObjectRef foundObject = findTouchingObject(touchPnt);
 			if (foundObject){
+
 				//Initialize a new touch object 
 				TouchObject touchObject;
 				touchObject.touchId = touchID;
@@ -185,40 +187,33 @@ cinder::Vec2f TouchManager::getCurrentTouchPoint(int touchId){
 	return pnt;
 }
 void	TouchManager::sendTouchToObject(int touchId, touchObject::TouchObjectRef obj){
-	
+
 	//LOCK
-	mTouchMapLock.lock();
-	
-		mTouchMap[touchId].touchingObjectPntr= obj;
-		obj->touchesBeganHandler(mTouchMap[touchId].touchId, mTouchMap[touchId].touchPoint, mTouchMap[touchId].touchType);
+	//mRegisteredObjectLock.lock();
+
+		mTouchMap[touchId].touchingObjectPntr = obj;
+		obj->touchesBeganHandler(touchId, mTouchMap[touchId].touchPoint, mTouchMap[touchId].touchType);
 	
 	//UNLOCK
-	mTouchMapLock.unlock();
+	//mRegisteredObjectLock.unlock();
 
-		
 }
 void TouchManager::endTouch(int touchID){
 	//LOCK
 	mTouchMapLock.lock();
 	//
-	mTouchMap[touchID].touchingObjectPntr = touchObject::TouchObjectRef();
+		mTouchMap[touchID].touchingObjectPntr = touchObject::TouchObjectRef();
 	//UNLOCK
 	mTouchMapLock.unlock();
 }
 
 
 touchObject::TouchObjectRef TouchManager::findTouchingObject(const cinder::Vec2f &touchPoint){
-		//console() << "TouchManager::findTouchingObject for " << touchPoint << endl;
-
-	/*
-	we need to decide who gets the touch, and not based on who was registered with the touch manager first.
-	That is what the current setup is doing.do we first loop through a
-	*/
 
 	//if there are objects in the deque
 	if (mRegisteredObjectsDeque.size() > 0){
 		for (auto item : mRegisteredObjectsDeque){
-			if (item->hasTouchPoint(touchPoint) && item->isAcceptingTouch()){
+				if (item->hasTouchPoint(touchPoint) && item->isAcceptingTouch()){
 				return item;
 			}
 		}

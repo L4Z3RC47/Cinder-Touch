@@ -33,17 +33,16 @@ namespace touchObject {
 	ScrollViewRef ScrollView::create(Vec2f pos, Vec2f size, ScrollViewType scrollType, ScrollViewOrientation scrollOrientation){
 
 		ScrollViewRef scrollViewRef(new ScrollView());
-
-		scrollViewRef->registerWithTouchMngr();
-
+		
 		scrollViewRef->setPosition(pos);
 		scrollViewRef->setSize(size);
+		scrollViewRef->registerWithTouchMngr();
 
 		scrollViewRef->mScrollViewOrientation = scrollOrientation;
 		scrollViewRef->mScrollViewType = scrollType;
 
 		scrollViewRef->setupFbo();
-		
+		scrollViewRef->setDebugString( "ScrollView : " + to_string(scrollViewRef->getUniqueID()));
 		return scrollViewRef;
 	}
 
@@ -63,6 +62,8 @@ namespace touchObject {
 			lastCell->setNextCell(cell);
 		}
 		cell->setParentPosition(getPosition());
+		
+		cell->setParentScrollview(shared_from_this());
 		mScrollViewCells.push_back(cell);
 	
 	}
@@ -86,7 +87,6 @@ namespace touchObject {
 		Vec2f contentSize = getContentSize();
 
 			if (mScrollViewType == Continuous){
-				console() << "CENTER POINT " << getCenter() << endl;
 				float screenCenter = (mScrollViewOrientation == Horizontal) ? getWidth() / 2.0f       : getHeight() / 2.0f;
 				float contentHalf  = (mScrollViewOrientation == Horizontal) ? (contentSize.x / 2) : (contentSize.y / 2);
 				

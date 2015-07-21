@@ -11,12 +11,12 @@
 #include "ScrollViewCell.h"
 #include "cinder/Timeline.h"
 #include "cinder/gl/Fbo.h"
+
 namespace touchObject {
 
 	typedef std::shared_ptr<class		ScrollView>		ScrollViewRef;
 	typedef std::shared_ptr<const class ScrollView>		ScrollViewConstRef;
 	typedef std::weak_ptr  <class		ScrollView>		ScrollViewWeakRef;
-
 
 
 	class ScrollView : public touchObject::BaseTouchObject{

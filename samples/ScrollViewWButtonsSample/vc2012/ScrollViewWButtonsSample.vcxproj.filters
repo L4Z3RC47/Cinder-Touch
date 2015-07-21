@@ -255,7 +255,7 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h">
       <Filter>Blocks\TUIO\include</Filter>
     </ClInclude>
-    <ClCompile Include="..\src\ScrollViewCellButton.cpp">
+    <ClCompile Include="..\src\ScrollViewCell_W_Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -263,7 +263,7 @@
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ScrollViewCellButton.h">
+    <ClInclude Include="..\src\ScrollViewCell_W_Button.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

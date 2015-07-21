@@ -87,7 +87,7 @@ namespace touchObject {
 		bool                        isAcceptingTouch()									{ return mAcceptTouch; }
     
 		//ID TAG
-		const int&                  getUniqueID()										{ return mUniqueID; }
+		 int                  getUniqueID()										{ return mUniqueID; }
 
 		//Register with Touch manager to recieve touches
 		virtual void                registerWithTouchMngr();
@@ -107,6 +107,7 @@ namespace touchObject {
 		void						setScale(cinder::Vec2f scale)						{ mScale = scale; };
 
 		//TOString - prints what the object actually is 
+		void setDebugString(std::string s){ mToString = s; };
 		virtual std::string			getDebugString();
 
 		
@@ -114,7 +115,9 @@ namespace touchObject {
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
 
-		cinder::Vec2f				mPosition, mParentPosition, mScale;
+		cinder::Vec2f				mPosition, 
+									mParentPosition,
+									mScale;
 
 		float						mWidth,
 									mHeight;
@@ -143,7 +146,7 @@ private://No one other than this class can access these variables
 	
 		
 	
-		//STATIC CLASS MEMBERS
+		//STATIC CLASS Variables  - These variables are available for every instance of the base Touch  class.
 		//TotalObjectCount is used to count the number of Object instances for debugging purposes
 		static int					TotalObjectCount;
 		// ObjectID is used to generate new unique id's any time a gui object is created. 

@@ -103,7 +103,8 @@ bool BaseTouchObject::hasTouchPoint( const Vec2f &pnt ){
 
 //ToString
 std::string BaseTouchObject::getDebugString(){
-    return "BaseTouchObject: UID: " + boost::lexical_cast<string>( mUniqueID );
+    //return "BaseTouchObject: UID: " + boost::lexical_cast<string>( mUniqueID );
+	return mToString;
 }
 
 //This Will be overridden for each subclass object
