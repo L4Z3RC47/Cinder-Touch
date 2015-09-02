@@ -49,6 +49,8 @@ public:
 	void					endTouch(int touchID);
 	void					sendTouchToObject(int touchId, touchObject::TouchObjectRef obj);
     float                   getLatestTouchTime(){return mLatestTouchTime;};
+	//Multiplies every touch point by this scale. Used mostly for building larger applications on smaller hardware. 
+	void					setTouchScale(ci::Vec2f scale){ mScale = scale; };
 
 private:
     //private to make the TouchManager a singleton
@@ -72,4 +74,7 @@ private:
     
     //keep track of the most recent touch time
     float                                       mLatestTouchTime;
+
+	//
+	ci::Vec2f mScale;
 };

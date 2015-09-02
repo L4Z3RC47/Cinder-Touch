@@ -7,7 +7,9 @@ using namespace ci::app;
 
 std::shared_ptr<TouchManager> TouchManager::mTouchManagerInstance;
 
-TouchManager::TouchManager(){
+TouchManager::TouchManager():
+mScale(Vec2f(1,1))
+{
 }
 
 TouchManager::~TouchManager(){
@@ -53,7 +55,7 @@ void TouchManager::touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchO
     
 	TouchObject currentTouchObj;
 	currentTouchObj.touchId = touchID;
-	currentTouchObj.touchPoint = touchPnt;
+	currentTouchObj.touchPoint = touchPnt * mScale;
 	currentTouchObj.touchType = touchType;
 
 	std::pair<TouchEventType, TouchObject> currentTouchEvent = std::pair<TouchEventType, TouchObject>(eventType, currentTouchObj);
