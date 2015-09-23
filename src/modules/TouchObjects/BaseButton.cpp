@@ -1,14 +1,17 @@
 /*
 BaseButton.cpp
-Bluecadet, Paul Rudolph
+Bluecadet
 */
 
 #include "BaseButton.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
 
 using namespace std;
 using namespace ci;
 using namespace ci::app;
 namespace touchObject {
+
 	BaseButton::BaseButton() :BaseTouchObject(),
 		mTouchCanceled(false)
 	{
@@ -17,7 +20,7 @@ namespace touchObject {
 	BaseButton::~BaseButton(){
 	}
 
-	ButtonRef BaseButton::create(cinder::Vec2f pos, cinder::Vec2f size, std::function <void(touchObject::TouchObjectRef)>callBackFn){
+	ButtonRef BaseButton::create(ci::vec2 pos, ci::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn){
 		ButtonRef btnRef(new BaseButton());
 		
 		btnRef->registerWithTouchMngr();
@@ -27,7 +30,7 @@ namespace touchObject {
 		return btnRef;
 	}
 
-	void BaseButton::touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType){
+	void BaseButton::touchesBeganHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType){
 		//keep track of the touch position so we can later test how far it has moved
 		//This object only takes one touch
 		if (mObjectTouchIDs.empty()){
@@ -35,8 +38,7 @@ namespace touchObject {
 		}
 	}
 
-	void BaseButton::touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType){
-
+	void BaseButton::touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType){
 		//if the touch point is out of the space of the button = touch canceled.
 		if (!mObjectTouchIDs.empty()){
 			int currentTouchId = mObjectTouchIDs.front();
@@ -52,8 +54,7 @@ namespace touchObject {
 		}
 	}
 
-	void BaseButton::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType){
-
+	void BaseButton::touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType){
 		if (!mObjectTouchIDs.empty()){
 			int currentTouchId = mObjectTouchIDs.front();
 			if (currentTouchId == touchID){
@@ -61,11 +62,13 @@ namespace touchObject {
 				mObjectTouchIDs.clear();
 			}
 
+			
+
 			//if the touch wasn't canceled already by going out of bounds, then trigger the function call
 			if (!mTouchCanceled){
 				//Fire off the selected signal here
 				try{
-					mOnSelectSignal(shared_from_this());
+					mOnSelectSignal.emit(shared_from_this());
 				}
 				catch (...){
 					console() << "Missing Function to call" << endl;
@@ -77,12 +80,13 @@ namespace touchObject {
 	}
 
 	void BaseButton::draw(){
+		
 		gl::pushMatrices(); {
 			gl::translate(mPosition);
 			setTranslating(true);
 
 			gl::color(getObjectColor());
-			drawDebugBox(true);//if translating, let the debug box know
+			drawDebugBox(true);
 
 			if (!mObjectTouchIDs.empty()){
 				gl::drawSolidRect(Rectf(0,0,getWidth(),getHeight()));

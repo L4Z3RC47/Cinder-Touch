@@ -28,8 +28,8 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 
 BaseTouchObject::BaseTouchObject() :
-	mPosition( vec2(0) ),
-	mParentTranslatePosition(vec2(0)),
+	mPosition( ci::vec2(0) ),
+	mParentTranslatePosition(ci::vec2(0)),
 	mWidth(0.0f),
 	mHeight(0.0f),
 	mObjectColor(ColorA::white()),
@@ -37,7 +37,7 @@ BaseTouchObject::BaseTouchObject() :
 	mAcceptTouch(true),
 	mUniqueID(ObjectID),
 	mTranslating(false),
-	mScale( vec2(0.0f, 0.0f) )
+	mScale( ci::vec2(1.0f, 1.0f) )
 {
 	TotalObjectCount++;
 	ObjectID++;			
@@ -51,7 +51,7 @@ BaseTouchObject::~BaseTouchObject(){
 		UniqueIDLookupMap.erase(mUniqueID); 
 }
 
-void BaseTouchObject::setup(const vec2 &pos, const vec2 &size){
+void BaseTouchObject::setup(const ci::vec2 &pos, const ci::vec2 &size){
 
 	//Store Object in lookup table
 	UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
@@ -67,7 +67,7 @@ void  BaseTouchObject::drawDebugBox( bool translating ){
 	gl::drawStrokedRect(getRect());
 }
 
-void BaseTouchObject::setPosition( const vec2 &pt ){
+void BaseTouchObject::setPosition( const ci::vec2 &pt ){
 	mPosition = pt;
 }
 
@@ -87,7 +87,7 @@ void BaseTouchObject::endTouches(){
 	}
 }
 
-bool BaseTouchObject::hasTouchPoint( const vec2 &pnt ){
+bool BaseTouchObject::hasTouchPoint( const ci::vec2 &pnt ){
 	//global rectangle to grab the point, whether it's translating or not
 	Rectf globalRectSpace = Rectf(
 		mPosition.x + mParentTranslatePosition.x,

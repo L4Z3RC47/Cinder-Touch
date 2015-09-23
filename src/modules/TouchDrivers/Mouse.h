@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "../../core/TouchManager.h"
 
 class Mouse{
@@ -17,14 +17,14 @@ public:
 	void disconnect();
 
 private:
-	 //Mouse Event Callbacks
-    boost::signals2::scoped_connection  mMouseBeganCallBack,
-                                        mMouseMovedCallBack,
-                                        mMouseEndCallBack;
+	//Mouse Event Callbacks
+    ci::signals::Connection mMouseBeganConnection,
+                            mMouseMovedConnection,
+                            mMouseEndConnection;
    
-   void mouseBegan(const cinder::app::MouseEvent &event);
-   void mouseMoved(const cinder::app::MouseEvent &event);
-   void mouseEnded(const cinder::app::MouseEvent &event);
+   void mouseBegan(const ci::app::MouseEvent &event);
+   void mouseMoved(const ci::app::MouseEvent &event);
+   void mouseEnded(const ci::app::MouseEvent &event);
    
    std::shared_ptr<class TouchManager>	mTouchManagerPntr;
    int									mTouchId;

@@ -15,9 +15,9 @@ void NativeTouch::connect(){
 
 	if (window){
 		//began
-		mTouchBeganCallBack = window->getSignalTouchesBegan().connect(std::bind(&NativeTouch::nativeTouchBegan, this, std::placeholders::_1));
-		mTouchMovedCallBack = window->getSignalTouchesMoved().connect(std::bind(&NativeTouch::nativeTouchMoved, this, std::placeholders::_1));
-		mTouchEndCallBack = window->getSignalTouchesEnded().connect(std::bind(&NativeTouch::nativeTouchEnded, this, std::placeholders::_1));
+		mTouchBeganConnection = window->getSignalTouchesBegan().connect(std::bind(&NativeTouch::nativeTouchBegan, this, std::placeholders::_1));
+		mTouchMovedConnection = window->getSignalTouchesMoved().connect(std::bind(&NativeTouch::nativeTouchMoved, this, std::placeholders::_1));
+		mTouchEndConnection = window->getSignalTouchesEnded().connect(std::bind(&NativeTouch::nativeTouchEnded, this, std::placeholders::_1));
 	}
 	
 	//shared pointer to the Touch Manager
@@ -26,14 +26,9 @@ void NativeTouch::connect(){
 
 NativeTouch::~NativeTouch(){
 	//Disconnect from the mouse signals
-	mTouchBeganCallBack	.disconnect();
-	mTouchMovedCallBack	.disconnect();
-	mTouchEndCallBack	.disconnect();
-	
-	//Release the callback objects
-	mTouchBeganCallBack	.release();
-	mTouchMovedCallBack	.release();
-	mTouchEndCallBack	.release();
+	mTouchBeganConnection.disconnect();
+	mTouchMovedConnection.disconnect();
+	mTouchEndConnection.disconnect();
 
 	// Remove the pointer to the touch manager
 	mTouchManagerPntr = NULL;
@@ -41,9 +36,9 @@ NativeTouch::~NativeTouch(){
 
 void NativeTouch::disconnect(){
 	//Disconnect from the mouse signals
-	mTouchBeganCallBack	.disconnect();
-	mTouchMovedCallBack	.disconnect();
-	mTouchEndCallBack	.disconnect();
+	mTouchBeganConnection.disconnect();
+	mTouchMovedConnection.disconnect();
+	mTouchEndConnection.disconnect();
 
 	// Remove the pointer to the touch manager
 	mTouchManagerPntr = NULL;

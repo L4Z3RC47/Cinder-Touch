@@ -32,7 +32,7 @@ namespace touchObject {
 		BaseTouchObject();
 		virtual ~BaseTouchObject(); //Virtual destructor will  call the subclass dtor aswell
 		
-		void						setup(const vec2 &pos, const vec2 &size);
+		void						setup(const ci::vec2 &pos, const ci::vec2 &size);
 		
 		
 		//Drawing Functions
@@ -42,14 +42,14 @@ namespace touchObject {
     
 
 		//Positioning Functions
-		virtual void				setPosition ( const vec2 &pt);
-		const cinder::vec2&		getPosition()										{ return mPosition; };
+		virtual void				setPosition ( const ci::vec2 &pt);
+		const cinder::vec2&			getPosition()										{ return mPosition; };
 
-		void						setParentTranslatePosition(vec2 translatePoint){ mParentTranslatePosition = translatePoint; };
+		void						setParentTranslatePosition(ci::vec2 translatePoint){ mParentTranslatePosition = translatePoint; };
 
 		//Size Functions
-		virtual void                setSize(const vec2 &size)					{ mWidth = size.x; mHeight = size.y; };
-		const cinder::vec2			getSize()											{ return vec2(mWidth, mHeight); };
+		virtual void                setSize(const ci::vec2 &size)					{ mWidth = size.x; mHeight = size.y; };
+		const cinder::vec2			getSize()											{ return ci::vec2(mWidth, mHeight); };
 		
 		//Leave these in , they are not hurting anything
 		float						getWidth()											{ return mWidth; };
@@ -76,7 +76,7 @@ namespace touchObject {
 		}
 		const void					setTranslating(bool isTranslating)					{ mTranslating = isTranslating; };
 
-		const vec2					getCenter()											{ return getRect().getCenter();}
+		const ci::vec2				getCenter()											{ return getRect().getCenter();}
     
 		//Color
 		virtual void                setObjectColor(  const cinder::ColorA &color )		{ mObjectColor = color; };
@@ -93,18 +93,18 @@ namespace touchObject {
 		virtual void                registerWithTouchMngr();
 		virtual void                unRegisterWithTouchMngr();
 	 
-		virtual bool                hasTouchPoint(  const vec2 &pnt );
+		virtual bool                hasTouchPoint(  const ci::vec2 &pnt );
 		int                         getNumTouches()										{ return mObjectTouchIDs.size(); }
 	
 		virtual void				endTouches();
 		
 		
-		virtual	void				touchesBeganHandler(int touchID, const vec2 &touchPnt, TouchType touchType){};
-		virtual void				touchesMovedHandler(int touchID, const vec2 &touchPnt, TouchType touchType){};
-		virtual void				touchesEndedHandler(int touchID, const vec2 &touchPnt, TouchType touchType){};
+		virtual	void				touchesBeganHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
+		virtual void				touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
+		virtual void				touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
 
-		const vec2					getScale()									{ return mScale; };
-		void						setScale(vec2 scale)						{ mScale = scale; };
+		const ci::vec2					getScale()									{ return mScale; };
+		void						setScale(ci::vec2 scale)						{ mScale = scale; };
 
 		//TOString - prints what the object actually is 
 		virtual std::string			getDebugString();
@@ -113,7 +113,7 @@ namespace touchObject {
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
 
-		vec2						mPosition, mParentTranslatePosition, mScale;
+		ci::vec2					mPosition, mParentTranslatePosition, mScale;
 
 		float						mWidth,
 									mHeight;

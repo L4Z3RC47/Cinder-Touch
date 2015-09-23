@@ -6,8 +6,10 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "cinder/app/AppNative.h"
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
 #include "BaseTouchObject.h"
+
 namespace touchObject {
 
 	typedef std::shared_ptr<class		BaseButton>		ButtonRef;
@@ -17,25 +19,24 @@ namespace touchObject {
 	class BaseButton :public touchObject::BaseTouchObject{
 	public://anyone can get access to this stuff with the "." accessor
 
-	
-
 		virtual ~BaseButton();
 
-		static  ButtonRef			create(cinder::Vec2f pos, cinder::Vec2f size, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
+		static  ButtonRef			create(ci::vec2 pos, ci::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
+		
 		//Drawing Functions
 		virtual void				draw();
 
-		virtual	void				touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType);
-		virtual void				touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType);
-		virtual void				touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType);
+		virtual	void				touchesBeganHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType);
+		virtual void				touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType);
+		virtual void				touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType);
 
 		void						setCallBackFn(std::function <void(touchObject::TouchObjectRef)> fn)     { mOnSelectSignal.connect(fn); };
-		const boost::signals2::signal<void(touchObject::TouchObjectRef)>&			getSelectedSignal()				{ return mOnSelectSignal; }
+		const ci::signals::Signal<void(touchObject::TouchObjectRef)>&	getSelectedSignal()					{ return mOnSelectSignal; }
 
 
 	protected:
-		bool														mTouchCanceled;
-		boost::signals2::signal<void(touchObject::TouchObjectRef)>  mOnSelectSignal;
+		bool												mTouchCanceled;
+		ci::signals::Signal< void(touchObject::TouchObjectRef) >  mOnSelectSignal;
 
 	private:
 		BaseButton();

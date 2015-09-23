@@ -1,5 +1,7 @@
 #include "TouchManager.h"
 #include "boost/lexical_cast.hpp"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
 
 using namespace std;
 using namespace ci;
@@ -28,6 +30,7 @@ void TouchManager::update(){
 }
 
 void TouchManager::updateTouches(){
+	//console() << "update touches" << endl;
 	mUpdateMutex.lock();
 		if (!mTouchUpdateQueue.empty()){
 			for (std::pair<TouchEventType, TouchObject> touchEvent : mTouchUpdateQueue){
@@ -37,15 +40,15 @@ void TouchManager::updateTouches(){
 					case BEGAN:mainThreadTouchesBegan(touchObject.touchId, touchObject.touchPoint, touchObject.touchType); break;
 					case MOVED:mainThreadTouchesMoved(touchObject.touchId, touchObject.touchPoint, touchObject.touchType); break;
 					case ENDED:mainThreadTouchesEnded(touchObject.touchId, touchObject.touchPoint, touchObject.touchType); break;
-				
 				}
 			}
 			mTouchUpdateQueue.clear();
 		}
 	mUpdateMutex.unlock();
 }
-void TouchManager::touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType, TouchEventType eventType){
-    
+void TouchManager::touchEvent(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType, TouchEventType eventType){
+	//console() << "TouchManager::touchEvent" << endl;
+
     //update the most recent touch time on the app
     mLatestTouchTime = getElapsedSeconds();
     
@@ -60,12 +63,13 @@ void TouchManager::touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchO
 	mUpdateMutex.unlock();
 }
 
-void TouchManager::mainThreadTouchesBegan(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void TouchManager::mainThreadTouchesBegan(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType){
 
 		mTouchMapLock.lock();
 
 			//specifically for the markers if you move them quickly -- but don't want to add a new object if the old one still exists
 			touchObject::TouchObjectRef foundObject = findTouchingObject(touchPnt);
+
 			if (foundObject){
 				//Initialize a new touch object 
 				TouchObject touchObject;
@@ -83,7 +87,7 @@ void TouchManager::mainThreadTouchesBegan(int touchID, const cinder::Vec2f &touc
 	
 }
 
-void TouchManager::mainThreadTouchesMoved(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void TouchManager::mainThreadTouchesMoved(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType){
 
 	//if the touch has been reassigned or just skipped the began, manually make it go through and add a new touch object
 	if (mTouchMap.count(touchID) == 0 && touchType == touchObject::TouchType::OBJECT){
@@ -140,7 +144,7 @@ void TouchManager::mainThreadTouchesMoved(int touchID, const cinder::Vec2f &touc
 	}
 }
 
-void TouchManager::mainThreadTouchesEnded(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void TouchManager::mainThreadTouchesEnded(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType){
 	mTouchMapLock.lock();
 	//if the touch belongs to an object, find that object and call touches ended on it
 	if (mTouchMap[touchID].touchingObjectPntr) 
@@ -173,8 +177,8 @@ void TouchManager::unregisterObjectForInput(touchObject::TouchObjectRef obj){
 	}
 }
 
-cinder::Vec2f TouchManager::getCurrentTouchPoint(int touchId){
-	Vec2f pnt = Vec2f(-1.0f, -1.0f);
+ci::vec2 TouchManager::getCurrentTouchPoint(int touchId){
+	vec2 pnt = vec2(-1.0f, -1.0f);
 	std::map<int, TouchObject>::iterator itr = mTouchMap.find(touchId);
 
 	if (itr != mTouchMap.end())
@@ -192,9 +196,7 @@ void TouchManager::endTouch(int touchID){
 }
 
 
-touchObject::TouchObjectRef TouchManager::findTouchingObject(const cinder::Vec2f &touchPoint){
-	//	console() << "TouchManager::findTouchingObject for " << touchPoint << endl;
-
+touchObject::TouchObjectRef TouchManager::findTouchingObject(const ci::vec2 &touchPoint){
 	/*
 	we need to decide who gets the touch, and not based on who was registered with the touch manager first.
 	That is what the current setup is doing.do we first loop through a
@@ -208,6 +210,7 @@ touchObject::TouchObjectRef TouchManager::findTouchingObject(const cinder::Vec2f
 			}
 		}
 	}
+
 	return NULL;
 }
 
@@ -217,14 +220,16 @@ void TouchManager::draw(){
 			//ID of the touch
 			int touchId = touch.first;
 			//location of the touch
-			Vec2f point = touch.second.touchPoint;
+			vec2 point = touch.second.touchPoint;
+
 			gl::color(ColorA(1.0f, 0.0f, 0.0f, 0.5f));
 			gl::lineWidth(1.0f);
 			gl::drawSolidCircle(point, 10.0f);
+
 			//draw the label on the touch
-//			gl::enableAlphaBlending();
-			gl::drawString(to_string(touchId), point - Vec2f(-1.0f, +40.0), cinder::Color(1, 0, 0), Font("arial", 12.0f));
-//			gl::disableAlphaBlending();
+			gl::enableAlphaBlending();
+			gl::drawString(to_string(touchId), point - vec2(-1.0f, +40.0), cinder::Color(1, 0, 0), Font("arial", 12.0f));
+			gl::disableAlphaBlending();
 		}
 	mTouchMapLock.unlock();
 }

@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "BaseTouchObject.h"
 #include <mutex>
 class TouchManager{    
@@ -16,9 +16,9 @@ public:
 
 	//A struct is created for each touch that comes in
 		struct TouchObject{
-			int						touchId;
-			cinder::Vec2f			touchPoint;
-			touchObject::TouchType	touchType;
+			int							touchId;
+			ci::vec2					touchPoint;
+			touchObject::TouchType		touchType;
 			touchObject::TouchObjectRef touchingObjectPntr;
 		};
 
@@ -30,13 +30,13 @@ public:
     void					draw(); 
     
 	//Touch functions
-	void					touchEvent(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType, TouchEventType eventType);
+	void					touchEvent(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType, TouchEventType eventType);
 
 	//TUIO touches aren't always on the main thread. So when we receive touches through TUIO, we'll want to hold onto the functions in the mRenderFunctionQueue, 
 	//and on each update we will call all of the functions in that deque
-	void					mainThreadTouchesBegan(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
-	void					mainThreadTouchesMoved(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
-	void					mainThreadTouchesEnded(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType);
+	void					mainThreadTouchesBegan(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
+	void					mainThreadTouchesMoved(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
+	void					mainThreadTouchesEnded(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
 
 	//Registering the object for input adds it to deque of the entire application's registered objects. 
 	//If a touch comes through, it will check the deque and see which registered object was hit.
@@ -44,7 +44,7 @@ public:
 	void					unregisterObjectForInput(touchObject::TouchObjectRef obj);
 
 	//Find the current point location of the ID that is passed in
-	cinder::Vec2f			getCurrentTouchPoint(int touchId);
+	ci::vec2					getCurrentTouchPoint(int touchId);
 	
 	void					endTouch(int touchID);
 
@@ -55,7 +55,7 @@ private:
     TouchManager();
 
 	//find the object that the current touch is hitting
-	touchObject::TouchObjectRef findTouchingObject(const cinder::Vec2f &touchPoint);
+	touchObject::TouchObjectRef findTouchingObject(const ci::vec2 &touchPoint);
     
 	//local variables
 	static std::shared_ptr<class TouchManager>	mTouchManagerInstance;

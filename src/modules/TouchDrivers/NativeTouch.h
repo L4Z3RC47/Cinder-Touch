@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "../../core/TouchManager.h"
 
 #include "cinder/System.h"
@@ -19,10 +19,10 @@ public:
 	void disconnect();
 
 private:
-	//Touch Event Callbacks
-    boost::signals2::scoped_connection  mTouchBeganCallBack,
-										mTouchMovedCallBack,
-										mTouchEndCallBack;
+	//Native touch Event Callbacks
+	ci::signals::Connection			mTouchBeganConnection,
+									mTouchMovedConnection,
+									mTouchEndConnection;
 	
    void nativeTouchBegan(const cinder::app::TouchEvent &event);
    void nativeTouchMoved(const cinder::app::TouchEvent &event);

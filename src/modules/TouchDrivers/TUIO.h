@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "TuioClient.h"
 #include "../../core/TouchManager.h"
 
@@ -21,14 +21,14 @@ private:
 	 //TUIO Event Callbacks
 	cinder::tuio::Client	mTuioConnection;
 
+	cinder::CallbackId		mTuioTouchBeganConnection,	//connections for touch events
+							mTuioTouchMovedConnection,
+							mTuioTouchEndedConnection,
 
-	cinder::CallbackId		mTuioTouchBeganCallBack,	//callbacks for touch events
-                            mTuioTouchMovedCallBack,
-                            mTuioTouchEndedCallBack,
-
-							mTuioObjectBeganCallBack,	//callbacks for 2d object events
-							mTuioObjectMovedCallBack,
-							mTuioObjectEndedCallBack;
+							//connections for 2d object events
+							mTuioObjectBeganConnection,	
+							mTuioObjectMovedConnection,
+							mTuioObjectEndedConnection;
 
    //any touches
 	void					tuioTouchesBegan(cinder::app::TouchEvent event);
