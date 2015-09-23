@@ -1,0 +1,26 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TUIOTest", "TUIOTest.vcxproj", "{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Debug|Win32.Build.0 = Debug|Win32
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Release|Win32.ActiveCfg = Release|Win32
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Release|Win32.Build.0 = Release|Win32
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Debug|x64.ActiveCfg = Debug|x64
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Debug|x64.Build.0 = Debug|x64
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Release|x64.ActiveCfg = Release|x64
+		{2DBC97D5-17E7-4735-B4AF-9B5E3B646E90}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

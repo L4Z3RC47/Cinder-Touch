@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{1553741B-5380-443C-970E-8FAC7FD8F9A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch">
+      <UniqueIdentifier>{5F26BAFE-E527-499A-806C-7EB9853888CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src">
+      <UniqueIdentifier>{ED0B9A74-CD61-4E06-9B4C-64EF7C879C6C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\core">
+      <UniqueIdentifier>{5ADA7798-923F-466F-AA49-2DDB85FABD4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\modules">
+      <UniqueIdentifier>{54E09C97-822F-49DD-8FE6-E85D501EC5AA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchObjects">
+      <UniqueIdentifier>{E0A2D537-9D4E-4B93-943A-66B77017968D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Touch\src\modules\TouchDrivers">
+      <UniqueIdentifier>{6D5D2AEC-1610-4110-95DB-B7DB06A9E551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC">
+      <UniqueIdentifier>{F8597518-5B37-4DEE-8EE0-508216841DA8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src">
+      <UniqueIdentifier>{8B272FE6-4147-4B2B-B18C-0037D681654E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src\ip">
+      <UniqueIdentifier>{DB1AC4A6-EE3C-4B61-ADA9-90D7BE195D25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src\osc">
+      <UniqueIdentifier>{858D6245-5F59-4953-9AFD-C74BF04BDFB0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OSC\src\ip\win32">
+      <UniqueIdentifier>{21B0C1C7-086B-4C88-B777-06A0D85CC984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\TUIO">
+      <UniqueIdentifier>{1B503FE5-52EA-4967-BD40-3EBCB4B78D98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\TUIO\src">
+      <UniqueIdentifier>{C0A2756E-7BED-4C3A-AC4F-E179C9639649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\TUIO\include">
+      <UniqueIdentifier>{685F3DB3-0A7E-4260-A4AD-CA6AE0692FCC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp">
+      <Filter>Blocks\Touch\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\core\TouchManager.cpp">
+      <Filter>Blocks\Touch\src\core</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\src\core\BaseTouchObject.h">
+      <Filter>Blocks\Touch\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\core\TouchManager.h">
+      <Filter>Blocks\Touch\src\core</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\src\modules\TouchObjects\BaseButton.h">
+      <Filter>Blocks\Touch\src\modules\TouchObjects</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\modules\TouchDrivers\Mouse.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchDrivers\NativeTouch.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\modules\TouchDrivers\TUIO.cpp">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\src\modules\TouchDrivers\Mouse.h">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchDrivers\NativeTouch.h">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\modules\TouchDrivers\TUIO.h">
+      <Filter>Blocks\Touch\src\modules\TouchDrivers</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\OSC\src\OscBundle.cpp">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\OscListener.cpp">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\OscMessage.cpp">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\OscSender.cpp">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\ip\IpEndpointName.cpp">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\osc\OscOutboundPacketStream.cpp">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\osc\OscPrintReceivedElements.cpp">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\osc\OscReceivedElements.cpp">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\osc\OscTypes.cpp">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\OSC\src\OscArg.h">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\OscBundle.h">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\OscListener.h">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\OscMessage.h">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\OscSender.h">
+      <Filter>Blocks\OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\ip\IpEndpointName.h">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\ip\NetworkingUtils.h">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\ip\PacketListener.h">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\ip\TimerListener.h">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\ip\UdpSocket.h">
+      <Filter>Blocks\OSC\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\MessageMappingOscPacketListener.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscException.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscHostEndianness.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscOutboundPacketStream.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscPacketListener.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscPrintReceivedElements.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscReceivedElements.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OSC\src\osc\OscTypes.h">
+      <Filter>Blocks\OSC\src\osc</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\OSC\src\ip\win32\NetworkingUtils.cpp">
+      <Filter>Blocks\OSC\src\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OSC\src\ip\win32\UdpSocket.cpp">
+      <Filter>Blocks\OSC\src\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\TUIO\src\TuioClient.cpp">
+      <Filter>Blocks\TUIO\src</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\TUIO\include\TuioClient.h">
+      <Filter>Blocks\TUIO\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TUIO\include\TuioCursor.h">
+      <Filter>Blocks\TUIO\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TUIO\include\TuioObject.h">
+      <Filter>Blocks\TUIO\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h">
+      <Filter>Blocks\TUIO\include</Filter>
+    </ClInclude>
+    <ClCompile Include="..\src\SampleObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SampleObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

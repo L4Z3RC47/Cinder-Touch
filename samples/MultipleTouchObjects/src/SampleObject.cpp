@@ -6,13 +6,13 @@ using namespace std;
 using namespace touchObject;
 
 SampleObject::SampleObject() : BaseTouchObject(),
-mCurPos(Vec2f(0.0f, 0.0f)),
-mPrevPos(Vec2f(0.0f, 0.0f)),
-mParentTranslatePos(Vec2f(0.0f, 0.0f))
+mCurPos(vec2(0)),
+mPrevPos(vec2(0)),
+mParentTranslatePos(vec2(0))
 {
 }
 
-void SampleObject::setup(const Vec2f &position, const Vec2f &size, const ColorA &color) {
+void SampleObject::setup(const vec2 &position, const vec2 &size, const ColorA &color) {
 	////////////////
 	//TOUCH SETTINGS
 	////////////////
@@ -28,14 +28,14 @@ void SampleObject::setup(const Vec2f &position, const Vec2f &size, const ColorA 
 	setAcceptTouch(true);
 }
 
-void SampleObject::touchesBeganHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void SampleObject::touchesBeganHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
 	console() << "touchesBeganHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 
 	//set the curPos and prevPos to where the mouse just went down
 	mCurPos = mPrevPos = touchPnt;
 }
 
-void SampleObject::touchesMovedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void SampleObject::touchesMovedHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
 	console() << "touchesMovedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 
 	//update positions
@@ -43,21 +43,21 @@ void SampleObject::touchesMovedHandler(int touchID, const cinder::Vec2f &touchPn
 	mCurPos = touchPnt;
 
 	//determine the difference between where the mouse is now, compared to where it just came from
-	Vec2f diff = mCurPos - mPrevPos;
+	vec2 diff = mCurPos - mPrevPos;
 	//update the position
 	setPosition(getPosition() + diff);
 }
 
-void SampleObject::touchesEndedHandler(int touchID, const cinder::Vec2f &touchPnt, touchObject::TouchType touchType){
+void SampleObject::touchesEndedHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
 	console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 }
 
-void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
+void SampleObject::draw( cinder::vec2 parentTranslatePos) {
 	
 		
 	//If the parent of this object translated the space, we need to know about it 
 	//so we can set the new translation position in the TouchManager. 
-	if (parentTranslatePos != Vec2f::zero())
+	if (parentTranslatePos != vec2(0))
 		setParentTranslatePosition(parentTranslatePos);
 
 	//////////////////////////////
@@ -71,7 +71,7 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 
 		//draw the object
 		gl::color(getObjectColor());
-		gl::drawSolidCircle(getSize() / 2, getWidth() / 2); //center the circle in the middle of the touch area
+		gl::drawSolidCircle(getSize() / 2.0f, getWidth() / 2.0f); //center the circle in the middle of the touch area
 		
 		//SHOW YOUR TOUCHABLE AREA :: this is a debug option
 		drawDebugBox(true);
@@ -82,10 +82,10 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 
 			//line connecting to child
 			gl::color(1.0f, 1.0f, 1.0f);
-			gl::drawLine(Vec2f::zero() + getSize() / 2, child->getPosition() + child->getSize() / 2);
+			gl::drawLine(vec2(0) + getSize() / 2.0f, child->getPosition() + child->getSize() / 2.0f);
 		}
 	}gl::popMatrices();
-	
+
 
 
 
@@ -93,10 +93,10 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 	//OPTION 2 : TO MOVE THE OBJECTS SEPARATELY
 	//////////////////////////////
 
-/*	
+	/*
 	//draw the object
 	gl::color(getObjectColor());
-	gl::drawSolidCircle(mPosition + getSize() / 2, getWidth() / 2); //center the circle in the middle of the touch area
+	gl::drawSolidCircle(mPosition + getSize() / 2.0f, getWidth() / 2.0f); //center the circle in the middle of the touch area
 
 	for (auto child : mChildVector){
 		child->draw();
@@ -105,8 +105,8 @@ void SampleObject::draw( cinder::Vec2f parentTranslatePos) {
 
 		//lines connecting to child
 		gl::color(1.0f, 1.0f, 1.0f);
-		gl::drawLine(mPosition + getSize() / 2, child->getPosition() + child->getSize() / 2);
+		gl::drawLine(mPosition + getSize() / 2.0f, child->getPosition() + child->getSize() / 2.0f);
 	}
-*/
+	*/
 
 }

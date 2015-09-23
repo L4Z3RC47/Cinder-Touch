@@ -1,10 +1,12 @@
 //+---------------------------------------------------------------------------
-//  Bluecadet Interactive 2014
+//  Bluecadet Interactive 2015
 //	Developers: Paul Rudolph & Stacey Martens
 //  Contents: 
-//  Comments: This sample demonstrates how to nest multiple objects that accept touches.
+//  Comments: Cinder 0.9.0 - This sample demonstrates how to nest multiple objects that accept touches.
 //----------------------------------------------------------------------------
-#include "cinder/app/AppNative.h"
+
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
 #include "TouchManager.h"		//include touch manager
@@ -16,14 +18,14 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class MultipleTouchObjectsApp : public AppNative {
+class MultipleTouchObjectsApp : public App {
   public:
-	void setup();
+	void setup() override;
 	void addObjects();
-	void update();
-	void draw();
+	void update() override;
+	void draw() override;
 
-  private:
+private:
 	//connection that will be made to the driver
 	Mouse								mMouseConnection;
 	//keep an instance of the touch manager
@@ -44,7 +46,7 @@ void MultipleTouchObjectsApp::setup(){
 void MultipleTouchObjectsApp::addObjects(){
 	//in this sample, we are going to nest objects within each other. the green object is the parent
 	mGreenObject = std::shared_ptr<class SampleObject>(new SampleObject());
-	mGreenObject->setup(Vec2f(50.0f, 50.0f), Vec2f(100.0f, 100.0f), ColorA(0.0f, 1.0f, 0.0f, 1.0f));
+	mGreenObject->setup(vec2(50.0f, 50.0f), vec2(100.0f, 100.0f), ColorA(0.0f, 1.0f, 0.0f, 1.0f));
 
 	//add 3 red objects to the green object
 	for (int i = 0; i < 3; i++){
@@ -52,14 +54,14 @@ void MultipleTouchObjectsApp::addObjects(){
 
 		//add this redObject to the vector of all the greenObject's children
 		mGreenObject->mChildVector.push_back(redObject);
-		redObject->setup(Vec2f(150.0f, i*150.0f), Vec2f(50.0f, 50.0f), ColorA(1.0f, 0.0f, 0.0f, 1.0f));
+		redObject->setup(vec2(150.0f, i*150.0f), vec2(50.0f, 50.0f), ColorA(1.0f, 0.0f, 0.0f, 1.0f));
 
 		//add 3 blue objects to each red object
 		for (int j = 0; j < 3; j++){
 			shared_ptr< class SampleObject > blueObject = shared_ptr<class SampleObject>(new SampleObject());
 			//add this blueObject to the vector of all the redObject's children
 			redObject->mChildVector.push_back(blueObject);
-			blueObject->setup(Vec2f(240.0f, j*50.0f), Vec2f(25.0f, 20.0f), ColorA(0.0f, 0.0f, 1.0f, 1.0f));
+			blueObject->setup(vec2(240.0f, j*50.0f), vec2(25.0f, 20.0f), ColorA(0.0f, 0.0f, 1.0f, 1.0f));
 		}
 	}
 }
@@ -71,10 +73,10 @@ void MultipleTouchObjectsApp::update(){
 
 void MultipleTouchObjectsApp::draw(){
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear(Color(0, 0, 0));
 
 	//draw the green object
 	mGreenObject->draw();
 }
 
-CINDER_APP_NATIVE( MultipleTouchObjectsApp, RendererGl )
+CINDER_APP( MultipleTouchObjectsApp, RendererGl )
