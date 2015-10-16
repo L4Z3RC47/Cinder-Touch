@@ -8,11 +8,16 @@
 //				-Removed set offset function
 //				-Removed Axis Locking
 //				-Removed Visibility variable
+//				-Adds 2 ways to create a shape2d
+//YOU CAN CREATE SHAPES FROM LOADING SVG!!!!! -- THIS IS NOT BUILT INTO THIS YET
+//auto svg = svg::Doc::create( fsPath );
+//Shape2d shape = svg->getShape();
 //----------------------------------------------------------------------------
 
 #pragma once
 #include "cinder/app/App.h"
 #include "cinder/Timeline.h" //allows for position/size variables can be animated easily
+#include "cinder/Shape2d.h"
 
 namespace touchObject {
 	
@@ -32,52 +37,36 @@ namespace touchObject {
 		BaseTouchObject();
 		virtual ~BaseTouchObject(); //Virtual destructor will  call the subclass dtor aswell
 		
-		void						setup(const ci::vec2 &pos, const ci::vec2 &size);
+		//rect
+		void						setup(bool registerWithTouchManager, const cinder::vec2 &pos, const cinder::vec2 &size = cinder::vec2(10.0f, 10.0f));
+		//circle
+		void						setup(bool registerWithTouchManager, const cinder::vec2 &pos, float radius = 10.0f);
+		//random shape
+		void						setup(bool registerWithTouchManager, const std::vector<cinder::vec2> &coordinates);
 		
-		
+		void						createShape2d(const std::vector<cinder::vec2> &coordinates);
+		cinder::Shape2d				getShape2d(){ return mShape2d; };
+
 		//Drawing Functions
 		virtual void				draw();
 		//Draws an the outer box of the object, and the objects to string in the center, helpful for debugging pourposes.
-		virtual void				drawDebugBox(bool isTranslating = false);
-    
+		virtual void				drawDebugShape();
+
 
 		//Positioning Functions
-		virtual void				setPosition ( const ci::vec2 &pt);
-		const cinder::vec2&			getPosition()										{ return mPosition; };
+		//virtual void				setPosition ( const ci::vec2 &pt);
+		//const cinder::vec2&			getPosition()										{ return mPosition; };
 
-		void						setParentTranslatePosition(ci::vec2 translatePoint){ mParentTranslatePosition = translatePoint; };
+		void						setTranslationPosition(cinder::vec2 translatePoint){ mTranslationPosition = translatePoint; };
 
 		//Size Functions
-		virtual void                setSize(const ci::vec2 &size)					{ mWidth = size.x; mHeight = size.y; };
+		virtual void                setSize(const ci::vec2 &size)						{ mWidth = size.x; mHeight = size.y; };
 		const cinder::vec2			getSize()											{ return ci::vec2(mWidth, mHeight); };
 		
 		//Leave these in , they are not hurting anything
 		float						getWidth()											{ return mWidth; };
 		float						getHeight()											{ return mHeight; };
 		
-		//Get position and size as a rectObject
-		const cinder::Rectf 		getRect(){ 
-			//for drawing, we need to be able to draw these differently depening on if the object is already being translated. 
-			//But for finding if a touch point exists within this space, we need to know the global location -- so that is handled separately
-			if (mTranslating){
-				return  cinder::Rectf(
-					0.0f,
-					0.0f,
-					mWidth,
-					mHeight);
-			}
-			else{
-				return  cinder::Rectf(
-					mPosition.x,
-					mPosition.y,
-					mPosition.x + mWidth,
-					mPosition.y + mHeight);
-			}
-		}
-		const void					setTranslating(bool isTranslating)					{ mTranslating = isTranslating; };
-
-		const ci::vec2				getCenter()											{ return getRect().getCenter();}
-    
 		//Color
 		virtual void                setObjectColor(  const cinder::ColorA &color )		{ mObjectColor = color; };
 		const cinder::ColorA&       getObjectColor()									{ return mObjectColor; };
@@ -103,17 +92,18 @@ namespace touchObject {
 		virtual void				touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
 		virtual void				touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
 
-		const ci::vec2					getScale()									{ return mScale; };
-		void						setScale(ci::vec2 scale)						{ mScale = scale; };
+		const ci::vec2				getScale()											{ return mScale; };
+		void						setScale(const cinder::vec2 &scale);
 
 		//TOString - prints what the object actually is 
 		virtual std::string			getDebugString();
 
+		cinder::vec2				mScale;
 
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
 
-		ci::vec2					mPosition, mParentTranslatePosition, mScale;
+		ci::vec2					mTranslationPosition;
 
 		float						mWidth,
 									mHeight;
@@ -135,13 +125,14 @@ private://No one other than this class can access these variables
 
 
 		bool						mAcceptTouch;
-		bool						mTranslating;
+		//bool						mTranslating;
 		//Object Identification 
 		int							mUniqueID,
 									mTouchesCallbackId;
 	
+		//std::shared_ptr<cinder::Shape2d> mShape2d; --try
+		cinder::Shape2d				mShape2d;
 		
-	
 		//STATIC CLASS MEMBERS
 		//TotalObjectCount is used to count the number of Object instances for debugging purposes
 		static int					TotalObjectCount;

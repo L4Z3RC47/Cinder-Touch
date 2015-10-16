@@ -1,8 +1,3 @@
-/*
-BaseButton.cpp
-Bluecadet
-*/
-
 #include "BaseButton.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -10,22 +5,34 @@ Bluecadet
 using namespace std;
 using namespace ci;
 using namespace ci::app;
+
 namespace touchObject {
 
 	BaseButton::BaseButton() :BaseTouchObject(),
-		mTouchCanceled(false)
+	mTouchCanceled(false)
 	{
 	}
 
 	BaseButton::~BaseButton(){
 	}
 
-	ButtonRef BaseButton::create(ci::vec2 pos, ci::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn){
+	ButtonRef BaseButton::create(const cinder::vec2 &pos, cinder::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn){
 		ButtonRef btnRef(new BaseButton());
-		
-		btnRef->registerWithTouchMngr();
-		btnRef->setPosition(pos);
-		btnRef->setSize(size);
+		btnRef->setup(true, pos, size);
+		btnRef->setCallBackFn(callBackFn);
+		return btnRef;
+	}
+
+	ButtonRef BaseButton::create(const cinder::vec2 &pos, float radius, std::function <void(touchObject::TouchObjectRef)>callBackFn){
+		ButtonRef btnRef(new BaseButton());
+		btnRef->setup(true, pos, radius);
+		btnRef->setCallBackFn(callBackFn);
+		return btnRef;
+	}
+
+	ButtonRef BaseButton::create(const std::vector<cinder::vec2> &coordinates, std::function <void(touchObject::TouchObjectRef)>callBackFn){
+		ButtonRef btnRef(new BaseButton());
+		btnRef->setup(true, coordinates);
 		btnRef->setCallBackFn(callBackFn);
 		return btnRef;
 	}
@@ -80,18 +87,7 @@ namespace touchObject {
 	}
 
 	void BaseButton::draw(){
-		
-		gl::pushMatrices(); {
-			gl::translate(mPosition);
-			setTranslating(true);
-
-			gl::color(getObjectColor());
-			drawDebugBox(true);
-
-			if (!mObjectTouchIDs.empty()){
-				gl::drawSolidRect(Rectf(0,0,getWidth(),getHeight()));
-			}
-
-		}gl::popMatrices();
+		gl::color(getObjectColor());
+		drawDebugShape();
 	}
 }

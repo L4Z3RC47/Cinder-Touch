@@ -21,8 +21,13 @@ namespace touchObject {
 
 		virtual ~BaseButton();
 
-		static  ButtonRef			create(ci::vec2 pos, ci::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
-		
+		//create a rectangle (which will be turned into a 2d shape)
+		static  ButtonRef			create(const cinder::vec2 &pos, cinder::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
+		//create a circle (which will be turned into a 2d shape)
+		static  ButtonRef			create(const cinder::vec2 &pos, float radius = 10.0f, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
+		//send in all the coordinates for a 2d shape
+		static  ButtonRef			create(const std::vector<cinder::vec2> &coordinates, std::function <void(touchObject::TouchObjectRef)>callBackFn = std::function <void(touchObject::TouchObjectRef)>());
+
 		//Drawing Functions
 		virtual void				draw();
 
@@ -35,8 +40,8 @@ namespace touchObject {
 
 
 	protected:
-		bool												mTouchCanceled;
-		ci::signals::Signal< void(touchObject::TouchObjectRef) >  mOnSelectSignal;
+		bool														mTouchCanceled;
+		ci::signals::Signal< void(touchObject::TouchObjectRef) >	mOnSelectSignal;
 
 	private:
 		BaseButton();
