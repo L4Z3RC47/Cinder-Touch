@@ -8,35 +8,19 @@ using namespace touchObject;
 SampleObject::SampleObject() : BaseTouchObject(),
 mCurPos(vec2(0)),
 mPrevPos(vec2(0)),
-mParentTranslatePos(vec2(0))
+mTranslationPosition(vec2(20.0f, 30.0f))
 {
 }
 
-void SampleObject::setup(const vec2 &position, const vec2 &size, const ColorA &color) {
-	////////////////
-	//TOUCH SETTINGS
-	////////////////
-	//set default position
-	setPosition(position);	
-	//MUST set a size in order for the touch to find the object
-	setSize(size);			
-	//you are not required to set an object color. The default is white. 
-	setObjectColor(color);
-	//register 
-	registerWithTouchMngr();
-	//tell the TouchManager whether or not to funnel touches to this object, or to skip this object and keep looking below
-	setAcceptTouch(true);
-}
-
 void SampleObject::touchesBeganHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
-	console() << "touchesBeganHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
+	//console() << "touchesBeganHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 
 	//set the curPos and prevPos to where the mouse just went down
 	mCurPos = mPrevPos = touchPnt;
 }
 
 void SampleObject::touchesMovedHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
-	console() << "touchesMovedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
+	//console() << "touchesMovedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 
 	//update positions
 	mPrevPos = mCurPos;
@@ -49,42 +33,50 @@ void SampleObject::touchesMovedHandler(int touchID, const cinder::vec2 &touchPnt
 }
 
 void SampleObject::touchesEndedHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
-	console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
+	//console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 }
 
-void SampleObject::draw( cinder::vec2 parentTranslatePos) {
-	
-		
-	//If the parent of this object translated the space, we need to know about it 
-	//so we can set the new translation position in the TouchManager. 
-	if (parentTranslatePos != vec2(0))
-		setParentTranslatePosition(parentTranslatePos);
+//void SampleObject::draw( cinder::vec2 parentTranslatePos) {
+void SampleObject::draw(cinder::vec2 parentTranslatePos) {
+
+	console() << "parentTranslatePos  " << mPosition << endl;
 
 	//////////////////////////////
 	//OPTION 1 : TO MOVE THE OBJECTS TOGETHER
 	//////////////////////////////
 
+	// If the parent of this object translated the space, we need to know about it
+	//so we can set the new translation position in the TouchManager. 
+	if (parentTranslatePos != vec2(0))
+		setTranslationPosition(parentTranslatePos);
+
 	//push & translate
 	gl::pushMatrices(); {
+		
 		gl::translate(mPosition);
-		setTranslating(true);
 
 		//draw the object
 		gl::color(getObjectColor());
-		gl::drawSolidCircle(getSize() / 2.0f, getWidth() / 2.0f); //center the circle in the middle of the touch area
-		
-		//SHOW YOUR TOUCHABLE AREA :: this is a debug option
-		drawDebugBox(true);
+		gl::drawSolidCircle(vec2(0), getWidth() / 2);
 
-		//draw the children of this object
+		
 		for (auto child : mChildVector){
 			child->draw(mPosition + parentTranslatePos);
 
-			//line connecting to child
+			//lines connecting to child
 			gl::color(1.0f, 1.0f, 1.0f);
-			gl::drawLine(vec2(0) + getSize() / 2.0f, child->getPosition() + child->getSize() / 2.0f);
+			gl::drawLine(mPosition, child->getPosition());
 		}
+		
 	}gl::popMatrices();
+
+	//for (auto child : mChildVector){
+	//	drawDebugShape();
+	//}
+
+	//keep the drawing of the debug shape outside the push/pop to see the space that is touchable
+	//this is the same way the math works to find the touchable area
+	drawDebugShape();
 
 
 
@@ -92,21 +84,21 @@ void SampleObject::draw( cinder::vec2 parentTranslatePos) {
 	//////////////////////////////
 	//OPTION 2 : TO MOVE THE OBJECTS SEPARATELY
 	//////////////////////////////
-
 	/*
 	//draw the object
 	gl::color(getObjectColor());
-	gl::drawSolidCircle(mPosition + getSize() / 2.0f, getWidth() / 2.0f); //center the circle in the middle of the touch area
+	gl::drawSolidCircle(getPosition(), getWidth()/2 );
 
 	for (auto child : mChildVector){
 		child->draw();
 
-		drawDebugBox(false);
+		drawDebugShape();
 
 		//lines connecting to child
 		gl::color(1.0f, 1.0f, 1.0f);
-		gl::drawLine(mPosition + getSize() / 2.0f, child->getPosition() + child->getSize() / 2.0f);
+		gl::drawLine(mPosition, child->getPosition());
 	}
-	*/
 
+	drawDebugShape();
+	*/
 }

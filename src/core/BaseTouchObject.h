@@ -44,8 +44,8 @@ namespace touchObject {
 		//random shape
 		void						setup(bool registerWithTouchManager, const std::vector<cinder::vec2> &coordinates);
 		
-		void						createShape2d(const std::vector<cinder::vec2> &coordinates);
-		cinder::Shape2d				getShape2d(){ return mShape2d; };
+		void						createPath(const std::vector<cinder::vec2> &coordinates);
+		cinder::Path2d				getPath(){ return mPath; };
 
 		//Drawing Functions
 		virtual void				draw();
@@ -54,22 +54,17 @@ namespace touchObject {
 
 
 		//Positioning Functions
-		//virtual void				setPosition ( const ci::vec2 &pt);
-		//const cinder::vec2&			getPosition()										{ return mPosition; };
+		virtual void				setPosition (const ci::vec2 &pt);
+		const cinder::vec2&			getPosition()										{ return mPosition; };
 
 		void						setTranslationPosition(cinder::vec2 translatePoint){ mTranslationPosition = translatePoint; };
 
-		//Size Functions
-		virtual void                setSize(const ci::vec2 &size)						{ mWidth = size.x; mHeight = size.y; };
-		const cinder::vec2			getSize()											{ return ci::vec2(mWidth, mHeight); };
-		
-		//Leave these in , they are not hurting anything
-		float						getWidth()											{ return mWidth; };
-		float						getHeight()											{ return mHeight; };
-		
+		float						getWidth()	{ return mPath.calcBoundingBox().getWidth(); };
+		float						getHeight()	{ return mPath.calcBoundingBox().getHeight(); };
+
 		//Color
-		virtual void                setObjectColor(  const cinder::ColorA &color )		{ mObjectColor = color; };
-		const cinder::ColorA&       getObjectColor()									{ return mObjectColor; };
+		virtual void                setObjectColor(  const cinder::ColorA &color )		{ mColor = color; };
+		const cinder::ColorA&       getObjectColor()									{ return mColor; };
 	
 		//Accept Touch
 		virtual void                setAcceptTouch(bool state)							{ mAcceptTouch = state; };
@@ -102,14 +97,10 @@ namespace touchObject {
 
 protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
     
+		ci::vec2					mPosition, mTranslationPosition;
 
-		ci::vec2					mTranslationPosition;
-
-		float						mWidth,
-									mHeight;
-    
 		//Object color 
-		cinder::ColorA				mObjectColor;
+		cinder::ColorA				mColor;
 
 		
 		//String for debug purposes if set, this can be used to identify the object
@@ -125,14 +116,13 @@ private://No one other than this class can access these variables
 
 
 		bool						mAcceptTouch;
-		//bool						mTranslating;
+
 		//Object Identification 
 		int							mUniqueID,
 									mTouchesCallbackId;
-	
-		//std::shared_ptr<cinder::Shape2d> mShape2d; --try
-		cinder::Shape2d				mShape2d;
-		
+
+		cinder::Path2d				mPath;
+
 		//STATIC CLASS MEMBERS
 		//TotalObjectCount is used to count the number of Object instances for debugging purposes
 		static int					TotalObjectCount;

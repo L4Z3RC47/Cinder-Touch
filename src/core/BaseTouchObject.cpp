@@ -25,9 +25,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 	BaseTouchObject::BaseTouchObject() :
 		mTranslationPosition(vec2(0)),
-		mWidth(0.0f),
-		mHeight(0.0f),
-		mObjectColor(ColorA::white()),
+		mColor(ColorA::white()),
 		mTouchesCallbackId(-1),
 		mAcceptTouch(true),
 		mUniqueID(ObjectID),
@@ -44,7 +42,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 		if (!UniqueIDLookupMap.empty())
 			UniqueIDLookupMap.erase(mUniqueID);
 
-		mShape2d.clear();
+		mPath.clear();
 	}
 
 	//this setup function is going to take your position, & size, and create a shape from that
@@ -55,8 +53,6 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 		if (registerWithTouchManager) registerWithTouchMngr();
 
-		setSize(size);
-
 		//create shape from this position and size
 		vector<cinder::vec2> coordinates;
 		coordinates.push_back(pos);
@@ -64,7 +60,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 		coordinates.push_back(vec2(pos.x + size.x, pos.y + size.y));
 		coordinates.push_back(vec2(pos.x, pos.y + size.y));
 
-		createShape2d(coordinates);
+		createPath(coordinates);
 		coordinates.clear();
 	}
 
@@ -75,7 +71,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 		if (registerWithTouchManager) registerWithTouchMngr();
 
-		createShape2d(coordinates);
+		createPath(coordinates);
 	}
 
 	void BaseTouchObject::setup(bool registerWithTouchManager, const cinder::vec2 &pos, float radius){
@@ -85,32 +81,40 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 		if (registerWithTouchManager) registerWithTouchMngr();
 
-
 		int points = 100;
 		double slice = 2 * M_PI / points;
 		vector<cinder::vec2> coordinates;
 
 		for (int i = 0; i < points; i++){
 			double angle = slice * i;
-			int newX = (int)(pos.x + radius *  cos(angle));
-			int newY = (int)(pos.y + radius * sin(angle));
+			//int newX = (int)(pos.x + radius *  cos(angle));
+			//int newY = (int)(pos.y + radius * sin(angle));
+			int newX = (int)(radius *  cos(angle));
+			int newY = (int)(radius * sin(angle));
 			coordinates.push_back(vec2(newX, newY));
 		}
 		
-		createShape2d(coordinates);
-		coordinates.clear();
+		mPosition = pos;
 
+		createPath(coordinates);
+		coordinates.clear();
 	}
 
-	void BaseTouchObject::createShape2d(const std::vector<cinder::vec2> &coordinates){
+	void BaseTouchObject::createPath(const std::vector<cinder::vec2> &coordinates){
 		for (int i = 0; i <= coordinates.size() - 1; i++){
 			if (i == 0){						//move to the first coordinate
-				mShape2d.moveTo(coordinates[0]);
+				mPath.moveTo(coordinates[0]);
 			}
 			else{								//add all the segments of the shape
-				mShape2d.lineTo(coordinates[i]);
+				mPath.lineTo(coordinates[i]);
 			}
 		}
+
+		mPath.close();
+	}
+
+	void BaseTouchObject::setPosition(const ci::vec2 &pt){
+		mPosition = pt;
 	}
 
 	void BaseTouchObject::setScale(const cinder::vec2 &scale){
@@ -118,14 +122,21 @@ the ObjectID is only incremented when a new object is created, so any time a new
 			mScale = scale;
 
 			//for now everything will be scaled around the center -- can build this out later
-			vec2 scaleCenter = mShape2d.calcPreciseBoundingBox().getCenter();
-			mShape2d.scale(scale, scaleCenter);
+			vec2 scaleCenter = mPath.calcPreciseBoundingBox().getCenter();
+			mPath.scale(scale, scaleCenter);
 		}
 	}
 
 	void BaseTouchObject::drawDebugShape(){
+		gl::color(1.0f, 0.0f, 0.0f);
 		gl::lineWidth(2.0f);
-		gl::drawSolid(mShape2d);
+
+		gl::pushMatrices(); {
+			if (mTranslationPosition == vec2(0)) gl::translate(mPosition);
+			else gl::translate(mTranslationPosition);
+
+			gl::draw(mPath);
+		}gl::popMatrices();
 	}
 
 	void BaseTouchObject::registerWithTouchMngr(){
@@ -145,10 +156,22 @@ the ObjectID is only incremented when a new object is created, so any time a new
 	}
 
 	bool BaseTouchObject::hasTouchPoint(const vec2 &pnt){
-		if (mShape2d.contains(pnt - mTranslationPosition))
+		
+		//Create a temporary path, with updated coordinates that check the space of the object with the object's position
+		ci::Path2d tempPath;
+		for (int i = 0; i < mPath.getNumPoints(); i++){
+			vec2 coord = mPath.getPoint(i) + mPosition;
+
+			if (i == 0) tempPath.moveTo(coord);
+			else tempPath.lineTo(coord);			
+		}
+
+		if (tempPath.contains(pnt - mTranslationPosition))
 			return true;
 		else
 			return false;
+		
+		tempPath.clear();
 	}
 
 	//ToString
@@ -158,7 +181,6 @@ the ObjectID is only incremented when a new object is created, so any time a new
 
 	//This Will be overridden for each subclass object
 	void BaseTouchObject::draw(){
-
 		//SHOW YOUR TOUCHABLE AREA
 		drawDebugShape();
 	}

@@ -46,22 +46,25 @@ void MultipleTouchObjectsApp::setup(){
 void MultipleTouchObjectsApp::addObjects(){
 	//in this sample, we are going to nest objects within each other. the green object is the parent
 	mGreenObject = std::shared_ptr<class SampleObject>(new SampleObject());
-	mGreenObject->setup(vec2(50.0f, 50.0f), vec2(100.0f, 100.0f), ColorA(0.0f, 1.0f, 0.0f, 1.0f));
+	mGreenObject->setup(true, vec2(100.0f, 100.0f), 100.0f);
+	mGreenObject->setObjectColor(ColorA(0.0f, 1.0f, 0.0f, 1.0f));
 
 	//add 3 red objects to the green object
 	for (int i = 0; i < 3; i++){
-		shared_ptr< class SampleObject > redObject = shared_ptr<class SampleObject>(new SampleObject());
+		shared_ptr<class SampleObject> redObject = shared_ptr<class SampleObject>(new SampleObject());
 
 		//add this redObject to the vector of all the greenObject's children
 		mGreenObject->mChildVector.push_back(redObject);
-		redObject->setup(vec2(150.0f, i*150.0f), vec2(50.0f, 50.0f), ColorA(1.0f, 0.0f, 0.0f, 1.0f));
-
+		redObject->setup(true, vec2(300.0f, mGreenObject->getPosition().y + i*250.0f), 50.0f);
+		redObject->setObjectColor(ColorA(1.0f, 0.2f, 0.0f, 1.0f));
+		
 		//add 3 blue objects to each red object
 		for (int j = 0; j < 3; j++){
-			shared_ptr< class SampleObject > blueObject = shared_ptr<class SampleObject>(new SampleObject());
+			shared_ptr<class SampleObject> blueObject = shared_ptr<class SampleObject>(new SampleObject());
 			//add this blueObject to the vector of all the redObject's children
 			redObject->mChildVector.push_back(blueObject);
-			blueObject->setup(vec2(240.0f, j*50.0f), vec2(25.0f, 20.0f), ColorA(0.0f, 0.0f, 1.0f, 1.0f));
+			blueObject->setup(true, vec2(400.0f, redObject->getPosition().y + j*50.0f), 25.0f);
+			blueObject->setObjectColor(ColorA(0.0f, 0.0f, 1.0f, 1.0f));
 		}
 	}
 }

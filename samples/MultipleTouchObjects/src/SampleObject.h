@@ -16,8 +16,7 @@ class SampleObject : public touchObject::BaseTouchObject{
 public:
 	SampleObject();
 	
-	void			setup(const ci::vec2 &position, const ci::vec2 &size, const cinder::ColorA &color);
-	virtual void	draw(ci::vec2 parentTranslatePos = ci::vec2(0));
+	virtual void	draw(cinder::vec2 parentTranslatePos = cinder::vec2(0));
 
 	//use virtual to override the BaseTouchObject calls
 	//with these functions, we will drag the objects around on the screen
@@ -29,7 +28,5 @@ public:
 
 private:
 	//keep track of object position
-	ci::vec2	mCurPos, mPrevPos;
-	ci::vec2	mParentTranslatePos;
-
+	ci::vec2	mCurPos, mPrevPos, mTranslationPosition;
 };

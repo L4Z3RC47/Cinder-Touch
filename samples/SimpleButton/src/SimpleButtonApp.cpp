@@ -10,7 +10,7 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-using namespace touchObject; //using the namespace we created
+using namespace touchObject; //add namespace for touch objects
 
 class SimpleButtonApp : public App {
   public:
@@ -42,7 +42,6 @@ void SimpleButtonApp::buttonConnection(touchObject::TouchObjectRef){
 	float b = randFloat(0.0f, 1.0f);
 	mButtonRef->setObjectColor(ColorA(r, g, b));
 }
-
 
 void SimpleButtonApp::draw(){
 	gl::clear(Color(0, 0, 0));
