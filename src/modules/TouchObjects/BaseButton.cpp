@@ -18,21 +18,21 @@ namespace touchObject {
 
 	ButtonRef BaseButton::create(const cinder::vec2 &pos, cinder::vec2 size, std::function <void(touchObject::TouchObjectRef)>callBackFn){
 		ButtonRef btnRef(new BaseButton());
-		btnRef->setup(true, pos, size);
+		btnRef->setupBaseTouchObj(pos, size);
 		btnRef->setCallBackFn(callBackFn);
 		return btnRef;
 	}
 
 	ButtonRef BaseButton::create(const cinder::vec2 &pos, float radius, std::function <void(touchObject::TouchObjectRef)>callBackFn){
 		ButtonRef btnRef(new BaseButton());
-		btnRef->setup(true, pos, radius);
+		btnRef->setupBaseTouchObj(pos, radius);
 		btnRef->setCallBackFn(callBackFn);
 		return btnRef;
 	}
 
 	ButtonRef BaseButton::create(const std::vector<cinder::vec2> &coordinates, std::function <void(touchObject::TouchObjectRef)>callBackFn){
 		ButtonRef btnRef(new BaseButton());
-		btnRef->setup(true, coordinates);
+		btnRef->setupBaseTouchObj(coordinates);
 		btnRef->setCallBackFn(callBackFn);
 		return btnRef;
 	}
