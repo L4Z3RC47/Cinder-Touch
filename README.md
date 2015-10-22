@@ -1,7 +1,8 @@
 Cinder-Touch 
+============
 Cinder 0.9.0 (libcinder.org)
 x32, x64
-============
+
 Block for receiving and handling touches for 2d Cinder applications. Single or multitouch. Does not handle rotation or include gestures. 
 
 ##TO USE :
