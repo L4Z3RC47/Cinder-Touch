@@ -1,15 +1,10 @@
 //+---------------------------------------------------------------------------
 //  Bluecadet Interactive 2015
 //	Developers: Stacey Martens
-//  Contents: 
-//  Comments: 
-
-//translate
-//scale
-//scene graph
-
+//  Contents: Main class contains one red circle, which contains one blue circle. 
+//  Comments: Sample showing how to setup touchable circles, and also what you need to do 
+//			to translate positions from the parent down to the child. 
 //----------------------------------------------------------------------------
-
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -31,8 +26,10 @@ class CirclesApp : public App {
 	void draw() override;
 
 private:
-	std::shared_ptr<TouchManager>	mTouchManager;	//keep an instance of the touch manager
-	Mouse							mMouseConnection;//connection that will be made to the driver
+	//! Reference to the single instance of the touch manager
+	std::shared_ptr<TouchManager>	mTouchManager;
+	//! Connection that will be made to the driver
+	Mouse							mMouseConnection;
 	std::shared_ptr<RedObj>			mRedCircle;
 
 };
@@ -40,12 +37,13 @@ private:
 void CirclesApp::setup(){
 	gl::enableAlphaBlending();
 
-	//connect the driver that was included, in this case TUIO
+	//Connect the driver that was included (in this case mouse)
 	mMouseConnection.connect();
-	//get an instance of the touch manager
+
+	//Get an instance of the touch manager
 	mTouchManager = TouchManager::getInstance();
 
-	//create main red circle
+	//Create main red circle
 	mRedCircle = std::shared_ptr<class RedObj>(new RedObj());
 	mRedCircle->setup();
 }
@@ -54,7 +52,7 @@ void CirclesApp::mouseDown( MouseEvent event ){
 }
 
 void CirclesApp::update(){
-	//we'll always update the TouchManager, to make sure all touches are on the main thread
+	//Always need to update the TouchManager. This ensures all touches are on the main thread.
 	mTouchManager->update();
 }
 

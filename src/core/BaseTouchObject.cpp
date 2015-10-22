@@ -9,17 +9,10 @@ using namespace ci;
 using namespace ci::app;
 
 namespace touchObject {
-
-/*	
-Total object count is a value that is incremented when an gui object is created and decremented when a gui object is destroyed that way we will allways know how many gui objects exist at any moment.
-the ObjectID is only incremented when a new object is created, so any time a new object is created it gets its own unique number. 
-*/
-
-// This keeps track of how many gui objects are currently alive, this number is incremented and decremented 
 	int	BaseTouchObject::TotalObjectCount = 0;
-// This number will only be incremented when a gui object is created, thus making it unique.
 	int	BaseTouchObject::ObjectID = 0;
-	//Declare Static lookup map
+
+	//! Declare Static lookup map
 	TouchObjectMap BaseTouchObject::UniqueIDLookupMap;
 
 	BaseTouchObject::BaseTouchObject() :
@@ -27,7 +20,6 @@ the ObjectID is only incremented when a new object is created, so any time a new
 		mWidth(0.0f),
 		mHeight(0.0f),
 		mObjectColor(ColorA::white()),
-		mTouchesCallbackId(-1),
 		mAcceptTouch(true),
 		mUniqueID(ObjectID),
 		mScale(vec2(1.0f)),
@@ -40,7 +32,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 	BaseTouchObject::~BaseTouchObject(){
 		TotalObjectCount--;
 
-		// remove from lookup table
+		//! Remove from lookup table
 		if (!UniqueIDLookupMap.empty())
 			UniqueIDLookupMap.erase(mUniqueID);
 
@@ -48,11 +40,11 @@ the ObjectID is only incremented when a new object is created, so any time a new
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const cinder::vec2 &pos, const cinder::vec2 &size, bool registerWithTouchManager){
-		//Store Object in lookup table
+		//! Store object in lookup table
 		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
-		//register with the touch manager
+		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
-		//set position
+		//! Set position
 		mPosition = pos;
 
 		//create shape from this position and size
@@ -67,14 +59,15 @@ the ObjectID is only incremented when a new object is created, so any time a new
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const cinder::vec2 &pos, float radius, bool registerWithTouchManager){
-		//Store Object in lookup table
+		//! Store object in lookup table
 		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
-		//register with the touch manager
+		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
-		//set position
+		//! set position
 		mPosition = pos;
 
-		int points = 100;
+		//! Touchable area of each circle is created from 50 points. This number may be adjusted.
+		int points = 50;
 		double slice = 2 * M_PI / points;
 		vector<cinder::vec2> coordinates;
 		for (int i = 0; i < points; i++){
@@ -84,28 +77,24 @@ the ObjectID is only incremented when a new object is created, so any time a new
 			coordinates.push_back(vec2(newX, newY));
 		}
 		createShape(coordinates);
-		//clean up
 		coordinates.clear();
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const std::vector<cinder::vec2> &coordinates, const cinder::vec2 &pos, bool registerWithTouchManager){
-		//Store Object in lookup table
+		//! Store object in lookup table
 		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
-		//register with the touch manager
+		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
-		//
+		//! set position
+		mPosition = pos;
+		
 		createShape(coordinates);
 	}
 
 	void BaseTouchObject::createShape(const std::vector<cinder::vec2> &coordinates){
-		//iterate through the coordinates passed in, creating a path where the touchable area is
 		for (int i = 0; i <= coordinates.size() - 1; i++){
-			if (i == 0){						//move to the first coordinate
-				mPath.moveTo(coordinates[0]);
-			}
-			else{								//add all the segments of the shape
-				mPath.lineTo(coordinates[i]);
-			}
+			if (i == 0) mPath.moveTo(coordinates[0]);
+			else mPath.lineTo(coordinates[i]);
 		}
 	}
 
@@ -113,7 +102,6 @@ the ObjectID is only incremented when a new object is created, so any time a new
 		if (mScale != scale){
 			mScale = scale;
 
-			//for now everything will be scaled around the center -- can build this out later
 			vec2 scaleCenter = mPath.calcPreciseBoundingBox().getCenter();
 			mPath.scale(scale, scaleCenter);
 		}
@@ -161,7 +149,7 @@ the ObjectID is only incremented when a new object is created, so any time a new
 		}
 		else{
 			if (mPath.contains(pnt - mTranslationPos - mPosition)) return true;
-			else														 return false;
+			else return false;
 		}
 	}
 

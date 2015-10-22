@@ -26,7 +26,6 @@ public:
 	virtual void	touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
 	
 private:
-	//keep track of object position
 	ci::vec2				mCurPos, mPrevPos;
 	float					mRadius;
 };

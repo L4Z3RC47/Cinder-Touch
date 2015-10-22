@@ -4,13 +4,13 @@ Developers: Paul Rudolph & Stacey Martens
 Contents: 
 Comments:
 1. In setup, create each Path based on a (0,0) coordinate.
-2. Move the Path to the correct starting location on screen by setting mPosition.
-3. If you are translating the space, you have to setTranslationPos
+2. Move the Path to the desired starting location on screen by setting mPosition.
+3. If you are translating the space, you have to update mTranslationPos by calling setTranslationPos in the draw function.
 ----------------------------------------------------------------------------*/
 
 #pragma once
 #include "cinder/app/App.h"
-#include "cinder/Timeline.h" //allows for position/size variables can be animated easily
+#include "cinder/Timeline.h"
 #include "cinder/Shape2d.h"
 
 namespace touchObject {
@@ -40,7 +40,7 @@ namespace touchObject {
 		//! Setting up base touch object as random shape
 		void						setupBaseTouchObj(const std::vector<cinder::vec2> &coordinates, const cinder::vec2 &pos = cinder::vec2(0), bool registerWithTouchManager = true);
 		
-		//! Create Path2d frome the vector of coordinates that is created in setup
+		//! Iterate through coordinates passed in. Create Path2d of the touchable area.
 		void						createShape(const std::vector<cinder::vec2> &coordinates);
 		cinder::Path2d				getPath(){ return mPath; };
 
@@ -89,7 +89,7 @@ namespace touchObject {
 		virtual void				touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
 		virtual void				touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, TouchType touchType){};
 
-		//! Sets scale of touchable object
+		//! Sets scale of touchable object. Everything is scaled around the center.
 		void						setScale(const cinder::vec2 &scale);
 		//! Returns scale of touchable object
 		const ci::vec2				getScale()											{ return mScale; };
@@ -97,45 +97,39 @@ namespace touchObject {
 		//! Returns label including Unique ID
 		virtual std::string			getDebugString();
 		
-		//!Scale as vector 
+		//! Scale as vector 
 		cinder::vec2				mScale;
 
-protected://Only children of this class have access to these variables, to allow access use "->" acessor(i.e make an accessor method)
-    
-
+//! Only children of this class have access to these variables, to allow access use "->" acessor (i.e make an accessor method)
+protected:
 		ci::vec2					mPosition, 
 									mTranslationPos;
-
 		float						mWidth,
 									mHeight;
-    
-		//Object color 
 		cinder::ColorA				mObjectColor;
-
-		
-		//String for debug purposes if set, this can be used to identify the object
+		//! String for debug purposes. If set this can be used to identify the object.
 		std::string					mToString;
-
-		//A vector containing the touch ids of the touches objects that are touching the guiObject
+		//! Vector containing the touch IDs of the touches within this object
 		std::vector<int>			mObjectTouchIDs;
-		
-		// uniqueIDLookup allows us to quickly find a Node by id
+		//! UniqueIDLookupMap can be used to quickly find an object by ID
 		static TouchObjectMap		UniqueIDLookupMap;
 	
-private://No one other than this class can access these variables
+//! No one other than this class can access these variables
+private:
 
 		bool						mAcceptTouch;
-
-		//Object Identification 
-		int							mUniqueID,
-									mTouchesCallbackId;
-	
+		//! Object identification 
+		int							mUniqueID;
+		//! Coordinates of the object 
 		cinder::Path2d				mPath;
 		
-		//STATIC CLASS MEMBERS
-		//TotalObjectCount is used to count the number of Object instances for debugging purposes
+		//! STATIC CLASS MEMBERS
+
+		//! TotalObjectCount is used to count the number of Object instances for debugging purposes
+		//! Total object count is a value that is incremented when an object is created and decremented when an object is destroyed. This way we always know how many objects exist.
 		static int					TotalObjectCount;
-		// ObjectID is used to generate new unique id's any time a gui object is created. 
+
+		//! ObjectID is used to generate new unique ID's anytime an object is created. 
 		static int					ObjectID;
 };
 

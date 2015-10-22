@@ -9,7 +9,6 @@ BlueObj::BlueObj() : BaseTouchObject(),
 mRadius(50.0f),
 mCurPos(vec2(0)),
 mPrevPos(vec2(0))
-//mParentTranslatePos(vec2(0))
 {
 }
 

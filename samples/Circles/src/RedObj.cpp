@@ -16,13 +16,15 @@ void RedObj::setup(){
 	//required for touches
 	setupBaseTouchObj(mCurPos, mRadius);
 	setObjectColor(ColorA(1.0f, 0.0f, 0.0f, 1.0f));
+	setScale(vec2(2.0f, 2.0f));
 
+	//add a blue object 
 	mBlueObj = std::shared_ptr<class BlueObj>(new BlueObj());
 	mBlueObj->setup();
 }
 
 void RedObj::touchesBeganHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
-	console() << "touchesBeganHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
+	//console() << "touchesBeganHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 	//set the curPos and prevPos to where the mouse just went down
 	mCurPos = mPrevPos = touchPnt;
 }
@@ -39,12 +41,10 @@ void RedObj::touchesMovedHandler(int touchID, const cinder::vec2 &touchPnt, touc
 
 	//update the position
 	setPosition(getPosition() + diff);
-	//and the position of the children
-
 }
 
 void RedObj::touchesEndedHandler(int touchID, const cinder::vec2 &touchPnt, touchObject::TouchType touchType){
-	console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
+	//console() << "touchesEndedHandler :: touchID = " << touchID << " touchPnt = " << touchPnt << " touchType = " << touchType << endl;
 }
 
 void RedObj::draw() {
@@ -59,7 +59,7 @@ void RedObj::draw() {
 		gl::translate(translationPos);
 		setTranslationPos(translationPos); //on touchable objects, you must tell the object what space you are translating
 	
-		gl::drawSolidCircle(getPosition(), mRadius);
+		gl::drawSolidCircle(getPosition(), mRadius * getScale().x);
 
 		//draw the touch shape above
 		drawDebugShape();
@@ -68,7 +68,7 @@ void RedObj::draw() {
 		mBlueObj->draw(translationPos + getPosition());
 
 	}gl::popModelView();
-		
+	//END OPTION A	
 
 	/*
 	//OPTION B: not translating space
@@ -78,5 +78,6 @@ void RedObj::draw() {
 	
 	//draw sub object.
 	mBlueObj->draw();
+	//END OPTION B
 	*/	
 }
