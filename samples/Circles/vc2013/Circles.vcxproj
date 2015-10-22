@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{15BB9207-A170-4B99-AA0F-00D5E1B8590A}</ProjectGuid>
-    <RootNamespace>MultipleTouchObjects</RootNamespace>
+    <ProjectGuid>{FCDEA37D-2814-4509-AB53-44DF89CF5981}</ProjectGuid>
+    <RootNamespace>Circles</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -191,7 +191,8 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>
-    <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp" />
+    <ClCompile Include="..\src\BlueObj.cpp" />
+    <ClCompile Include="..\src\CirclesApp.cpp" />
     <ClCompile Include="..\..\..\src\core\BaseTouchObject.cpp" />
     <ClCompile Include="..\..\..\src\core\TouchManager.cpp" />
     <ClCompile Include="..\..\..\src\modules\TouchObjects\BaseButton.cpp" />
@@ -210,7 +211,7 @@
     <ClCompile Include="..\..\..\..\OSC\src\ip\win32\NetworkingUtils.cpp" />
     <ClCompile Include="..\..\..\..\OSC\src\ip\win32\UdpSocket.cpp" />
     <ClCompile Include="..\..\..\..\TUIO\src\TuioClient.cpp" />
-    <ClCompile Include="..\src\SampleObject.cpp" />
+    <ClCompile Include="..\src\RedObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
@@ -242,7 +243,8 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioCursor.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioObject.h" />
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h" />
-    <ClInclude Include="..\src\SampleObject.h" />
+    <ClInclude Include="..\src\BlueObj.h" />
+    <ClInclude Include="..\src\RedObj.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

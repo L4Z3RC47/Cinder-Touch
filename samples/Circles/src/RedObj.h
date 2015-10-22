@@ -1,6 +1,6 @@
 //+---------------------------------------------------------------------------
-//  Bluecadet Interactive 2014
-//	Developers: Paul Rudolph & Stacey Martens
+//  Bluecadet Interactive 2015
+//	Developers: Stacey Martens
 //  Contents: 
 //  Comments: 
 //----------------------------------------------------------------------------
@@ -12,11 +12,15 @@
 //touches
 #include "BaseTouchObject.h"
 
-class SampleObject : public touchObject::BaseTouchObject{
+//more touchable objects
+#include "BlueObj.h"
+
+class RedObj : public touchObject::BaseTouchObject{
 public:
-	SampleObject();
+	RedObj();
 	
-	virtual void	draw(cinder::vec2 parentTranslatePos = cinder::vec2(0));
+	void setup();
+	virtual void	draw();
 
 	//use virtual to override the BaseTouchObject calls
 	//with these functions, we will drag the objects around on the screen
@@ -24,9 +28,10 @@ public:
 	virtual void	touchesMovedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
 	virtual void	touchesEndedHandler(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType);
 	
-	std::vector<std::shared_ptr<SampleObject> > mChildVector;
-
 private:
+	std::shared_ptr<BlueObj> mBlueObj;
+
 	//keep track of object position
-	ci::vec2	mCurPos, mPrevPos, mTranslationPosition;
+	ci::vec2				mCurPos, mPrevPos;
+	float					mRadius;	
 };

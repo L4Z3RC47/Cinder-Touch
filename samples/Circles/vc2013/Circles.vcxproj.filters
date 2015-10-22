@@ -14,56 +14,56 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Blocks">
-      <UniqueIdentifier>{1553741B-5380-443C-970E-8FAC7FD8F9A6}</UniqueIdentifier>
+      <UniqueIdentifier>{15574C7F-3CA8-4F8E-B321-F7868B1E287B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch">
-      <UniqueIdentifier>{5F26BAFE-E527-499A-806C-7EB9853888CC}</UniqueIdentifier>
+      <UniqueIdentifier>{2A523890-EC8F-4623-8B7E-7335A8FBEC58}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch\src">
-      <UniqueIdentifier>{ED0B9A74-CD61-4E06-9B4C-64EF7C879C6C}</UniqueIdentifier>
+      <UniqueIdentifier>{DBC14FC2-DFFD-4054-A11B-41C30CE78BC5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch\src\core">
-      <UniqueIdentifier>{5ADA7798-923F-466F-AA49-2DDB85FABD4F}</UniqueIdentifier>
+      <UniqueIdentifier>{BBB12CC4-7913-490F-97B1-42A1BAA3C8B4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch\src\modules">
-      <UniqueIdentifier>{54E09C97-822F-49DD-8FE6-E85D501EC5AA}</UniqueIdentifier>
+      <UniqueIdentifier>{0A2D9A7C-E5DE-4A5A-A0D9-5A6C3E463925}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch\src\modules\TouchObjects">
-      <UniqueIdentifier>{E0A2D537-9D4E-4B93-943A-66B77017968D}</UniqueIdentifier>
+      <UniqueIdentifier>{EC25FF36-462E-47CE-A3D9-40D8F3EB6BBF}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\Touch\src\modules\TouchDrivers">
-      <UniqueIdentifier>{6D5D2AEC-1610-4110-95DB-B7DB06A9E551}</UniqueIdentifier>
+      <UniqueIdentifier>{40D3B732-D60A-4BF9-9A52-8FF1E458D5EE}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\OSC">
-      <UniqueIdentifier>{F8597518-5B37-4DEE-8EE0-508216841DA8}</UniqueIdentifier>
+      <UniqueIdentifier>{43584633-539C-4A4E-8AFC-7A6BBB8E9E6A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\OSC\src">
-      <UniqueIdentifier>{8B272FE6-4147-4B2B-B18C-0037D681654E}</UniqueIdentifier>
+      <UniqueIdentifier>{7778BD8B-7070-4220-98A4-F05EC98DB913}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\OSC\src\ip">
-      <UniqueIdentifier>{DB1AC4A6-EE3C-4B61-ADA9-90D7BE195D25}</UniqueIdentifier>
+      <UniqueIdentifier>{BC52193F-9585-485E-B756-A181DBE9006D}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\OSC\src\osc">
-      <UniqueIdentifier>{858D6245-5F59-4953-9AFD-C74BF04BDFB0}</UniqueIdentifier>
+      <UniqueIdentifier>{81945FDF-7965-4264-912B-D11E95CB26D8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\OSC\src\ip\win32">
-      <UniqueIdentifier>{21B0C1C7-086B-4C88-B777-06A0D85CC984}</UniqueIdentifier>
+      <UniqueIdentifier>{93A6198C-8E46-4969-BD1D-6FC777D5A7D6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\TUIO">
-      <UniqueIdentifier>{1B503FE5-52EA-4967-BD40-3EBCB4B78D98}</UniqueIdentifier>
+      <UniqueIdentifier>{835F3F62-3EF2-4418-B651-7C6BFC83A6E9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\TUIO\src">
-      <UniqueIdentifier>{C0A2756E-7BED-4C3A-AC4F-E179C9639649}</UniqueIdentifier>
+      <UniqueIdentifier>{6EF291A9-501E-4E72-AE61-8267AD330AA3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Blocks\TUIO\include">
-      <UniqueIdentifier>{685F3DB3-0A7E-4260-A4AD-CA6AE0692FCC}</UniqueIdentifier>
+      <UniqueIdentifier>{BF07E19D-40E9-4309-B357-7D0F5B2A347A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp">
+    <ClCompile Include="..\src\CirclesApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MultipleTouchObjectsApp.cpp">
+    <ClCompile Include="..\src\CirclesApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClInclude Include="..\include\Resources.h">
@@ -207,7 +207,10 @@
     <ClInclude Include="..\..\..\..\TUIO\include\TuioProfileBase.h">
       <Filter>Blocks\TUIO\include</Filter>
     </ClInclude>
-    <ClCompile Include="..\src\SampleObject.cpp">
+    <ClCompile Include="..\src\RedObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BlueObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -215,7 +218,10 @@
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SampleObject.h">
+    <ClInclude Include="..\src\RedObj.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BlueObj.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
