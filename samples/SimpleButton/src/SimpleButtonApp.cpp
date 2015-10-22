@@ -10,7 +10,7 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-using namespace touchObject; //using the namespace we created
+using namespace touchObject;
 
 class SimpleButtonApp : public App {
   public:

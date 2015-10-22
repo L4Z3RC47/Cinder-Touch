@@ -96,6 +96,8 @@ namespace touchObject {
 			if (i == 0) mPath.moveTo(coordinates[0]);
 			else mPath.lineTo(coordinates[i]);
 		}
+
+		mPath.close();
 	}
 
 	void BaseTouchObject::setScale(const cinder::vec2 &scale){

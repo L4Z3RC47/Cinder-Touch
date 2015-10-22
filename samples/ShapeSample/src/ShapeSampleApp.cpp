@@ -116,18 +116,18 @@ void ShapeSampleApp::draw(){
 	
 	//if you do translate space, you have to tell the object you're touching
 	vec2 translatePos = vec2(100.0f, 100.0f);
-	gl::pushMatrices(); {
+	gl::pushModelView(); {
 		gl::translate(translatePos);
-		mWeirdlyShapedButtons[1]->setTranslationPosition(translatePos);
+		mWeirdlyShapedButtons[1]->setTranslationPos(translatePos);
 		mWeirdlyShapedButtons[1]->draw();
-	}gl::popMatrices();
+	}gl::popModelView();
 
 	translatePos = vec2(100.0f, 100.0f);
-	gl::pushMatrices(); {
+	gl::pushModelView(); {
 		gl::translate(translatePos);
-		mWeirdlyShapedButtons[2]->setTranslationPosition(translatePos);
+		mWeirdlyShapedButtons[2]->setTranslationPos(translatePos);
 		mWeirdlyShapedButtons[2]->draw();
-	}gl::popMatrices();
+	}gl::popModelView();
 
 
 	//draw the touches. The ID of the mouse will always be -1.
