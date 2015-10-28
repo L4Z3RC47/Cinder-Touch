@@ -49,6 +49,7 @@ public:
 	void					endTouch(int touchID);
 
     float                   getLatestTouchTime(){return mLatestTouchTime;};
+	void					setTouchScale(ci::vec2 scale){ mScale = scale; };
 
 private:
     //private to make the TouchManager a singleton
@@ -72,4 +73,5 @@ private:
     
     //keep track of the most recent touch time
     float                                       mLatestTouchTime;
+	ci::vec2						mScale;
 };

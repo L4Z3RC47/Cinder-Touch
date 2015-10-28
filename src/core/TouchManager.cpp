@@ -9,7 +9,7 @@ using namespace ci::app;
 
 std::shared_ptr<TouchManager> TouchManager::mTouchManagerInstance;
 
-TouchManager::TouchManager(){
+TouchManager::TouchManager():mScale(ci::vec2(1,1)){
 }
 
 TouchManager::~TouchManager(){
@@ -54,7 +54,7 @@ void TouchManager::touchEvent(int touchID, const ci::vec2 &touchPnt, touchObject
     
 	TouchObject currentTouchObj;
 	currentTouchObj.touchId = touchID;
-	currentTouchObj.touchPoint = touchPnt;
+	currentTouchObj.touchPoint = touchPnt/ mScale;
 	currentTouchObj.touchType = touchType;
 
 	std::pair<TouchEventType, TouchObject> currentTouchEvent = std::pair<TouchEventType, TouchObject>(eventType, currentTouchObj);
@@ -224,7 +224,7 @@ void TouchManager::draw(){
 
 			gl::color(ColorA(1.0f, 0.0f, 0.0f, 0.5f));
 			gl::lineWidth(1.0f);
-			gl::drawSolidCircle(point, 10.0f);
+			gl::drawSolidCircle(point / mScale, 10.0f);
 
 			//draw the label on the touch
 			gl::enableAlphaBlending();
