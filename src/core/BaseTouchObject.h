@@ -19,7 +19,7 @@ namespace touchObject {
 	typedef std::shared_ptr<const class BaseTouchObject>		TouchObjectConstRef;
 	typedef std::weak_ptr  <class		BaseTouchObject>		TouchObjectWeakRef;
 
-	typedef std::deque     <TouchObjectRef>						TouchObjectList;
+	typedef std::deque     <TouchObjectWeakRef>					TouchObjectList;
 	typedef std::map       <int, TouchObjectWeakRef>			TouchObjectMap;
 
 	//! TouchType options. Touch = fingers on a screen, object = fiducial, mouse = mouse 
@@ -111,7 +111,7 @@ protected:
 		//! Vector containing the touch IDs of the touches within this object
 		std::vector<int>			mObjectTouchIDs;
 		//! UniqueIDLookupMap can be used to quickly find an object by ID
-		static TouchObjectMap		UniqueIDLookupMap;
+		//static TouchObjectMap		UniqueIDLookupMap;
 	
 //! No one other than this class can access these variables
 private:

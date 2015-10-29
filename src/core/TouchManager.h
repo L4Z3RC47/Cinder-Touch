@@ -15,12 +15,12 @@ public:
 	enum TouchEventType{ BEGAN, MOVED, ENDED };
 
 	//A struct is created for each touch that comes in
-		struct TouchObject{
-			int							touchId;
-			ci::vec2					touchPoint;
-			touchObject::TouchType		touchType;
-			touchObject::TouchObjectRef touchingObjectPntr;
-		};
+	struct TouchObject{
+		int							touchId;
+		ci::vec2					touchPoint;
+		touchObject::TouchType		touchType;
+		touchObject::TouchObjectWeakRef touchingObjectPntr;
+	};
 
 	//Will return a static pointer to this one touch manager
 	static std::shared_ptr<TouchManager> getInstance();
@@ -40,8 +40,8 @@ public:
 
 	//Registering the object for input adds it to deque of the entire application's registered objects. 
 	//If a touch comes through, it will check the deque and see which registered object was hit.
-	void					registerObjectForInput(	 touchObject::TouchObjectRef obj);
-	void					unregisterObjectForInput(touchObject::TouchObjectRef obj);
+	void					registerObjectForInput(touchObject::TouchObjectWeakRef obj);
+	void					unregisterObjectForInput(touchObject::TouchObjectWeakRef obj);
 
 	//Find the current point location of the ID that is passed in
 	ci::vec2					getCurrentTouchPoint(int touchId);
@@ -51,18 +51,20 @@ public:
     float                   getLatestTouchTime(){return mLatestTouchTime;};
 	void					setTouchScale(ci::vec2 scale){ mScale = scale; };
 
+	int						mTotalRegisteredObjectCount;
+
 private:
     //private to make the TouchManager a singleton
     TouchManager();
 
 	//find the object that the current touch is hitting
-	touchObject::TouchObjectRef findTouchingObject(const ci::vec2 &touchPoint);
+	touchObject::TouchObjectWeakRef findTouchingObject(const ci::vec2 &touchPoint);
     
 	//local variables
 	static std::shared_ptr<class TouchManager>	mTouchManagerInstance;
 	std::mutex									mTouchMapLock;
 	std::map<int,TouchObject>					mTouchMap;
-	std::deque<touchObject::TouchObjectRef>		mRegisteredObjectsDeque;
+	std::deque<touchObject::TouchObjectWeakRef>	mRegisteredObjectsDeque;
 	std::mutex									mRegisteredObjectLock;
 
 
@@ -73,5 +75,5 @@ private:
     
     //keep track of the most recent touch time
     float                                       mLatestTouchTime;
-	ci::vec2						mScale;
+	ci::vec2									mScale;
 };

@@ -9,7 +9,10 @@ using namespace ci::app;
 
 std::shared_ptr<TouchManager> TouchManager::mTouchManagerInstance;
 
-TouchManager::TouchManager():mScale(ci::vec2(1,1)){
+TouchManager::TouchManager():
+mScale(ci::vec2(1,1)),
+mTotalRegisteredObjectCount(0)
+{
 }
 
 TouchManager::~TouchManager(){
@@ -68,9 +71,9 @@ void TouchManager::mainThreadTouchesBegan(int touchID, const ci::vec2 &touchPnt,
 		mTouchMapLock.lock();
 
 			//specifically for the markers if you move them quickly -- but don't want to add a new object if the old one still exists
-			touchObject::TouchObjectRef foundObject = findTouchingObject(touchPnt);
+			touchObject::TouchObjectWeakRef foundObject = findTouchingObject(touchPnt);
 
-			if (foundObject){
+			if (auto objPtr = foundObject.lock()){
 				//Initialize a new touch object 
 				TouchObject touchObject;
 				touchObject.touchId = touchID;
@@ -81,7 +84,8 @@ void TouchManager::mainThreadTouchesBegan(int touchID, const ci::vec2 &touchPnt,
 				mTouchMap[touchID] = touchObject;
 
 				// call the touch began on the found object
-				foundObject->touchesBeganHandler(touchID, touchPnt, touchType);
+				objPtr->touchesBeganHandler(touchID, touchPnt, touchType);
+				
 			}
 		mTouchMapLock.unlock();
 	
@@ -99,17 +103,21 @@ void TouchManager::mainThreadTouchesMoved(int touchID, const ci::vec2 &touchPnt,
 
 		//lock before adjustng the map
 		mTouchMapLock.lock();
+
+		auto touchObjPtr = mTouchMap[touchID].touchingObjectPntr.lock();
+
+
 		//there the touchID exists in the map
 		if (mTouchMap.count(touchID) > 0){
 			//set the touchpoint to equal the new point
 			mTouchMap[touchID].touchPoint = touchPnt;
 
 			//call the move over the object that the touch is on
-			if (mTouchMap[touchID].touchingObjectPntr){
+			if (touchObjPtr){
 
 				//for normal finger touches
 				if (touchType != touchObject::TouchType::OBJECT){
-					mTouchMap[touchID].touchingObjectPntr->touchesMovedHandler(touchID, touchPnt, touchType); //NEED TO UPDATE WITH BASE CLASS
+					touchObjPtr->touchesMovedHandler(touchID, touchPnt, touchType); //NEED TO UPDATE WITH BASE CLASS
 				}
 				else if (touchType == touchObject::TouchType::OBJECT){
 
@@ -117,22 +125,23 @@ void TouchManager::mainThreadTouchesMoved(int touchID, const ci::vec2 &touchPnt,
 					//this was for the screens in JPII -- to change the object the touch was over when it crossed the center line
 					//don't want to remove yet but should discuss - related to reassigning the touch
 					////////
-					touchObject::TouchObjectRef origFoundObject = mTouchMap[touchID].touchingObjectPntr;
-					touchObject::TouchObjectRef curFoundObject = findTouchingObject(touchPnt);
+
+					auto origFoundObject = mTouchMap[touchID].touchingObjectPntr.lock();
+					auto curFoundObject = findTouchingObject(touchPnt).lock();
 
 					//if it's the same object as it was before, continue as usual
 					if (origFoundObject == curFoundObject)
-						mTouchMap[touchID].touchingObjectPntr->touchesMovedHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
+						touchObjPtr->touchesMovedHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
 					else{
 						//							console() << "reassign-------------------" << endl;
-						if (mTouchMap[touchID].touchingObjectPntr){
-							mTouchMap[touchID].touchingObjectPntr->touchesEndedHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
+						if (touchObjPtr){
+							touchObjPtr->touchesEndedHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
 						}
 
 						mTouchMap[touchID].touchingObjectPntr = curFoundObject;
 
-						if (mTouchMap[touchID].touchingObjectPntr){
-							mTouchMap[touchID].touchingObjectPntr->touchesBeganHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
+						if (touchObjPtr){
+							touchObjPtr->touchesBeganHandler(touchID, touchPnt, touchType);//NEED TO UPDATE WITH BASE CLASS
 						}
 
 					}
@@ -146,34 +155,49 @@ void TouchManager::mainThreadTouchesMoved(int touchID, const ci::vec2 &touchPnt,
 
 void TouchManager::mainThreadTouchesEnded(int touchID, const ci::vec2 &touchPnt, touchObject::TouchType touchType){
 	mTouchMapLock.lock();
+	auto touchObjPtr = mTouchMap[touchID].touchingObjectPntr.lock();
 	//if the touch belongs to an object, find that object and call touches ended on it
-	if (mTouchMap[touchID].touchingObjectPntr) 
-		mTouchMap[touchID].touchingObjectPntr->touchesEndedHandler(touchID, touchPnt, touchType);
+	if (touchObjPtr)
+		touchObjPtr->touchesEndedHandler(touchID, touchPnt, touchType);
 	//remove the touchID from the touchMap
 	mTouchMap.erase(touchID);
 	mTouchMapLock.unlock();
 }
 
-void TouchManager::registerObjectForInput(touchObject::TouchObjectRef obj){
+void TouchManager::registerObjectForInput(touchObject::TouchObjectWeakRef obj){
 	mRegisteredObjectLock.lock();
 	mRegisteredObjectsDeque.push_front(obj);
+	mTotalRegisteredObjectCount++;
 	mRegisteredObjectLock.unlock();
 }
 
-void TouchManager::unregisterObjectForInput(touchObject::TouchObjectRef obj){
-	//if there are registered objects in the deque
-	if (mRegisteredObjectsDeque.size() > 0){
+void TouchManager::unregisterObjectForInput(touchObject::TouchObjectWeakRef obj){
+	try{
+		mRegisteredObjectLock.lock();
+		deque<touchObject::TouchObjectWeakRef>::iterator iter;
 		int i = 0;
-		for (auto item : mRegisteredObjectsDeque){
-			//find which one it is
-			if (item->getUniqueID() == obj->getUniqueID()){
-				//lock the deque so no changes can be made while an object is being removed
-				mRegisteredObjectLock.lock();
-				mRegisteredObjectsDeque.erase(mRegisteredObjectsDeque.begin() + i);
-				mRegisteredObjectLock.unlock();
+		auto objPtr = obj.lock();
+
+		for (iter = mRegisteredObjectsDeque.begin(); iter != mRegisteredObjectsDeque.end();){
+
+			auto iterPtr = (*iter).lock();
+
+			if (iterPtr->getUniqueID() == objPtr->getUniqueID()){
+
+				iter = mRegisteredObjectsDeque.erase(mRegisteredObjectsDeque.begin() + i);
+				mTotalRegisteredObjectCount--;
+
+				break;
 			}
-			i++;
+			else{
+				iter++;
+				i++;
+			}
 		}
+		mRegisteredObjectLock.unlock();
+	}
+	catch (std::exception e){
+		console() << e.what() << endl;
 	}
 }
 
@@ -190,28 +214,36 @@ void TouchManager::endTouch(int touchID){
 	//LOCK
 	mTouchMapLock.lock();
 	//
-	mTouchMap[touchID].touchingObjectPntr = touchObject::TouchObjectRef();
+	mTouchMap[touchID].touchingObjectPntr = touchObject::TouchObjectWeakRef();
 	//UNLOCK
 	mTouchMapLock.unlock();
 }
 
 
-touchObject::TouchObjectRef TouchManager::findTouchingObject(const ci::vec2 &touchPoint){
+touchObject::TouchObjectWeakRef TouchManager::findTouchingObject(const ci::vec2 &touchPoint){
 	/*
 	we need to decide who gets the touch, and not based on who was registered with the touch manager first.
 	That is what the current setup is doing.do we first loop through a
 	*/
+	try{
+		mRegisteredObjectLock.lock();
+		if (mRegisteredObjectsDeque.size() > 0){
+			for (auto item : mRegisteredObjectsDeque){
 
-	//if there are objects in the deque
-	if (mRegisteredObjectsDeque.size() > 0){
-		for (auto item : mRegisteredObjectsDeque){
-			if (item->hasTouchPoint(touchPoint) && item->isAcceptingTouch()){
-				return item;
+				auto itemPtr = item.lock();
+				if (itemPtr && itemPtr->hasTouchPoint(touchPoint) && itemPtr->isAcceptingTouch()){
+					mRegisteredObjectLock.unlock();
+					return item;
+				}
 			}
 		}
+		mRegisteredObjectLock.unlock();
+	}
+	catch(std::exception e){
+		console() << e.what() << endl;
 	}
 
-	return NULL;
+	return touchObject::TouchObjectWeakRef();
 }
 
 void TouchManager::draw(){

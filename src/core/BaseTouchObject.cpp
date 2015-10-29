@@ -12,9 +12,6 @@ namespace touchObject {
 	int	BaseTouchObject::TotalObjectCount = 0;
 	int	BaseTouchObject::ObjectID = 0;
 
-	//! Declare Static lookup map
-	TouchObjectMap BaseTouchObject::UniqueIDLookupMap;
-
 	BaseTouchObject::BaseTouchObject() :
 		mTranslationPos(vec2(0)),
 		mWidth(0.0f),
@@ -30,18 +27,16 @@ namespace touchObject {
 	}
 
 	BaseTouchObject::~BaseTouchObject(){
-		TotalObjectCount--;
+//		console() << "DESTRUCTOR CALLED ON TOUCH OBJECT" << endl;
 
-		//! Remove from lookup table
-		if (!UniqueIDLookupMap.empty())
-			UniqueIDLookupMap.erase(mUniqueID);
+		//Although you might think you want to, do not call unRegisterWithTouchMngr() here. 
+		//The call to unregister should be made BEFORE you destroy your touchable object
 
 		mPath.clear();
+		TotalObjectCount--;
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const cinder::vec2 &pos, const cinder::vec2 &size, bool registerWithTouchManager){
-		//! Store object in lookup table
-		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
 		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
 		//! Set position
@@ -59,8 +54,6 @@ namespace touchObject {
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const cinder::vec2 &pos, float radius, bool registerWithTouchManager){
-		//! Store object in lookup table
-		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
 		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
 		//! set position
@@ -82,8 +75,6 @@ namespace touchObject {
 	}
 
 	void BaseTouchObject::setupBaseTouchObj(const std::vector<cinder::vec2> &coordinates, const cinder::vec2 &pos, bool registerWithTouchManager){
-		//! Store object in lookup table
-		UniqueIDLookupMap[mUniqueID] = TouchObjectWeakRef(shared_from_this());
 		//! Register with the touch manager
 		if (registerWithTouchManager) registerWithTouchMngr();
 		//! set position
